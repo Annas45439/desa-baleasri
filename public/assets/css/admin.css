@@ -110,6 +110,23 @@
   .st-proses{background:var(--gold-soft); color:#946200;}
   .st-selesai{background:var(--teal-soft); color:var(--teal-deep);}
 
+  .map-panel{margin-bottom:24px;}
+  .visitor-panel{margin-bottom:24px;}
+  .visitor-subtitle{font-size:0.78rem; color:var(--text-muted); margin-top:5px;}
+  .visitor-total{display:flex; flex-direction:column; align-items:flex-end;}
+  .visitor-total strong{font-family:var(--font-display); font-size:1.6rem;}
+  .visitor-total span{font-size:0.7rem; color:var(--text-muted);}
+  .visitor-chart{height:180px; display:flex; align-items:stretch; justify-content:space-around; gap:18px; border-bottom:1px solid var(--line); padding:16px 12px 0;}
+  .visitor-day{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:6px; min-width:30px;}
+  .visitor-value{font-size:0.7rem; color:var(--text-muted); min-height:16px;}
+  .visitor-bar-track{height:112px; width:min(42px, 100%); display:flex; align-items:flex-end; background:var(--bg); border-radius:9px 9px 0 0; overflow:hidden;}
+  .visitor-bar{width:100%; min-height:6px; background:linear-gradient(180deg, var(--teal), var(--teal-deep)); border-radius:9px 9px 0 0;}
+  .visitor-day>span{font-size:0.68rem; color:var(--text-muted); padding-bottom:8px;}
+  .map-subtitle{font-size:0.78rem; color:var(--text-muted); margin-top:5px;}
+  .map-open-link{font-size:0.78rem; font-weight:700; color:var(--teal-deep); white-space:nowrap;}
+  .map-frame-wrap{height:300px; overflow:hidden; border-radius:14px; border:1px solid var(--line); background:#e7e4db;}
+  .map-frame-wrap iframe{width:100%; height:100%; border:0; display:block;}
+
   /* ---------- Quick actions ---------- */
   .quick-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
   .quick-card{
@@ -198,5 +215,6 @@
 .approval-btn.approve{background:var(--teal-soft); color:var(--teal-deep);}
 .approval-btn.reject{background:var(--coral-soft); color:var(--coral);}
 .empty-state{padding:14px 12px; color:var(--text-muted);}
+.status-form select{border:1px solid var(--line); border-radius:9px; background:var(--card); color:var(--ink); padding:7px 9px; font:600 0.72rem var(--font-body); max-width:170px;}
 
 @media (max-width:1000px){.ai-dashboard-grid{grid-template-columns:1fr;}.ai-suggestion-grid{grid-template-columns:1fr;}}

@@ -71,11 +71,12 @@
     <ul class="nav-links">
       <li><a href="#layanan">Layanan</a></li>
       <li><a href="#wisata">Wisata</a></li>
-      <li><a href="#umkm">UMKM</a></li>
+      <li><a href="{{ route('umkm.index') }}">UMKM</a></li>
       <li><a href="#galeri">Galeri</a></li>
       <li><a href="#berita">Berita</a></li>
+      <li><a href="#lokasi">Lokasi</a></li>
     </ul>
-    <a href="#aduan" class="nav-cta">Hubungi Kami <svg class="icon"><use href="#ic-sparkle"/></svg></a>
+    <a href="#aduan" class="nav-cta">Sampaikan Aduan <svg class="icon"><use href="#ic-sparkle"/></svg></a>
   </nav>
 </header>
 
@@ -107,6 +108,10 @@
         <li><a href="{{ route('admin.login') }}">Login Admin</a></li>
       </ul></div>
     </div>
+    <div class="complaint-box">
+      <div><span class="kicker">Layanan Warga</span><h3>Sampaikan aspirasi atau aduan.</h3><p>Laporkan kendala di lingkungan desa agar dapat ditindaklanjuti.</p></div>
+      <button type="button" class="complaint-trigger" id="openComplaintModalBtn">Buat Aduan</button>
+    </div>
     <div class="footer-bottom">
       <span>&copy; {{ date('Y') }} Pemerintah {{ $setting->nama_desa ?? 'Desa Baleasri' }}</span>
       <span>Website Resmi Desa</span>
@@ -114,6 +119,10 @@
     </div>
   </div>
 </footer>
+
+<div class="complaint-modal" id="complaintModal" aria-hidden="true">
+  <div class="complaint-modal-card"><button type="button" class="complaint-close" id="closeComplaintModalBtn" aria-label="Tutup">&times;</button><span class="kicker">Form Aduan</span><h3>Sampaikan Pengaduan</h3><form method="POST" action="{{ route('complaints.store') }}" class="complaint-form">@csrf<label>Nama Pelapor<input name="nama" required></label><label>Kontak (opsional)<input name="kontak" placeholder="Nomor WhatsApp atau email"></label><label>Kategori<select name="kategori" required><option value="">Pilih kategori</option><option>Infrastruktur</option><option>Lingkungan</option><option>Pelayanan</option><option>Lainnya</option></select></label><label class="full">Isi Aduan<textarea name="isi" required placeholder="Jelaskan lokasi dan masalah yang ingin dilaporkan"></textarea></label><div class="complaint-actions"><button type="button" class="complaint-trigger secondary" id="cancelComplaintModalBtn">Batal</button><button class="submit-btn" type="submit">Kirim Aduan</button></div></form></div>
+</div>
 
 <script>
   window.addEventListener('scroll', () => {
@@ -157,5 +166,13 @@
   });
 </script>
 @stack('scripts')
+<script>
+  const complaintModal = document.getElementById('complaintModal');
+  const closeComplaintModal = () => { complaintModal?.classList.remove('show'); complaintModal?.setAttribute('aria-hidden', 'true'); };
+  document.getElementById('openComplaintModalBtn')?.addEventListener('click', () => { complaintModal?.classList.add('show'); complaintModal?.setAttribute('aria-hidden', 'false'); });
+  document.getElementById('closeComplaintModalBtn')?.addEventListener('click', closeComplaintModal);
+  document.getElementById('cancelComplaintModalBtn')?.addEventListener('click', closeComplaintModal);
+  complaintModal?.addEventListener('click', event => { if (event.target === complaintModal) closeComplaintModal(); });
+</script>
 </body>
 </html>

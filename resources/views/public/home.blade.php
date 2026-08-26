@@ -73,6 +73,8 @@
       <div class="stat"><div class="n" data-count="{{ $setting->stat_umkm }}">0</div><div class="l">UMKM Unggulan</div></div>
       <div class="stat"><div class="n" data-count="{{ $setting->stat_wisata }}">0</div><div class="l">Destinasi Wisata</div></div>
       <div class="stat"><div class="n" data-count="{{ $setting->stat_embung }}">0</div><div class="l">Embung Ikonik</div></div>
+      <div class="stat"><div class="n" data-count="{{ $todayVisitors }}">0</div><div class="l">Pengunjung Hari Ini</div></div>
+      <div class="stat"><div class="n" data-count="{{ $totalVisitors }}">0</div><div class="l">Total Pengunjung</div></div>
     </div>
   </div>
 </section>
@@ -122,27 +124,13 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="kicker">Ekonomi Desa</span>
-      <h2>Geser, pilih, pesan. Simpel.</h2>
+      <h2>UMKM Baleasri.</h2>
+      <p>Temukan usaha dan produk unggulan warga Desa Baleasri dalam halaman katalog khusus.</p>
     </div>
-    <div class="umkm-scroll">
-      @forelse($umkm as $u)
-        <div class="umkm-card reveal">
-          <div class="umkm-img"><img src="{{ $u->foto ? asset('storage/'.$u->foto) : 'https://picsum.photos/seed/'.$u->slug.'/400/300' }}" alt="{{ $u->nama }}"></div>
-          <div class="umkm-body">
-            <span class="umkm-cat">{{ $u->tag ?? 'UMKM' }}</span>
-            <h3>{{ $u->nama }}</h3>
-            @php
-              $wa = $u->kontak_whatsapp ?: $setting->whatsapp_admin;
-              $waText = 'Halo, saya tertarik dengan produk '.$u->nama.' dari '.($setting->nama_desa ?? 'Desa Baleasri');
-            @endphp
-            @if($wa)
-              <a href="https://wa.me/{{ $wa }}?text={{ urlencode($waText) }}" target="_blank" class="wa-btn"><svg class="icon"><use href="#ic-wa"/></svg> Pesan</a>
-            @endif
-          </div>
-        </div>
-      @empty
-        <p style="color:#4a564d;">Belum ada produk UMKM. Tambahkan lewat panel admin.</p>
-      @endforelse
+    <div class="umkm-catalog-launch reveal">
+      <div class="umkm-catalog-mark"><svg class="icon"><use href="#ic-umkm"/></svg></div>
+      <div><strong>Katalog produk warga Baleasri</strong><p>Semua kategori dan produk tersedia di halaman UMKM.</p></div>
+      <a href="{{ route('umkm.index') }}" class="catalog-trigger">Lihat Semua UMKM &rarr;</a>
     </div>
     <div class="umkm-register reveal">
       <div class="umkm-register-grid">
@@ -152,20 +140,6 @@
           <p class="register-copy">Warga bisa mendaftarkan usaha secara cepat. Admin desa akan memeriksa dan menyetujui data yang masuk.</p>
           <button type="button" class="register-trigger" id="openUmkmModalBtn">Daftar Sekarang</button>
           @if(session('umkm_status'))<div class="submission-status">{{ session('umkm_status') }}</div>@endif
-        </div>
-        <div class="status-panel">
-          <span class="kicker">Status Pendaftaran</span>
-          <div class="reg-list">
-            @forelse($umkmApplicants as $applicant)
-              <div class="reg-card">
-                <div class="reg-card-head"><div class="reg-name">{{ $applicant->nama_usaha }}</div><span class="status-badge {{ $applicant->status === 'Disetujui' ? 'approved' : ($applicant->status === 'Ditolak' ? 'rejected' : 'pending') }}">{{ $applicant->status }}</span></div>
-                <p>{{ $applicant->deskripsi }}</p>
-                <div class="reg-meta"><span>{{ $applicant->pemilik }}</span><span>{{ $applicant->kategori }}</span><span>{{ $applicant->lokasi }}</span></div>
-              </div>
-            @empty
-              <div class="reg-card"><p>Belum ada pendaftaran UMKM.</p></div>
-            @endforelse
-          </div>
         </div>
       </div>
     </div>
@@ -185,6 +159,20 @@
           <div class="reg-actions"><button type="button" class="register-trigger secondary" id="cancelUmkmModalBtn">Batal</button><button class="submit-btn" type="submit">Daftarkan UMKM</button></div>
         </form>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="lokasi" class="public-map-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Temukan Kami</span>
+      <h2>Lokasi Desa Baleasri.</h2>
+      <p>Desa Baleasri, Kecamatan Ngariboyo, Kabupaten Magetan.</p>
+    </div>
+    <div class="public-map reveal">
+      <iframe src="https://www.google.com/maps?q=Desa%20Baleasri%2C%20Kecamatan%20Ngariboyo%2C%20Kabupaten%20Magetan&output=embed" title="Lokasi Desa Baleasri, Kecamatan Ngariboyo, Kabupaten Magetan di Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <a class="public-map-link" href="https://maps.app.goo.gl/cp8v5nr9oPhxgTkd7" target="_blank" rel="noopener">Buka petunjuk arah di Google Maps &rarr;</a>
     </div>
   </div>
 </section>

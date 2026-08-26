@@ -12,7 +12,7 @@ class AdminUserSeeder extends Seeder
     {
         User::updateOrCreate(['email' => 'admin@baleasri.desa.id'], [
             'name' => 'Sekdes Baleasri',
-            'password' => Hash::make('ganti-password-ini'),
+            'password' => Hash::make('admin123'),
         ]);
     }
 }

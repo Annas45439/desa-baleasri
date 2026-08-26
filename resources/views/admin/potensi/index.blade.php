@@ -46,7 +46,7 @@
   </table>
 </div>
 
-@if(request('kategori') === 'umkm')
+@if(request('kategori') === 'umkm' && request()->has('pendaftar'))
 <div class="umkm-applicant-panel" id="pendaftar-umkm">
   <div class="filter-row"><h3 style="font-family:var(--font-display); font-size:1.15rem; font-weight:800;">Pendaftar UMKM</h3><span style="font-size:0.78rem; color:var(--text-muted);">{{ $umkmApplicants->where('status', 'Menunggu Persetujuan')->count() }} menunggu persetujuan</span></div>
   <div class="data-table" style="padding:0; border:0;">

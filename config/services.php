@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'komship' => [
+        'key' => env('KOMSHIP_API_KEY'),
+        'origin' => env('KOMSHIP_ORIGIN'),
+        'cost_endpoint' => env('KOMSHIP_COST_ENDPOINT'),
+    ],
+
 ];

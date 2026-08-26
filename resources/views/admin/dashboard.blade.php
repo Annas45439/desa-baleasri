@@ -31,6 +31,14 @@
 <div class="stat-grid">
   <div class="stat-card">
     <div class="stat-top">
+      <div class="stat-icon" style="background:var(--coral-soft); color:var(--coral);"><svg class="icon"><use href="#i-eye"/></svg></div>
+      <span class="trend up">Hari ini</span>
+    </div>
+    <div class="num">{{ number_format($todayVisitors) }}</div>
+    <div class="label">Pengunjung Hari Ini</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-top">
       <div class="stat-icon" style="background:var(--teal-soft); color:var(--teal-deep);"><svg class="icon"><use href="#i-umkm"/></svg></div>
       <span class="trend up">{{ $umkmTayang }} tayang</span>
     </div>
@@ -60,6 +68,37 @@
     </div>
     <div class="num">{{ $setting->hero_video ? 'Video' : 'Foto' }}</div>
     <div class="label">Mode Hero Beranda</div>
+  </div>
+</div>
+
+<div class="visitor-panel panel">
+  <div class="panel-head">
+    <div><h2>Pengunjung Situs</h2><p class="visitor-subtitle">Perkembangan kunjungan unik selama 7 hari terakhir.</p></div>
+    <div class="visitor-total"><strong>{{ number_format($totalVisitors) }}</strong><span>Total kunjungan</span></div>
+  </div>
+  <div class="visitor-chart" aria-label="Grafik pengunjung tujuh hari terakhir">
+    @php($maxVisitors = max(1, $visitorChart->max('visitors')))
+    @foreach($visitorChart as $day)
+      <div class="visitor-day"><div class="visitor-value">{{ $day['visitors'] }}</div><div class="visitor-bar-track"><div class="visitor-bar" style="height:{{ max(6, ($day['visitors'] / $maxVisitors) * 100) }}%;"></div></div><span>{{ $day['label'] }}</span></div>
+    @endforeach
+  </div>
+</div>
+
+<div class="map-panel panel">
+  <div class="panel-head">
+    <div>
+      <h2>Lokasi Desa Baleasri</h2>
+      <p class="map-subtitle">Desa Baleasri, Kecamatan Ngariboyo, Kabupaten Magetan.</p>
+    </div>
+    <a class="map-open-link" href="https://maps.app.goo.gl/cp8v5nr9oPhxgTkd7" target="_blank" rel="noopener">Buka di Google Maps &rarr;</a>
+  </div>
+  <div class="map-frame-wrap">
+    <iframe
+      src="https://www.google.com/maps?q=Desa%20Baleasri%2C%20Kecamatan%20Ngariboyo%2C%20Kabupaten%20Magetan&output=embed"
+      title="Peta lokasi Desa Baleasri"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen></iframe>
   </div>
 </div>
 
@@ -119,6 +158,28 @@
         </tr>
       @empty
         <tr><td colspan="3" style="color:var(--text-muted); text-align:center;">Belum ada berita.</td></tr>
+      @endforelse
+    </tbody>
+  </table>
+</div>
+
+<div class="panel" id="pengaduan" style="margin-bottom:24px;">
+  <div class="panel-head">
+    <h2>Pendaftar UMKM Terbaru</h2>
+    <a href="{{ route('admin.potensi.index', ['kategori' => 'umkm', 'pendaftar' => 1]) }}#pendaftar-umkm">Kelola semua</a>
+  </div>
+  <table>
+    <thead><tr><th>Usaha</th><th>Pemilik</th><th>Status</th><th>Aksi</th></tr></thead>
+    <tbody>
+      @forelse($umkmApplicants as $applicant)
+        <tr>
+          <td><strong>{{ $applicant->nama_usaha }}</strong><br><small style="color:var(--text-muted);">{{ $applicant->kategori }} · {{ $applicant->lokasi }}</small></td>
+          <td>{{ $applicant->pemilik }}</td>
+          <td><span class="status-pill {{ $applicant->status === 'Disetujui' ? 'st-selesai' : ($applicant->status === 'Ditolak' ? 'st-baru' : 'st-proses') }}">{{ $applicant->status }}</span></td>
+          <td><div class="approval-actions"><form method="POST" action="{{ route('admin.umkm-applicants.status', $applicant) }}">@csrf @method('PATCH')<input type="hidden" name="status" value="Disetujui"><button class="approval-btn approve" type="submit">Setujui</button></form><form method="POST" action="{{ route('admin.umkm-applicants.status', $applicant) }}">@csrf @method('PATCH')<input type="hidden" name="status" value="Ditolak"><button class="approval-btn reject" type="submit">Tolak</button></form></div></td>
+        </tr>
+      @empty
+        <tr><td colspan="4" style="color:var(--text-muted); text-align:center;">Belum ada pendaftar UMKM.</td></tr>
       @endforelse
     </tbody>
   </table>

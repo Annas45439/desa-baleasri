@@ -38,9 +38,29 @@
     <div class="side-group">
       <div class="side-label">Menu</div>
       <a href="{{ route('admin.dashboard') }}" class="side-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><svg class="icon"><use href="#i-dash"/></svg> Dashboard</a>
-      <a href="{{ route('admin.potensi.index') }}" class="side-link {{ request()->routeIs('admin.potensi.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-bale"/></svg> Potensi Desa</a>
-      <a href="{{ route('admin.potensi.index', ['kategori' => 'umkm']) }}#pendaftar-umkm" class="side-link"><svg class="icon"><use href="#i-umkm"/></svg> Pendaftar UMKM</a>
-      <a href="{{ route('admin.berita.index') }}" class="side-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-berita"/></svg> Berita</a>
+    </div>
+
+    <div class="side-group">
+      <div class="side-label">Konten Desa</div>
+      <a href="{{ route('admin.settings.edit') }}#profil" class="side-link"><svg class="icon"><use href="#i-bale"/></svg> Profil &amp; Sejarah</a>
+      <a href="{{ route('admin.potensi.index', ['kategori' => 'wisata']) }}" class="side-link {{ request('kategori') === 'wisata' ? 'active' : '' }}"><svg class="icon"><use href="#i-wisata"/></svg> Wisata</a>
+      <a href="{{ route('admin.potensi.index', ['kategori' => 'galeri']) }}" class="side-link {{ request('kategori') === 'galeri' ? 'active' : '' }}"><svg class="icon"><use href="#i-galeri"/></svg> Galeri</a>
+      <a href="{{ route('admin.berita.index') }}" class="side-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-berita"/></svg> Berita &amp; Agenda</a>
+    </div>
+
+    <div class="side-group">
+      <div class="side-label">Ekonomi &amp; Layanan</div>
+      <a href="{{ route('admin.potensi.index', ['kategori' => 'umkm']) }}" class="side-link {{ request('kategori') === 'umkm' && !request()->has('pendaftar') ? 'active' : '' }}"><svg class="icon"><use href="#i-umkm"/></svg> Produk UMKM</a>
+      <a href="{{ route('admin.orders.index') }}" class="side-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-admin"/></svg> Pesanan @if($pendingOrders)<span class="count">{{ $pendingOrders }}</span>@endif</a>
+      <a href="{{ route('admin.potensi.index', ['kategori' => 'umkm', 'pendaftar' => 1]) }}#pendaftar-umkm" class="side-link {{ request()->has('pendaftar') ? 'active' : '' }}"><svg class="icon"><use href="#i-umkm"/></svg> Pendaftar UMKM @if($pendingApplicants)<span class="count">{{ $pendingApplicants }}</span>@endif</a>
+      <a href="{{ route('admin.complaints.index') }}" class="side-link {{ request()->routeIs('admin.complaints.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-aduan"/></svg> Pengaduan @if($newComplaints)<span class="count">{{ $newComplaints }}</span>@endif</a>
+      <a href="{{ route('admin.settings.edit') }}#administrasi" class="side-link"><svg class="icon"><use href="#i-admin"/></svg> Administrasi</a>
+      <a href="{{ route('admin.apbdes.index') }}" class="side-link {{ request()->routeIs('admin.apbdes.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-apbdes"/></svg> APBDes</a>
+    </div>
+
+    <div class="side-group">
+      <div class="side-label">Sistem</div>
+      <a href="{{ route('admin.users.index') }}" class="side-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-user"/></svg> Pengguna</a>
       <a href="{{ route('admin.settings.edit') }}" class="side-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-setting"/></svg> Pengaturan</a>
     </div>
 

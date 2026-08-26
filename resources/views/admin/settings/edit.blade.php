@@ -10,7 +10,7 @@
   @csrf
   @method('PUT')
 
-  <div class="form-card" style="margin-bottom:22px;">
+  <div class="form-card" id="profil" style="margin-bottom:22px;">
     <h3 style="font-family:var(--font-display); margin-bottom:16px;">Identitas & Hero Beranda</h3>
 
     <div class="form-row">
@@ -53,8 +53,8 @@
     </div>
   </div>
 
-  <div class="form-card" style="margin-bottom:22px;">
-    <h3 style="font-family:var(--font-display); margin-bottom:16px;">Sambutan Kepala Desa</h3>
+  <div class="form-card" id="administrasi" style="margin-bottom:22px;">
+     <h3 style="font-family:var(--font-display); margin-bottom:16px;">Sambutan Kepala Desa</h3>
 
     <div class="form-row">
       <label for="nama_kepala_desa">Nama Kepala Desa</label>
@@ -77,8 +77,8 @@
     </div>
   </div>
 
-  <div class="form-card" style="margin-bottom:22px;">
-    <h3 style="font-family:var(--font-display); margin-bottom:16px;">Statistik Beranda</h3>
+  <div class="form-card" id="apbdes" style="margin-bottom:22px;">
+     <h3 style="font-family:var(--font-display); margin-bottom:16px;">Statistik Beranda</h3>
     <div class="form-grid-2">
       <div class="form-row">
         <label for="stat_pendidikan">Sarana Pendidikan</label>
