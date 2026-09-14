@@ -28,8 +28,8 @@
     </a>
 
     <div style="display:flex; align-items:center; gap:8px;">
-      <a href="{{ route('layanan') }}" class="nav-cta-oval">
-        <span>Layanan Surat</span>
+      <a href="{{ route('home') }}#sop-pelayanan" class="nav-cta-oval">
+        <span>SOP Pelayanan</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
@@ -51,6 +51,10 @@
     <a href="{{ route('umkm.index') }}" class="mobile-menu-pill {{ request()->routeIs('umkm*') ? 'active' : '' }}">
       <span class="mobile-menu-pill__icon">⌂</span>
       <span>UMKM</span>
+    </a>
+    <a href="{{ route('home') }}#sop-pelayanan" class="mobile-menu-pill">
+      <span class="mobile-menu-pill__icon">▤</span>
+      <span>SOP</span>
     </a>
   </nav>
 </header>
@@ -84,6 +88,7 @@
         <h4>Pelayanan</h4>
         <ul>
           <li><a href="{{ route('layanan') }}">Layanan Surat Online</a></li>
+          <li><a href="{{ route('home') }}#sop-pelayanan">Informasi Pelayanan Publik</a></li>
           <li><a href="{{ route('layanan') }}">Pengaduan Warga</a></li>
           <li><a href="{{ route('umkm.index') }}">Pendaftaran UMKM</a></li>
           @if($setting->jam_operasional)<li>{{ $setting->jam_operasional }}</li>@endif

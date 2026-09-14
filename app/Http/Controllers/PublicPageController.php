@@ -47,4 +47,5 @@ class PublicPageController extends Controller
             'setting' => Setting::current(),
         ]);
     }
+
 }

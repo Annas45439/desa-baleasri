@@ -34,6 +34,7 @@
 
     <div class="hero-actions-oval">
       <a href="{{ route('pengaduan.public') }}" class="btn-oval-primary">Permohonan Surat &amp; Pengaduan &rarr;</a>
+      <a href="#sop-pelayanan" class="btn-oval-outline">SOP Pelayanan Publik</a>
       <a href="{{ route('profil.desa') }}" class="btn-oval-outline">Profil &amp; Sejarah 1887</a>
     </div>
   </div>
@@ -82,6 +83,14 @@
           <p>Warta Terbaru Desa</p>
         </a>
 
+        <a href="#sop-pelayanan" class="oval-feature-card">
+          <div class="oval-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4" stroke-linecap="round"/></svg>
+          </div>
+          <h3>SOP Pelayanan</h3>
+          <p>Alur &amp; Jam Layanan</p>
+        </a>
+
         <a href="{{ route('pengaduan.public') }}" class="oval-feature-card">
           <div class="oval-icon-box">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -90,6 +99,75 @@
           <p>Aduan &amp; Administrasi</p>
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Informasi Pelayanan Publik -->
+<section class="page-section service-home-section" id="sop-pelayanan">
+  <div class="container">
+    <div class="section-head-oval service-home-heading">
+      <span class="kicker-oval">Pelayanan Publik</span>
+      <h2>Informasi Pelayanan Publik</h2>
+      <p>Alur, jenis layanan, jam operasional, dan prinsip pelayanan Kantor Desa Baleasri.</p>
+    </div>
+
+    <div class="service-home-grid">
+      <article class="oval-glass-card service-home-card">
+        <span class="kicker-oval">Administrasi Kependudukan</span>
+        <ol>
+          <li>Penerbitan Kartu Keluarga (KK)</li>
+          <li>Penerbitan Akta Kelahiran dan Akta Kematian</li>
+          <li>Pengurusan Surat Nikah</li>
+          <li>Identitas Kependudukan Digital (IKD)</li>
+          <li>Pengantar Pindah Tempat</li>
+        </ol>
+      </article>
+      <article class="oval-glass-card service-home-card">
+        <span class="kicker-oval">Administrasi Umum</span>
+        <ol>
+          <li>Surat Keterangan Miskin, Domisili, dan Usaha</li>
+          <li>Pelayanan Pajak Bumi dan Bangunan (PBB)</li>
+          <li>Pengurusan SKCK</li>
+          <li>Cek Bansos dan Desil</li>
+          <li>Data Tanah dan Pengaduan Warga</li>
+        </ol>
+      </article>
+    </div>
+
+    <div class="service-home-flow oval-glass-card">
+      <div class="service-home-flow-head">
+        <span class="kicker-oval">Skema Prosedur</span>
+        <h3>Alur Pelayanan di Kantor Desa Baleasri</h3>
+      </div>
+      <div class="service-home-steps">
+        <div><b>01</b><strong>Datang</strong><span>Bawa persyaratan sesuai layanan.</span></div>
+        <div><b>02</b><strong>Ajukan</strong><span>Sampaikan keperluan kepada petugas.</span></div>
+        <div><b>03</b><strong>Verifikasi</strong><span>Berkas diperiksa dan diproses.</span></div>
+        <div><b>04</b><strong>Terbitkan</strong><span>Dokumen ditandatangani pejabat berwenang.</span></div>
+        <div><b>05</b><strong>Ambil</strong><span>Terima dokumen yang sudah selesai.</span></div>
+      </div>
+    </div>
+
+    <div class="service-home-bottom">
+      <article class="oval-glass-card service-home-card">
+        <span class="kicker-oval">Jam Pelayanan</span>
+        <div class="service-home-hours"><strong>Senin - Kamis</strong><span>07.30 - 15.30 WIB</span></div>
+        <div class="service-home-hours"><strong>Jumat</strong><span>07.30 - 15.00 WIB</span></div>
+      </article>
+      <article class="oval-glass-card service-home-card">
+        <span class="kicker-oval">Prinsip Pelayanan</span>
+        <p class="service-home-principles">Ramah <i>•</i> Tepat waktu <i>•</i> Transparan <i>•</i> Akuntabel <i>•</i> Tanpa pungli</p>
+      </article>
+      <article class="oval-glass-card service-home-card service-home-contact">
+        <span class="kicker-oval">Contact Us</span>
+        <p><strong>pemdesbaleasri@gmail.com</strong><br>(0351) 8196535 / 082331187435</p>
+      </article>
+    </div>
+
+    <div class="service-home-action">
+      <a href="{{ route('layanan') }}" class="btn-oval-primary">Ajukan Layanan Surat &rarr;</a>
+      <a href="{{ route('pengaduan.public') }}" class="btn-oval-outline">Sampaikan Pengaduan</a>
     </div>
   </div>
 </section>
