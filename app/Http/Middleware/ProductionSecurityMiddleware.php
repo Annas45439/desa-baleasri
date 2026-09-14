@@ -13,6 +13,8 @@ class ProductionSecurityMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $request->setTrustedProxies(['*'], Request::HEADER_X_FORWARDED_ALL);
+
         if (app()->environment('production') && ! $request->secure()) {
             return redirect()->secure($request->getRequestUri());
         }
