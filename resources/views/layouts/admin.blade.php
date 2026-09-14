@@ -6,7 +6,7 @@
 <title>Panel Admin — {{ auth()->user()->name ?? 'Desa Baleasri' }} — @yield('title', 'Dashboard')</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('assets/css/admin.css') }}">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
 <div class="layout">
   <aside class="sidebar">
     <div class="side-brand">
-      <img class="mark side-brand-logo" src="{{ asset('assets/logo/logo magetan.png') }}" alt="Logo Desa Baleasri">
+      <img class="mark side-brand-logo" src="{{ secure_asset('assets/logo/logo magetan.png') }}" alt="Logo Desa Baleasri">
       <div class="txt">Baleasri<small>Panel Admin</small></div>
     </div>
 
