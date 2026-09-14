@@ -25,13 +25,18 @@
   <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4 L21 19 H3 Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" fill="none"/><path d="M12 10v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.4" r="0.9" fill="currentColor"/></symbol>
   <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/><path d="M15 8l4 4-4 4M19 12H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
   <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6" fill="none"/></symbol>
+  <symbol id="i-surat" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="1.6" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="1.6" fill="none"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.6" fill="none"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="1.6" fill="none"/><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="1.6"/><line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-admin" viewBox="0 0 24 24"><path d="M4 9h16l-1.5 10H5.5L4 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M6 9l1.2-4h9.6L18 9M8 13h8M9 16h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M5 20c.7-3.4 3.1-5.2 7-5.2s6.3 1.8 7 5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M5 5.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 3v-3H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M7 10h10M7 13h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
 </defs>
 </svg>
 
 <div class="layout">
   <aside class="sidebar">
     <div class="side-brand">
-      <div class="mark">B</div>
+      <img class="mark side-brand-logo" src="{{ asset('assets/logo/logo magetan.png') }}" alt="Logo Desa Baleasri">
       <div class="txt">Baleasri<small>Panel Admin</small></div>
     </div>
 
@@ -50,6 +55,8 @@
 
     <div class="side-group">
       <div class="side-label">Ekonomi &amp; Layanan</div>
+      <a href="{{ route('admin.letters.index') }}" class="side-link {{ request()->routeIs('admin.letters.index') || request()->routeIs('admin.letters.edit') ? 'active' : '' }}"><svg class="icon"><use href="#i-surat"/></svg> Layanan Surat @if($newLetters)<span class="count">{{ $newLetters }}</span>@endif</a>
+      <a href="{{ route('admin.letters.report') }}" class="side-link {{ request()->routeIs('admin.letters.report') ? 'active' : '' }}"><svg class="icon"><use href="#i-report"/></svg> Laporan Surat</a>
       <a href="{{ route('admin.potensi.index', ['kategori' => 'umkm']) }}" class="side-link {{ request('kategori') === 'umkm' && !request()->has('pendaftar') ? 'active' : '' }}"><svg class="icon"><use href="#i-umkm"/></svg> Produk UMKM</a>
       <a href="{{ route('admin.orders.index') }}" class="side-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-admin"/></svg> Pesanan @if($pendingOrders)<span class="count">{{ $pendingOrders }}</span>@endif</a>
       <a href="{{ route('admin.potensi.index', ['kategori' => 'umkm', 'pendaftar' => 1]) }}#pendaftar-umkm" class="side-link {{ request()->has('pendaftar') ? 'active' : '' }}"><svg class="icon"><use href="#i-umkm"/></svg> Pendaftar UMKM @if($pendingApplicants)<span class="count">{{ $pendingApplicants }}</span>@endif</a>

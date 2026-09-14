@@ -4,175 +4,115 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ $setting->nama_desa ?? 'Desa Baleasri' }} — @yield('title', 'Beranda')</title>
+<meta name="description" content="Website Resmi {{ $setting->nama_desa ?? 'Desa Baleasri' }}, Kecamatan Ngariboyo, Kabupaten Magetan — Portal Informasi Publik & Pelayanan Desa">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/site.css') }}">
 </head>
 <body>
 
-<!-- ===== Sprite ikon custom ===== -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-<defs>
-  <symbol id="ic-wisata" viewBox="0 0 24 24">
-    <path d="M3 15 L9 5 L12 10 L15 5 L21 15" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-    <path d="M3 18.5 Q7 16 12 18.5 T21 18.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-  </symbol>
-  <symbol id="ic-umkm" viewBox="0 0 24 24">
-    <path d="M4 10h16l-1.6 9.2a2 2 0 0 1-2 1.8H7.6a2 2 0 0 1-2-1.8L4 10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
-    <path d="M8 10c0-3 1.8-5 4-5s4 2 4 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-    <path d="M7 13.5h10M7.6 17h8.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.6"/>
-  </symbol>
-  <symbol id="ic-admin" viewBox="0 0 24 24">
-    <path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h11A1.5 1.5 0 0 1 19 6.5v11A1.5 1.5 0 0 1 17.5 19h-11A1.5 1.5 0 0 1 5 17.5v-11Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
-    <path d="M5.5 6.5 12 12l6.5-5.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
-    <circle cx="12" cy="15" r="1.6" fill="currentColor"/>
-  </symbol>
-  <symbol id="ic-apbdes" viewBox="0 0 24 24">
-    <ellipse cx="9" cy="16" rx="6" ry="2.4" stroke="currentColor" stroke-width="1.6" fill="none"/>
-    <path d="M3 16v-3c0-1.3 2.7-2.4 6-2.4s6 1.1 6 2.4v3" stroke="currentColor" stroke-width="1.6" fill="none"/>
-    <path d="M17 5c-.6 2-.6 3.6 0 5.2.6-1.6.6-3.2 0-5.2Z" fill="currentColor"/>
-  </symbol>
-  <symbol id="ic-aduan" viewBox="0 0 24 24">
-    <path d="M4 12a8 5.6 0 1 1 3.2 4.4L4 18l1-3.4A5.5 5.5 0 0 1 4 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
-    <path d="M12 8.8v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-    <circle cx="12" cy="14.3" r="1" fill="currentColor"/>
-  </symbol>
-  <symbol id="ic-bale" viewBox="0 0 24 24">
-    <path d="M2 12 L12 5 L22 12" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
-    <path d="M4.5 12 L12 7.6 L19.5 12" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none" opacity="0.7"/>
-    <path d="M6 12v6h12v-6" stroke="currentColor" stroke-width="1.6" fill="none"/>
-    <path d="M10 18v-4h4v4" stroke="currentColor" stroke-width="1.4" fill="none"/>
-  </symbol>
-  <symbol id="ic-wa" viewBox="0 0 24 24">
-    <path d="M12 4.5a7.5 7.5 0 0 0-6.4 11.4L4.8 19.5l3.7-1a7.5 7.5 0 1 0 3.5-14Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
-    <path d="M9 10.3c.4 2 2 3.3 4 3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-  </symbol>
-  <symbol id="ic-pin" viewBox="0 0 24 24">
-    <path d="M12 21s-6.5-6.1-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.9-6.5 11-6.5 11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
-    <circle cx="12" cy="10" r="2.2" stroke="currentColor" stroke-width="1.6" fill="none"/>
-  </symbol>
-  <symbol id="ic-warn" viewBox="0 0 24 24">
-    <path d="M12 4 L21 19 H3 Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" fill="none"/>
-    <path d="M12 10v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    <circle cx="12" cy="16.4" r="0.9" fill="currentColor"/>
-  </symbol>
-  <symbol id="ic-sparkle" viewBox="0 0 24 24">
-    <path d="M12 2c.6 4.4 3.6 7.4 8 8-4.4.6-7.4 3.6-8 8-.6-4.4-3.6-7.4-8-8 4.4-.6 7.4-3.6 8-8Z" fill="currentColor"/>
-  </symbol>
-</defs>
-</svg>
-<style>.icon{width:1em; height:1em; display:inline-block; vertical-align:-0.15em;}</style>
-
 <div id="progress"></div>
 
-<header>
-  <nav>
-    <div class="brand"><div class="mark">{{ Str::substr($setting->nama_desa ?? 'B', 0, 1) }}</div>{{ str_replace('Desa ', '', $setting->nama_desa ?? 'Baleasri') }}</div>
-    <ul class="nav-links">
-      <li><a href="#layanan">Layanan</a></li>
-      <li><a href="#wisata">Wisata</a></li>
-      <li><a href="{{ route('umkm.index') }}">UMKM</a></li>
-      <li><a href="#galeri">Galeri</a></li>
-      <li><a href="#berita">Berita</a></li>
-      <li><a href="#lokasi">Lokasi</a></li>
-    </ul>
-    <a href="#aduan" class="nav-cta">Sampaikan Aduan <svg class="icon"><use href="#ic-sparkle"/></svg></a>
+<!-- Ambient Morphing Glow Circles -->
+<div class="bg-ambient-blobs">
+  <div class="blob-circle blob-circle-1"></div>
+  <div class="blob-circle blob-circle-2"></div>
+</div>
+
+<!-- Floating Oval Navigation Pill Header -->
+<header class="site-header">
+  <nav class="floating-oval-nav">
+    <a href="{{ route('home') }}" class="brand">
+      <img class="brand-logo" src="{{ asset('assets/logo/logo magetan.png') }}" alt="Logo {{ $setting->nama_desa ?? 'Desa Baleasri' }}">
+      <span>{{ str_replace('Desa ', '', $setting->nama_desa ?? 'Baleasri') }}</span>
+    </a>
+
+    <div style="display:flex; align-items:center; gap:8px;">
+      <a href="{{ route('layanan') }}" class="nav-cta-oval">
+        <span>Layanan Surat</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <nav class="mobile-menu-pillar" aria-label="Mobile Navigation">
+    <a href="{{ route('home') }}" class="mobile-menu-pill {{ request()->routeIs('home') ? 'active' : '' }}">
+      <span class="mobile-menu-pill__icon">⌂</span>
+      <span>Beranda</span>
+    </a>
+    <a href="{{ route('profil.desa') }}" class="mobile-menu-pill {{ request()->routeIs('profil.desa') ? 'active' : '' }}">
+      <span class="mobile-menu-pill__icon">◎</span>
+      <span>Profil Desa</span>
+    </a>
+    <a href="{{ route('apbdes.public') }}" class="mobile-menu-pill {{ request()->routeIs('apbdes.public') ? 'active' : '' }}">
+      <span class="mobile-menu-pill__icon">▣</span>
+      <span>APBDes</span>
+    </a>
+    <a href="{{ route('umkm.index') }}" class="mobile-menu-pill {{ request()->routeIs('umkm*') ? 'active' : '' }}">
+      <span class="mobile-menu-pill__icon">⌂</span>
+      <span>UMKM</span>
+    </a>
   </nav>
 </header>
 
-@yield('content')
+<!-- Main Content -->
+<main style="flex-grow:1; position:relative; z-index:1;">
+  @yield('content')
+</main>
 
-<footer id="aduan">
+<!-- Oval Footer -->
+<footer class="oval-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="name">{{ str_replace('Desa ', '', $setting->nama_desa ?? 'Baleasri') }}</div>
-        <p>{{ $setting->tagline ?? '' }}</p>
-        @if($setting->alamat)
-          <p style="margin-top:10px;">{{ $setting->alamat }}</p>
-        @endif
+        <img class="footer-jargon-logo" src="{{ asset('assets/logo/logo jargon maegtan.png') }}" alt="Jargon Kabupaten Magetan">
+        <div class="name">Pemerintah {{ $setting->nama_desa ?? 'Desa Baleasri' }}</div>
+        <p style="font-size:0.88rem; opacity:0.8;">{{ $setting->tagline ?? 'Kecamatan Ngariboyo, Kabupaten Magetan, Jawa Timur' }}</p>
+        @if($setting->alamat)<p style="margin-top:8px; font-size:0.8rem; opacity:0.7;">{{ $setting->alamat }}</p>@endif
       </div>
-      <div><h4>Jelajahi</h4><ul>
-        <li><a href="#wisata">Wisata</a></li>
-        <li><a href="#umkm">UMKM</a></li>
-        <li><a href="#galeri">Galeri</a></li>
-        <li><a href="#berita">Berita</a></li>
-      </ul></div>
-      <div><h4>Kontak</h4><ul>
-        @if($setting->email)<li>{{ $setting->email }}</li>@endif
-        @if($setting->jam_operasional)<li>{{ $setting->jam_operasional }}</li>@endif
-      </ul></div>
-      <div><h4>Penting</h4><ul>
-        <li>Ambulans: 119</li>
-        <li>Polisi: 110</li>
-        <li><a href="{{ route('admin.login') }}">Login Admin</a></li>
-      </ul></div>
-    </div>
-    <div class="complaint-box">
-      <div><span class="kicker">Layanan Warga</span><h3>Sampaikan aspirasi atau aduan.</h3><p>Laporkan kendala di lingkungan desa agar dapat ditindaklanjuti.</p></div>
-      <button type="button" class="complaint-trigger" id="openComplaintModalBtn">Buat Aduan</button>
+      <div>
+        <h4>Navigasi Portal</h4>
+        <ul>
+          <li><a href="{{ route('profil.desa') }}">Profil &amp; Sejarah</a></li>
+          <li><a href="{{ route('apbdes.public') }}">Infografis APBDes</a></li>
+          <li><a href="{{ route('wisata') }}">Wisata Desa</a></li>
+          <li><a href="{{ route('umkm.index') }}">Pasar UMKM</a></li>
+          <li><a href="{{ route('berita.public') }}">Berita Terbaru</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Pelayanan</h4>
+        <ul>
+          <li><a href="{{ route('layanan') }}">Layanan Surat Online</a></li>
+          <li><a href="{{ route('layanan') }}">Pengaduan Warga</a></li>
+          <li><a href="{{ route('umkm.index') }}">Pendaftaran UMKM</a></li>
+          @if($setting->jam_operasional)<li>{{ $setting->jam_operasional }}</li>@endif
+        </ul>
+      </div>
+      <div>
+        <h4>Kontak Resmi</h4>
+        <ul>
+          @if($setting->email)<li>{{ $setting->email }}</li>@endif
+          <li>Kecamatan Ngariboyo, Magetan</li>
+          <li>Ambulans Desa: 119</li>
+        </ul>
+      </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; {{ date('Y') }} Pemerintah {{ $setting->nama_desa ?? 'Desa Baleasri' }}</span>
-      <span>Website Resmi Desa</span>
-      <span>Dibuat oleh KKN-T Universitas Negeri Surabaya</span>
+      <span>Website Resmi Desa &bull; Kecamatan Ngariboyo</span>
     </div>
   </div>
 </footer>
-
-<div class="complaint-modal" id="complaintModal" aria-hidden="true">
-  <div class="complaint-modal-card"><button type="button" class="complaint-close" id="closeComplaintModalBtn" aria-label="Tutup">&times;</button><span class="kicker">Form Aduan</span><h3>Sampaikan Pengaduan</h3><form method="POST" action="{{ route('complaints.store') }}" class="complaint-form">@csrf<label>Nama Pelapor<input name="nama" required></label><label>Kontak (opsional)<input name="kontak" placeholder="Nomor WhatsApp atau email"></label><label>Kategori<select name="kategori" required><option value="">Pilih kategori</option><option>Infrastruktur</option><option>Lingkungan</option><option>Pelayanan</option><option>Lainnya</option></select></label><label class="full">Isi Aduan<textarea name="isi" required placeholder="Jelaskan lokasi dan masalah yang ingin dilaporkan"></textarea></label><div class="complaint-actions"><button type="button" class="complaint-trigger secondary" id="cancelComplaintModalBtn">Batal</button><button class="submit-btn" type="submit">Kirim Aduan</button></div></form></div>
-</div>
 
 <script>
   window.addEventListener('scroll', () => {
     const h = document.documentElement;
     const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-    document.getElementById('progress').style.width = scrolled + '%';
-  });
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  const counters = document.querySelectorAll('[data-count]');
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = +el.getAttribute('data-count');
-        let cur = 0;
-        const step = Math.max(1, Math.ceil(target / 40));
-        const timer = setInterval(() => {
-          cur += step;
-          if (cur >= target) { cur = target; clearInterval(timer); }
-          el.textContent = cur;
-        }, 40);
-        counterObs.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(c => counterObs.observe(c));
-
-  document.querySelectorAll('.tilt-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const x = e.clientX - r.left; const y = e.clientY - r.top;
-      const rx = ((y / r.height) - 0.5) * -10;
-      const ry = ((x / r.width) - 0.5) * 10;
-      card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
-    });
-    card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)'; });
+    const p = document.getElementById('progress');
+    if (p) p.style.width = scrolled + '%';
   });
 </script>
 @stack('scripts')
-<script>
-  const complaintModal = document.getElementById('complaintModal');
-  const closeComplaintModal = () => { complaintModal?.classList.remove('show'); complaintModal?.setAttribute('aria-hidden', 'true'); };
-  document.getElementById('openComplaintModalBtn')?.addEventListener('click', () => { complaintModal?.classList.add('show'); complaintModal?.setAttribute('aria-hidden', 'false'); });
-  document.getElementById('closeComplaintModalBtn')?.addEventListener('click', closeComplaintModal);
-  document.getElementById('cancelComplaintModalBtn')?.addEventListener('click', closeComplaintModal);
-  complaintModal?.addEventListener('click', event => { if (event.target === complaintModal) closeComplaintModal(); });
-</script>
 </body>
 </html>

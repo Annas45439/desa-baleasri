@@ -17,7 +17,6 @@ class SettingController extends Controller
         $data = $request->validate([
             'nama_desa' => ['required', 'string', 'max:150'], 'tagline' => ['nullable', 'string', 'max:200'],
             'deskripsi_hero' => ['nullable', 'string'], 'hero_image' => ['nullable', 'image', 'max:5120'],
-            'hero_video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime', 'max:51200'],
             'nama_kepala_desa' => ['nullable', 'string', 'max:150'], 'sambutan' => ['nullable', 'string'],
             'foto_kepala_desa' => ['nullable', 'image', 'max:4096'], 'stat_pendidikan' => ['nullable', 'integer', 'min:0'],
             'stat_umkm' => ['nullable', 'integer', 'min:0'], 'stat_wisata' => ['nullable', 'integer', 'min:0'],
@@ -25,23 +24,22 @@ class SettingController extends Controller
             'email' => ['nullable', 'email', 'max:150'], 'jam_operasional' => ['nullable', 'string', 'max:100'],
             'whatsapp_admin' => ['nullable', 'string', 'max:20'],
         ]);
-        foreach (['hero_image' => 'hero', 'hero_video' => 'hero', 'foto_kepala_desa' => 'kepala-desa'] as $field => $directory) {
+        foreach (['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'] as $field => $directory) {
             if ($request->hasFile($field)) {
                 if ($setting->{$field}) Storage::disk('public')->delete($setting->{$field});
                 $data[$field] = $request->file($field)->store($directory, 'public');
             }
         }
+
+        if (!empty($data['whatsapp_admin'])) {
+            $data['whatsapp_admin'] = preg_replace('/[^0-9]/', '', $data['whatsapp_admin']);
+            if (str_starts_with($data['whatsapp_admin'], '0')) {
+                $data['whatsapp_admin'] = '62' . substr($data['whatsapp_admin'], 1);
+            }
+        }
+
         $setting->update($data);
         return back()->with('status', 'Pengaturan berhasil disimpan.');
     }
 
-    public function destroyHeroVideo()
-    {
-        $setting = Setting::current();
-        if ($setting->hero_video) {
-            Storage::disk('public')->delete($setting->hero_video);
-            $setting->update(['hero_video' => null]);
-        }
-        return back()->with('status', 'Video hero dihapus.');
-    }
 }

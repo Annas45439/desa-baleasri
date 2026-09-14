@@ -11,7 +11,14 @@ class RedirectIfNotAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! Auth::check()) return redirect()->route('admin.login');
+        if (! Auth::check()) {
+            return redirect()->route('admin.login');
+        }
+
+        if (! Auth::user()->isAdmin()) {
+            abort(403, 'Akun Anda tidak memiliki akses ke panel admin.');
+        }
+
         return $next($request);
     }
 }

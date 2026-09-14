@@ -15,8 +15,15 @@ class ComplaintController extends Controller
             $query->where('status', $request->status);
         }
 
+        $stats = [
+            'total' => Complaint::count(),
+            'baru' => Complaint::where('status', 'Baru')->count(),
+            'diproses' => Complaint::where('status', 'Diproses')->count(),
+            'selesai' => Complaint::where('status', 'Selesai')->count(),
+        ];
+
         $complaints = $query->paginate(12)->withQueryString();
-        return view('admin.complaints.index', compact('complaints'));
+        return view('admin.complaints.index', compact('complaints', 'stats'));
     }
 
     public function updateStatus(Request $request, Complaint $complaint)

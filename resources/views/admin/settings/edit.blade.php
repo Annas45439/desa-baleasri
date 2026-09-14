@@ -29,27 +29,14 @@
     </div>
 
     <div class="form-row">
-      <label for="hero_video">Video Hero (diprioritaskan tampil di Beranda)</label>
-      @if($setting->hero_video)
-        <div class="current-media">
-          <video src="{{ asset('storage/'.$setting->hero_video) }}" style="width:120px; height:70px; object-fit:cover; border-radius:10px;" muted></video>
-          <span class="hint">Video hero aktif saat ini.</span>
-        </div>
-        <button type="button" onclick="document.getElementById('hapus-video-form').submit();" class="btn-sm btn-delete" style="margin-bottom:10px;">Hapus Video Hero</button>
-      @endif
-      <input type="file" id="hero_video" name="hero_video" accept="video/mp4,video/webm,video/quicktime">
-      <p class="hint">Format MP4/WebM/MOV, maksimal 50MB. Kalau video kosong, Beranda otomatis pakai Foto Hero di bawah.</p>
-    </div>
-
-    <div class="form-row">
-      <label for="hero_image">Foto Hero (fallback / dipakai kalau video kosong)</label>
+      <label for="hero_image">Foto Hero Beranda</label>
       @if($setting->hero_image)
         <div class="current-media">
           <img src="{{ asset('storage/'.$setting->hero_image) }}" alt="">
         </div>
       @endif
       <input type="file" id="hero_image" name="hero_image" accept="image/*">
-      <p class="hint">Format JPG/PNG, maksimal 5MB.</p>
+      <p class="hint">Format JPG/PNG, maksimal 5MB. Foto ini digunakan sebagai hero beranda.</p>
     </div>
   </div>
 
@@ -116,8 +103,9 @@
       </div>
     </div>
     <div class="form-row">
-      <label for="whatsapp_admin">Nomor WhatsApp Admin (default untuk tombol Pesan UMKM)</label>
-      <input type="text" id="whatsapp_admin" name="whatsapp_admin" value="{{ old('whatsapp_admin', $setting->whatsapp_admin) }}" placeholder="62812xxxxxxx">
+      <label for="whatsapp_admin">Nomor WhatsApp Admin</label>
+      <input type="text" id="whatsapp_admin" name="whatsapp_admin" value="{{ old('whatsapp_admin', $setting->whatsapp_admin) }}" placeholder="0812xxxxxxx atau 62812xxxxxxx">
+      <p class="hint">Nomor ini digunakan untuk menerima pengaduan warga, pengajuan surat, dan pesan layanan lainnya.</p>
     </div>
   </div>
 
@@ -125,12 +113,5 @@
     <button type="submit" class="btn btn-primary">Simpan Semua Pengaturan</button>
   </div>
 </form>
-
-@if($setting->hero_video)
-<form id="hapus-video-form" method="POST" action="{{ route('admin.settings.hero-video.destroy') }}" style="display:none;">
-  @csrf
-  @method('DELETE')
-</form>
-@endif
 
 @endsection

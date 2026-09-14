@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class Setting extends Model
 {
@@ -10,9 +11,21 @@ class Setting extends Model
 
     public static function current(): self
     {
-        return static::firstOrCreate(['id' => 1], [
+        $defaults = [
             'nama_desa' => 'Desa Baleasri',
             'tagline' => 'Rumah yang Asri, untuk Warga Baleasri',
-        ]);
+        ];
+
+        if (! Schema::hasTable((new static)->getTable())) {
+            return new static($defaults);
+        }
+
+        $setting = static::first();
+
+        if (! $setting) {
+            $setting = static::firstOrCreate(['id' => 1], $defaults);
+        }
+
+        return $setting;
     }
 }

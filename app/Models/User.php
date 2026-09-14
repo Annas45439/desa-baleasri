@@ -10,6 +10,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    public const ROLE_SUPER_ADMIN = 'super_admin';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_STAFF = 'staff';
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
@@ -22,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_developer',
     ];
 
     /**
@@ -43,7 +49,45 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'is_developer'      => 'boolean',
         ];
+    }
+
+    public static function roles(): array
+    {
+        return [
+            self::ROLE_SUPER_ADMIN,
+            self::ROLE_ADMIN,
+            self::ROLE_STAFF,
+        ];
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return in_array($this->role, $roles, true);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasAnyRole([
+            self::ROLE_SUPER_ADMIN,
+            self::ROLE_ADMIN,
+        ]);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(self::ROLE_SUPER_ADMIN);
+    }
+
+    public function isDeveloper(): bool
+    {
+        return (bool) $this->is_developer;
     }
 }

@@ -35,10 +35,22 @@ return [
         ],
     ],
 
+    'rajaongkir' => [
+        'key' => env('RAJAONGKIR_API_KEY', env('KOMSHIP_API_KEY')),
+        'origin' => env('RAJAONGKIR_ORIGIN', env('KOMSHIP_ORIGIN')),
+        'cost_endpoint' => env('RAJAONGKIR_COST_ENDPOINT', env('KOMSHIP_COST_ENDPOINT')),
+    ],
+
     'komship' => [
-        'key' => env('KOMSHIP_API_KEY'),
-        'origin' => env('KOMSHIP_ORIGIN'),
-        'cost_endpoint' => env('KOMSHIP_COST_ENDPOINT'),
+        'key' => env('KOMSHIP_API_KEY', env('RAJAONGKIR_API_KEY')),
+        'origin' => env('KOMSHIP_ORIGIN', env('RAJAONGKIR_ORIGIN')),
+        'cost_endpoint' => env('KOMSHIP_COST_ENDPOINT', env('RAJAONGKIR_COST_ENDPOINT')),
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
 ];

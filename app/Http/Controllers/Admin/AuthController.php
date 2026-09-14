@@ -25,6 +25,14 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            if (! Auth::user()->isAdmin()) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors(['email' => 'Akun ini tidak memiliki akses ke panel admin.'])->onlyInput('email');
+            }
+
             $request->session()->regenerate();
             return redirect()->intended(route('admin.dashboard'));
         }

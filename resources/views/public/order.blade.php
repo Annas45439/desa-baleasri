@@ -26,10 +26,11 @@
         <label class="full">Alamat Pengiriman<input type="text" name="alamat" value="{{ old('alamat') }}" placeholder="Alamat lengkap atau lokasi pengambilan" required></label>
         <label>Kode Pos Tujuan<input type="text" name="kode_pos" id="kodePos" inputmode="numeric" maxlength="5" placeholder="Contoh: 63318"></label>
         <label>Berat Paket (gram)<input type="number" name="berat" id="beratPaket" value="1000" min="1" max="30000" required></label>
-        <label>Kurir<select name="kurir" id="kurir"><option value="jne">JNE</option><option value="pos">POS Indonesia</option><option value="tiki">TIKI</option><option value="sicepat">SiCepat</option><option value="jnt">J&amp;T</option><option value="anteraja">AnterAja</option></select></label>
-        <div class="shipping-check full"><button type="button" id="checkShippingBtn">Cek Ongkir</button><span id="shippingMessage">Isi kode pos dan berat untuk melihat pilihan tarif.</span></div>
-        <input type="hidden" name="ongkir" id="ongkirValue">
-        <input type="hidden" name="layanan_kurir" id="layananKurirValue">
+        <div class="shipping-check full">
+          <span id="shippingMessage">Biaya pengiriman dan kurir akan dibahas secara manual melalui WhatsApp setelah pesanan dikonfirmasi.</span>
+        </div>
+        <input type="hidden" name="ongkir" id="ongkirValue" value="0">
+        <input type="hidden" name="layanan_kurir" id="layananKurirValue" value="Manual via WhatsApp">
         <label class="full">Catatan Khusus<textarea name="catatan" placeholder="Contoh: tanpa pedas, bungkus kado, atau permintaan lainnya">{{ old('catatan') }}</textarea></label>
         <button type="submit" class="order-submit"><svg class="icon"><use href="#ic-wa"/></svg> Lanjut ke WhatsApp</button>
       </form>
@@ -38,22 +39,14 @@
   </div>
 </section>
 <script>
-  const shippingButton = document.getElementById('checkShippingBtn');
-  shippingButton?.addEventListener('click', async () => {
-    const message = document.getElementById('shippingMessage');
-    const destination = document.getElementById('kodePos').value.trim();
-    if (!destination) { message.textContent = 'Kode pos tujuan wajib diisi.'; return; }
-    message.textContent = 'Mengambil tarif Komship...';
-    try {
-      const response = await fetch('{{ route('shipping.rates') }}', { method: 'POST', headers: {'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Accept': 'application/json'}, body: JSON.stringify({destination, weight: document.getElementById('beratPaket').value, courier: document.getElementById('kurir').value}) });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message || 'Tarif belum tersedia.');
-      const first = result.data[0];
-      if (!first) throw new Error('Layanan kurir tidak tersedia untuk tujuan ini.');
-      document.getElementById('ongkirValue').value = first.value;
-      document.getElementById('layananKurirValue').value = first.service;
-      message.textContent = `${first.service} - Rp ${new Intl.NumberFormat('id-ID').format(first.value)} - estimasi ${first.etd} hari`;
-    } catch (error) { message.textContent = error.message; }
-  });
+  const message = document.getElementById('shippingMessage');
+  const kodePos = document.getElementById('kodePos');
+  if (kodePos) {
+    kodePos.addEventListener('input', () => {
+      if (kodePos.value.trim()) {
+        message.textContent = 'Biaya pengiriman dan kurir akan dibahas manual melalui WhatsApp setelah pesanan dikonfirmasi.';
+      }
+    });
+  }
 </script>
 @endsection

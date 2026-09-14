@@ -1,28 +1,30 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', $kategori)
 
 @section('content')
-<div class="umkm-page-hero">
+<section style="padding: 60px 0;">
   <div class="container">
-    <a href="{{ route('home') }}#umkm" class="back-link">&larr; Kembali ke UMKM Baleasri</a>
-    <span class="kicker">Katalog UMKM</span>
-    <h1>{{ $kategori }}</h1>
-    <p>{{ $produk->count() }} produk dari pelaku usaha lokal Desa Baleasri.</p>
-  </div>
-</div>
+    <div style="margin-bottom: 24px;">
+      <a href="{{ route('umkm.index') }}" style="color:var(--jade-main); font-size:0.8rem; font-weight:800; display:inline-block; margin-bottom:16px;">&larr; Kembali ke UMKM Baleasri</a>
+      <div class="section-head">
+        <span class="kicker">Katalog UMKM</span>
+        <h2>Kategori: {{ $kategori }}</h2>
+        <p>{{ $produk->count() }} produk unggulan karya pelaku usaha lokal Desa Baleasri.</p>
+      </div>
+    </div>
 
-<section class="umkm-products-section">
-  <div class="container">
-    <div class="product-grid">
+    <div class="card-grid-3">
       @foreach($produk as $item)
-        <article class="product-card reveal is-visible">
-          <div class="product-image"><img src="{{ $item->foto ? asset('storage/'.$item->foto) : 'https://picsum.photos/seed/'.$item->slug.'/600/450' }}" alt="{{ $item->nama }}"></div>
-          <div class="product-content">
-            <span class="umkm-cat">{{ $item->tag ?: $kategori }}</span>
-            <h2>{{ $item->nama }}</h2>
-            <p>{{ $item->deskripsi ?: 'Produk unggulan warga Desa Baleasri.' }}</p>
-            <a href="{{ route('orders.create', $item) }}" class="wa-btn"><svg class="icon"><use href="#ic-wa"/></svg> Pesan Produk</a>
+        <article class="glass-product-card">
+          <div class="glass-product-media">
+            <img src="{{ $item->foto ? asset('storage/'.$item->foto) : 'https://picsum.photos/seed/'.$item->slug.'/600/450' }}" alt="{{ $item->nama }}">
+          </div>
+          <div class="glass-product-body">
+            <span style="font-size:0.68rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; letter-spacing:0.06em;">{{ $item->tag ?: $kategori }}</span>
+            <h3>{{ $item->nama }}</h3>
+            <p>{{ $item->deskripsi ?: 'Produk unggulan berkualitas warga Desa Baleasri.' }}</p>
+            <a href="{{ route('orders.create', $item) }}" class="wa-btn">Pesan Produk</a>
           </div>
         </article>
       @endforeach
@@ -30,3 +32,4 @@
   </div>
 </section>
 @endsection
+
