@@ -14,7 +14,13 @@ class ProductionSecurityMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $request->setTrustedProxies(['*'], SymfonyRequest::HEADER_X_FORWARDED_ALL);
+        $request->setTrustedProxies(['*'],
+            SymfonyRequest::HEADER_X_FORWARDED_FOR
+            | SymfonyRequest::HEADER_X_FORWARDED_HOST
+            | SymfonyRequest::HEADER_X_FORWARDED_PORT
+            | SymfonyRequest::HEADER_X_FORWARDED_PROTO
+            | SymfonyRequest::HEADER_X_FORWARDED_PREFIX
+        );
 
         if (app()->environment('production') && ! $request->secure()) {
             return redirect()->secure($request->getRequestUri());
