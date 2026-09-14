@@ -22,7 +22,9 @@ class ProductionSecurityMiddleware
             | SymfonyRequest::HEADER_X_FORWARDED_PREFIX
         );
 
-        if (app()->environment('production') && ! $request->secure()) {
+        $isHttps = $request->secure() || $request->header('X-Forwarded-Proto') === 'https';
+
+        if (app()->environment('production') && ! $isHttps) {
             return redirect()->secure($request->getRequestUri());
         }
 
