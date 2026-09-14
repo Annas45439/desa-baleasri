@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class ProductionSecurityMiddleware
 {
@@ -13,7 +14,7 @@ class ProductionSecurityMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $request->setTrustedProxies(['*'], Request::HEADER_X_FORWARDED_ALL);
+        $request->setTrustedProxies(['*'], SymfonyRequest::HEADER_X_FORWARDED_ALL);
 
         if (app()->environment('production') && ! $request->secure()) {
             return redirect()->secure($request->getRequestUri());
