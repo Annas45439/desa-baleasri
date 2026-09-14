@@ -103,75 +103,6 @@
   </div>
 </section>
 
-<!-- Informasi Pelayanan Publik -->
-<section class="page-section service-home-section" id="sop-pelayanan">
-  <div class="container">
-    <div class="section-head-oval service-home-heading">
-      <span class="kicker-oval">Pelayanan Publik</span>
-      <h2>Informasi Pelayanan Publik</h2>
-      <p>Alur, jenis layanan, jam operasional, dan prinsip pelayanan Kantor Desa Baleasri.</p>
-    </div>
-
-    <div class="service-home-grid">
-      <article class="oval-glass-card service-home-card">
-        <span class="kicker-oval">Administrasi Kependudukan</span>
-        <ol>
-          <li>Penerbitan Kartu Keluarga (KK)</li>
-          <li>Penerbitan Akta Kelahiran dan Akta Kematian</li>
-          <li>Pengurusan Surat Nikah</li>
-          <li>Identitas Kependudukan Digital (IKD)</li>
-          <li>Pengantar Pindah Tempat</li>
-        </ol>
-      </article>
-      <article class="oval-glass-card service-home-card">
-        <span class="kicker-oval">Administrasi Umum</span>
-        <ol>
-          <li>Surat Keterangan Miskin, Domisili, dan Usaha</li>
-          <li>Pelayanan Pajak Bumi dan Bangunan (PBB)</li>
-          <li>Pengurusan SKCK</li>
-          <li>Cek Bansos dan Desil</li>
-          <li>Data Tanah dan Pengaduan Warga</li>
-        </ol>
-      </article>
-    </div>
-
-    <div class="service-home-flow oval-glass-card">
-      <div class="service-home-flow-head">
-        <span class="kicker-oval">Skema Prosedur</span>
-        <h3>Alur Pelayanan di Kantor Desa Baleasri</h3>
-      </div>
-      <div class="service-home-steps">
-        <div><b>01</b><strong>Datang</strong><span>Bawa persyaratan sesuai layanan.</span></div>
-        <div><b>02</b><strong>Ajukan</strong><span>Sampaikan keperluan kepada petugas.</span></div>
-        <div><b>03</b><strong>Verifikasi</strong><span>Berkas diperiksa dan diproses.</span></div>
-        <div><b>04</b><strong>Terbitkan</strong><span>Dokumen ditandatangani pejabat berwenang.</span></div>
-        <div><b>05</b><strong>Ambil</strong><span>Terima dokumen yang sudah selesai.</span></div>
-      </div>
-    </div>
-
-    <div class="service-home-bottom">
-      <article class="oval-glass-card service-home-card">
-        <span class="kicker-oval">Jam Pelayanan</span>
-        <div class="service-home-hours"><strong>Senin - Kamis</strong><span>07.30 - 15.30 WIB</span></div>
-        <div class="service-home-hours"><strong>Jumat</strong><span>07.30 - 15.00 WIB</span></div>
-      </article>
-      <article class="oval-glass-card service-home-card">
-        <span class="kicker-oval">Prinsip Pelayanan</span>
-        <p class="service-home-principles">Ramah <i>•</i> Tepat waktu <i>•</i> Transparan <i>•</i> Akuntabel <i>•</i> Tanpa pungli</p>
-      </article>
-      <article class="oval-glass-card service-home-card service-home-contact">
-        <span class="kicker-oval">Contact Us</span>
-        <p><strong>pemdesbaleasri@gmail.com</strong><br>(0351) 8196535 / 082331187435</p>
-      </article>
-    </div>
-
-    <div class="service-home-action">
-      <a href="{{ route('layanan') }}" class="btn-oval-primary">Ajukan Layanan Surat &rarr;</a>
-      <a href="{{ route('pengaduan.public') }}" class="btn-oval-outline">Sampaikan Pengaduan</a>
-    </div>
-  </div>
-</section>
-
 <!-- Sambutan Kepala Desa Section -->
 <section class="page-section">
   <div class="container">
@@ -223,6 +154,24 @@
       <div class="stat-oval">
         <div class="n" data-count="21">0</div>
         <div class="l">RT Pos Siskamling</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ringkasan Pelayanan Publik -->
+<section class="page-section" id="sop-pelayanan">
+  <div class="container">
+    <div class="oval-glass-card" style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <div style="max-width:680px;">
+        <span class="kicker-oval">Pelayanan Publik</span>
+        <h2 style="margin:8px 0;">Butuh layanan desa?</h2>
+        <p style="margin:0; color:var(--ink-sub);">Ajukan surat, cek status pengajuan, atau sampaikan pengaduan warga melalui satu halaman layanan.</p>
+        <p style="margin:12px 0 0; color:var(--ink-muted); font-size:0.88rem;"><strong>Jam layanan:</strong> Senin - Jumat, 08.00 - 16.00 WIB</p>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="{{ route('layanan') }}" class="btn-oval-primary">Buka Layanan &rarr;</a>
+        <a href="{{ route('pengaduan.public') }}" class="btn-oval-outline">Sampaikan Pengaduan</a>
       </div>
     </div>
   </div>
