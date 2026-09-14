@@ -91,6 +91,11 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
     Route::delete('apbdes/{apbdes}', [ApbdesController::class, 'destroy'])->name('apbdes.destroy');
     Route::resource('users', UserController::class)->only(['index', 'store', 'destroy']);
     Route::patch('users/{user}/password', [UserController::class, 'updatePassword'])->name('users.password');
+    Route::get('users/{user}/password/reauth', function (\App\Models\User $user, Illuminate\Http\Request $request) {
+        $request->session()->put('password_reauth_user_id', $user->id);
+
+        return redirect()->route('auth.google');
+    })->name('users.password.reauth');
     Route::get('pesanan', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::patch('pesanan/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.status');
     

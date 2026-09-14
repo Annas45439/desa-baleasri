@@ -52,6 +52,12 @@ class UserController extends Controller
 
     public function updatePassword(Request $request, User $user)
     {
+        abort_unless(
+            (int) $request->session()->pull('password_reauth_user_id') === (int) $user->id,
+            403,
+            'Verifikasi Google diperlukan sebelum mengubah password.'
+        );
+
         $data = $request->validate([
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);

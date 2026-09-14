@@ -36,6 +36,15 @@ class GoogleController extends Controller
             $googleUser = Socialite::driver('google')->user();
             $googleEmail = $googleUser->getEmail();
 
+            if ($request->session()->has('password_reauth_user_id')) {
+                abort_unless(Auth::check() && hash_equals(strtolower(Auth::user()->email), strtolower($googleEmail)), 403, 'Akun Google harus sama dengan akun admin yang sedang login.');
+
+                $userId = $request->session()->get('password_reauth_user_id');
+
+                return redirect()->route('admin.users.index')
+                    ->with('status', 'Verifikasi Google berhasil. Silakan simpan password baru.');
+            }
+
             // Cari apakah email Google sudah ada di database
             $user = User::where('email', $googleEmail)->first();
 

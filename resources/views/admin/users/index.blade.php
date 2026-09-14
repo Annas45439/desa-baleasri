@@ -55,6 +55,7 @@
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
             <details>
               <summary class="btn-sm btn-edit" style="cursor:pointer; list-style:none;">🔑 Ubah Password</summary>
+              <a href="{{ route('admin.users.password.reauth', $user) }}" class="btn-sm btn-primary" style="margin-top:10px;">Verifikasi Google terlebih dahulu</a>
               <form method="POST" action="{{ route('admin.users.password', $user) }}" style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap; background:var(--surface-3); padding:12px; border-radius:10px; border:1px solid var(--line);">
                 @csrf
                 @method('PATCH')
