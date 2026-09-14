@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Letter;
+use App\Models\User;
+use App\Mail\AdminLetterNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class LetterController extends Controller
 {
@@ -85,6 +89,15 @@ class LetterController extends Controller
 
         // Create letter
         $letter = Letter::create($validated);
+
+        $adminEmails = User::where('role', User::ROLE_SUPER_ADMIN)->pluck('email')->all();
+        if ($adminEmails) {
+            try {
+                Mail::to($adminEmails)->send(new AdminLetterNotification($letter));
+            } catch (\Throwable $exception) {
+                Log::warning('Notifikasi email pengajuan surat gagal dikirim.', ['error' => $exception->getMessage()]);
+            }
+        }
 
         $adminNumber = preg_replace('/[^0-9]/', '', (string) setting('whatsapp_admin'));
         if (str_starts_with($adminNumber, '0')) {

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Complaint;
+use App\Models\User;
+use App\Mail\AdminComplaintNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ComplaintController extends Controller
 {
@@ -23,11 +27,20 @@ class ComplaintController extends Controller
             ->map(fn ($photo) => $photo->store('pengaduan', 'public'))
             ->all();
 
-        Complaint::create([
+        $complaint = Complaint::create([
             ...$data,
             'photo_paths' => $photoPaths ?: null,
             'status' => 'Baru',
         ]);
+
+        $adminEmails = User::where('role', User::ROLE_SUPER_ADMIN)->pluck('email')->all();
+        if ($adminEmails) {
+            try {
+                Mail::to($adminEmails)->send(new AdminComplaintNotification($complaint));
+            } catch (\Throwable $exception) {
+                Log::warning('Notifikasi email pengaduan gagal dikirim.', ['error' => $exception->getMessage()]);
+            }
+        }
 
         $adminNumber = preg_replace('/[^0-9]/', '', (string) setting('whatsapp_admin'));
         if (str_starts_with($adminNumber, '0')) {
