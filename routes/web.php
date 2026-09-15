@@ -111,12 +111,3 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
     Route::put('pengaturan', [SettingController::class, 'update'])->name('settings.update');
 });
 
-Route::get('api/debug-db-users', function () {
-    return response()->json([
-        'db_connection' => config('database.default'),
-        'total_users'   => \App\Models\User::count(),
-        'users'         => \App\Models\User::all(['id', 'name', 'email', 'role', 'is_developer', 'created_at']),
-        'mail_from'     => config('mail.from.address'),
-    ]);
-});
-
