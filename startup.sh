@@ -15,8 +15,8 @@ cp -R public/assets assets
 cp -R public/build build
 php artisan storage:link --force || true
 
-# Tulis nginx config agar semua request diteruskan ke Laravel (index.php)
-cat > /etc/nginx/conf.d/default.conf << 'EOF'
+# Tulis nginx config ke /home/site agar persisten lintas restart
+cat > /home/site/nginx-default << 'NGINXEOF'
 server {
     listen 8080;
     root /home/site/wwwroot;
@@ -38,6 +38,14 @@ server {
         log_not_found off;
     }
 }
-EOF
+NGINXEOF
 
-nginx -s reload 2>/dev/null || true
+# Salin ke path nginx yang dikenal Azure App Service PHP
+if [ -f /etc/nginx/sites-available/default ]; then
+    cp /home/site/nginx-default /etc/nginx/sites-available/default
+    cp /home/site/nginx-default /etc/nginx/sites-enabled/default
+elif [ -d /etc/nginx/conf.d ]; then
+    cp /home/site/nginx-default /etc/nginx/conf.d/default.conf
+fi
+
+service nginx reload 2>/dev/null || nginx -s reload 2>/dev/null || true
