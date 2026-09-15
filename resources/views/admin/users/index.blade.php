@@ -7,16 +7,15 @@
 
 {{-- Info kuota Super Admin --}}
 @php
-  $superAdminCount = \App\Models\User::where('role', \App\Models\User::ROLE_SUPER_ADMIN)->count();
-  $canAddSuperAdmin = $superAdminCount < 2;
+  $desaSuperAdminCount = \App\Models\User::where('role', \App\Models\User::ROLE_SUPER_ADMIN)->where('is_developer', false)->count();
 @endphp
 
 <div style="background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:24px; display:flex; align-items:center; gap:12px;">
   <span style="font-size:1.4rem;">🔐</span>
   <div>
-    <strong style="color:var(--ink);">Kuota Super Admin: {{ $superAdminCount }}/2</strong>
+    <strong style="color:var(--ink);">Super Admin Desa: {{ $desaSuperAdminCount }}/1 Aktif</strong>
     <p style="margin:2px 0 0; font-size:0.82rem; color:var(--ink-3);">
-      Sistem hanya mengizinkan 2 akun Super Admin: <strong>1 Developer</strong> (permanen, tidak bisa dihapus) dan <strong>1 Sekdes/Perangkat Desa</strong> yang dapat diubah emailnya kapan saja.
+      Akun Super Admin Desa berhak mengelola seluruh berita, potensi UMKM, APBDes, serta menyetujui/mengubah status permohonan surat warga.
     </p>
   </div>
 </div>
