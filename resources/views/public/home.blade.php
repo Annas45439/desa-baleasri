@@ -21,16 +21,17 @@
 <section class="hero-oval-section">
 
   {{-- Video Background YouTube --}}
-  <div class="hero-video-bg" aria-hidden="true">
+  <div class="hero-video-bg" style="position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;" aria-hidden="true">
     <iframe
       class="hero-video-iframe"
-      src="https://www.youtube.com/embed/nbk-af31BXs?autoplay=1&mute=1&loop=1&playlist=nbk-af31BXs&controls=0&showinfo=0&rel=0&enablejsapi=1&playsinline=1&disablekb=1&modestbranding=1"
+      src="https://www.youtube.com/embed/nbk-af31BXs?autoplay=1&mute=1&loop=1&playlist=nbk-af31BXs&controls=0&showinfo=0&rel=0&iv_load_policy=3&enablejsapi=1&playsinline=1&disablekb=1&modestbranding=1"
       title="Background Video Hero Desa Baleasri"
       allow="autoplay; encrypted-media"
+      style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
       tabindex="-1"
     ></iframe>
     {{-- Overlay cinematic gradient agar teks tetap terbaca --}}
-    <div class="hero-video-overlay"></div>
+    <div class="hero-video-overlay" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(3,28,18,0.55) 0%, rgba(5,46,33,0.40) 40%, rgba(5,46,33,0.65) 80%, rgba(3,22,14,0.88) 100%);"></div>
   </div>
 
   <div class="container hero-oval-inner">

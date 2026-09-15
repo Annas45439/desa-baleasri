@@ -7,7 +7,7 @@
 <meta name="description" content="Website Resmi {{ $setting->nama_desa ?? 'Desa Baleasri' }}, Kecamatan Ngariboyo, Kabupaten Magetan — Portal Informasi Publik & Pelayanan Desa">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ secure_asset('assets/css/site.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('assets/css/site.css') }}?v={{ @filemtime(public_path('assets/css/site.css')) }}">
 </head>
 <body>
 
