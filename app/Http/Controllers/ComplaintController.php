@@ -33,7 +33,16 @@ class ComplaintController extends Controller
             'status' => 'Baru',
         ]);
 
-        $adminEmails = User::where('role', User::ROLE_SUPER_ADMIN)->pluck('email')->all();
+        $adminEmails = User::whereIn('role', [User::ROLE_SUPER_ADMIN, User::ROLE_ADMIN])
+            ->pluck('email')
+            ->all();
+
+        if ($fromEmail = config('mail.from.address')) {
+            $adminEmails[] = $fromEmail;
+        }
+
+        $adminEmails = array_values(array_unique(array_filter(array_map('trim', $adminEmails))));
+
         if ($adminEmails) {
             try {
                 Mail::to($adminEmails)->send(new AdminComplaintNotification($complaint));
