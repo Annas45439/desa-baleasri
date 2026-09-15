@@ -92,8 +92,17 @@ class LetterController extends Controller
             $letter->update(['tanggal_selesai' => now()]);
         }
 
-        // Send email notification to user
-        Mail::to($letter->email)->send(new LetterStatusUpdate($letter, $oldStatus, $newStatus));
+        // Send email notification to user if email is provided
+        if (!empty($letter->email) && filter_var($letter->email, FILTER_VALIDATE_EMAIL)) {
+            try {
+                Mail::to($letter->email)->send(new LetterStatusUpdate($letter, $oldStatus, $newStatus));
+            } catch (\Throwable $exception) {
+                \Illuminate\Support\Facades\Log::warning('Notifikasi email update status surat gagal dikirim.', [
+                    'letter_id' => $letter->id,
+                    'error' => $exception->getMessage()
+                ]);
+            }
+        }
 
         return back()->with('success', "Status surat berhasil diubah menjadi: {$newStatus}");
     }
