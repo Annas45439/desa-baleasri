@@ -23,8 +23,9 @@
   {{-- Video Background YouTube --}}
   <div class="hero-video-bg" style="position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;" aria-hidden="true">
     <iframe
+      id="hero-yt-player"
       class="hero-video-iframe"
-      src="https://www.youtube.com/embed/nbk-af31BXs?autoplay=1&mute=1&loop=1&playlist=nbk-af31BXs&controls=0&showinfo=0&rel=0&iv_load_policy=3&enablejsapi=1&playsinline=1&disablekb=1&modestbranding=1"
+      src="https://www.youtube.com/embed/nbk-af31BXs?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&loop=1&playlist=nbk-af31BXs"
       title="Background Video Hero Desa Baleasri"
       allow="autoplay; encrypted-media"
       style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
@@ -33,6 +34,52 @@
     {{-- Overlay cinematic gradient agar teks tetap terbaca --}}
     <div class="hero-video-overlay" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(3,28,18,0.55) 0%, rgba(5,46,33,0.40) 40%, rgba(5,46,33,0.65) 80%, rgba(3,22,14,0.88) 100%);"></div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.YT) {
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      }
+
+      var player;
+      window.onYouTubeIframeAPIReady = function () {
+        player = new YT.Player('hero-yt-player', {
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      };
+
+      function onPlayerReady(event) {
+        event.target.mute();
+        event.target.playVideo();
+
+        // Cek posisi video tiap 100ms. Sebelum video benar-benar habis (0.3s),
+        // langsung seek ke awal agar ngeloop seamless tanpa jeda hitam.
+        setInterval(function () {
+          if (player && typeof player.getCurrentTime === 'function' && typeof player.getDuration === 'function') {
+            var dur = player.getDuration();
+            var curr = player.getCurrentTime();
+            if (dur > 0 && curr >= (dur - 0.3)) {
+              player.seekTo(0, true);
+              player.playVideo();
+            }
+          }
+        }, 100);
+      }
+
+      function onPlayerStateChange(event) {
+        if (event.data === (window.YT ? YT.PlayerState.ENDED : 0)) {
+          event.target.seekTo(0, true);
+          event.target.playVideo();
+        }
+      }
+    });
+  </script>
 
   <div class="container hero-oval-inner">
     <div class="badge-pill-oval">
