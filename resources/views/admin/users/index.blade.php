@@ -7,7 +7,9 @@
 
 {{-- Info kuota Super Admin --}}
 @php
+  $superAdminCount = \App\Models\User::where('role', \App\Models\User::ROLE_SUPER_ADMIN)->count();
   $desaSuperAdminCount = \App\Models\User::where('role', \App\Models\User::ROLE_SUPER_ADMIN)->where('is_developer', false)->count();
+  $canAddSuperAdmin = $superAdminCount < 2;
 @endphp
 
 <div style="background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:24px; display:flex; align-items:center; gap:12px;">
