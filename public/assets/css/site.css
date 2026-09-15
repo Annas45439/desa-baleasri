@@ -355,10 +355,70 @@ nav.floating-oval-nav {
   to { transform: translateX(-50%); }
 }
 
-/* Hero Section (Oval Midnight Jade & Luminous Gold) */
+/* ── Video Hero Background ── */
 .hero-oval-section {
   position: relative;
-  padding: 60px 0 50px;
+  padding: 100px 0 60px;
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  /* Fallback gradient jika video belum dimuat */
+  background: linear-gradient(135deg, #052e21 0%, #0a4a32 50%, #1a6b4a 100%);
+}
+
+/* Container video — cover penuh, di belakang semua */
+.hero-video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* YouTube iframe — diset melebihi aspect ratio 16:9 agar fit fullscreen cover tanpa border hitam */
+.hero-video-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 16:9 ratio */
+  min-height: 100vh;
+  min-width: 177.77vh; /* 16:9 ratio */
+  transform: translate(-50%, -50%) scale(1.15);
+  filter: blur(1.5px) brightness(0.80) saturate(1.15);
+  pointer-events: none;
+  border: 0;
+  animation: hero-vid-zoom 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Slow cinematic zoom agar video tidak terasa statis */
+@keyframes hero-vid-zoom {
+  0%   { transform: translate(-50%, -50%) scale(1.15); }
+  100% { transform: translate(-50%, -50%) scale(1.22); }
+}
+
+/* Overlay gradient — jade gelap di bawah, transparan di tengah-atas
+   Memastikan teks putih/gold tetap kontras */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(3, 28, 18, 0.55) 0%,
+      rgba(5, 46, 33, 0.40) 40%,
+      rgba(5, 46, 33, 0.65) 80%,
+      rgba(3, 22, 14, 0.88) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(212, 175, 55, 0.08) 0%,
+      transparent 60%
+    );
 }
 
 .hero-oval-inner {
@@ -373,17 +433,17 @@ nav.floating-oval-nav {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--surface-glass);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(16px);
   padding: 6px 20px;
   border-radius: var(--radius-oval);
   margin-bottom: 24px;
-  box-shadow: 0 6px 20px rgba(5, 46, 33, 0.06);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 .badge-pill-oval .word {
-  background: var(--jade-dark);
-  color: var(--gold-main);
+  background: var(--gold-main);
+  color: var(--jade-dark);
   font-family: var(--font-title);
   font-weight: 800;
   padding: 3px 12px;
@@ -393,7 +453,7 @@ nav.floating-oval-nav {
 .badge-pill-oval .desc {
   font-size: 0.84rem;
   font-weight: 700;
-  color: var(--ink-sub);
+  color: rgba(255,255,255,0.85);
 }
 
 .hero-oval-section h1 {
@@ -403,15 +463,17 @@ nav.floating-oval-nav {
   line-height: 1.08;
   letter-spacing: -0.02em;
   margin-bottom: 18px;
-  color: var(--jade-dark);
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
 }
 
 .hero-oval-section p.subtitle {
   font-size: 1.05rem;
-  color: var(--ink-sub);
+  color: rgba(255,255,255,0.82);
   max-width: 620px;
   margin: 0 auto 32px;
   line-height: 1.65;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
 }
 
 .hero-actions-oval {

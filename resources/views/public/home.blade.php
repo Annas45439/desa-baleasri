@@ -19,6 +19,20 @@
 
 <!-- Hero Section (Epic Oval Midnight Jade & Gold) -->
 <section class="hero-oval-section">
+
+  {{-- Video Background YouTube --}}
+  <div class="hero-video-bg" aria-hidden="true">
+    <iframe
+      class="hero-video-iframe"
+      src="https://www.youtube.com/embed/nbk-af31BXs?autoplay=1&mute=1&loop=1&playlist=nbk-af31BXs&controls=0&showinfo=0&rel=0&enablejsapi=1&playsinline=1&disablekb=1&modestbranding=1"
+      title="Background Video Hero Desa Baleasri"
+      allow="autoplay; encrypted-media"
+      tabindex="-1"
+    ></iframe>
+    {{-- Overlay cinematic gradient agar teks tetap terbaca --}}
+    <div class="hero-video-overlay"></div>
+  </div>
+
   <div class="container hero-oval-inner">
     <div class="badge-pill-oval">
       <span class="word">BALEASRI</span>
