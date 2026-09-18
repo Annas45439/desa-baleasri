@@ -14,6 +14,22 @@
   </div>
 </div>
 
+<!-- Storage Archive Reminder Banner -->
+<div style="background:rgba(129, 140, 248, 0.08); border:1px solid rgba(129, 140, 248, 0.22); border-radius:16px; padding:16px 20px; margin-top:16px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+  <div style="display:flex; align-items:center; gap:14px;">
+    <div style="width:40px; height:40px; border-radius:12px; background:var(--violet-soft); color:var(--violet); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+      <svg class="icon" style="font-size:1.25rem;"><use href="#i-aduan"/></svg>
+    </div>
+    <div>
+      <div style="font-size:0.88rem; font-weight:800; color:var(--ink);">💡 Pengingat Arsip Pengaduan Warga</div>
+      <div style="font-size:0.78rem; color:var(--ink-3); margin-top:3px; line-height:1.4;">Simpan foto/berkas bukti dari pengaduan yang berstatus <strong>Selesai</strong> ke komputer lokal jika sudah ditindaklanjuti.</div>
+    </div>
+  </div>
+  <a href="{{ route('admin.storage.index') }}" class="btn-sm btn-ghost" style="white-space:nowrap; text-decoration:none;">
+    <svg class="icon"><use href="#i-storage"/></svg> Cek Kapasitas Disk
+  </a>
+</div>
+
 <div style="margin:18px 0 24px; display:grid; grid-template-columns:repeat(4, minmax(150px,1fr)); gap:14px;">
   <div class="panel" style="padding:18px; margin:0;">
     <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.09em;">Total</div>

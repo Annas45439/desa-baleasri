@@ -36,7 +36,13 @@
         </div>
       @endif
       <input type="file" id="hero_image" name="hero_image" accept="image/*">
-      <p class="hint">Format JPG/PNG, maksimal 5MB. Foto ini digunakan sebagai hero beranda.</p>
+      <p class="hint">Format JPG/PNG, maksimal 5MB. Foto ini digunakan sebagai cadangan hero beranda.</p>
+    </div>
+
+    <div class="form-row">
+      <label for="hero_video">Link Video Background Hero (YouTube / Google Drive)</label>
+      <input type="text" id="hero_video" name="hero_video" value="{{ old('hero_video', $setting->hero_video) }}" placeholder="https://www.youtube.com/watch?v=nbk-af31BXs atau https://youtu.be/nbk-af31BXs">
+      <p class="hint">💡 <strong>Tips Hemat Storage:</strong> Masukkan URL video YouTube (misal: <code>https://youtu.be/nbk-af31BXs</code>) atau link Google Drive publik. Video diputar otomatis sebagai latar belakang hero tanpa memakan penyimpanan hosting.</p>
     </div>
   </div>
 

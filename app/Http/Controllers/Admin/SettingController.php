@@ -17,6 +17,7 @@ class SettingController extends Controller
         $data = $request->validate([
             'nama_desa' => ['required', 'string', 'max:150'], 'tagline' => ['nullable', 'string', 'max:200'],
             'deskripsi_hero' => ['nullable', 'string'], 'hero_image' => ['nullable', 'image', 'max:5120'],
+            'hero_video' => ['nullable', 'string', 'max:255'],
             'nama_kepala_desa' => ['nullable', 'string', 'max:150'], 'sambutan' => ['nullable', 'string'],
             'foto_kepala_desa' => ['nullable', 'image', 'max:4096'], 'stat_pendidikan' => ['nullable', 'integer', 'min:0'],
             'stat_umkm' => ['nullable', 'integer', 'min:0'], 'stat_wisata' => ['nullable', 'integer', 'min:0'],

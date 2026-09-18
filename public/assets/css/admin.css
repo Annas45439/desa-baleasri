@@ -111,12 +111,19 @@ a      { text-decoration: none; color: inherit; }
   color: #fff; font-weight: 800; font-family: var(--font-display); font-size: 1rem;
   box-shadow: 0 4px 14px rgba(16,185,129,0.40);
 }
-.side-brand .side-brand-logo {
-  object-fit: contain;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
+.side-brand .side-brand-logo,
+.mobile-brand-logo,
+.side-brand img {
+  width: 36px !important;
+  height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 .side-brand .txt {
   font-family: var(--font-display); font-weight: 700;

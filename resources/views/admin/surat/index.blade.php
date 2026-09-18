@@ -30,15 +30,24 @@
   </div>
 </div>
 
-<!-- Buttons -->
-<div style="display:flex; gap:10px; margin-bottom:20px;">
-  <a href="{{ route('admin.letters.report') }}" class="btn btn-secondary" style="text-decoration:none;">
-    <svg class="icon"><use href="#i-report"/></svg> Lihat Laporan
+<!-- Storage Archive Reminder Banner -->
+<div style="background:rgba(16, 185, 129, 0.08); border:1px solid rgba(16, 185, 129, 0.22); border-radius:16px; padding:16px 20px; margin-bottom:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+  <div style="display:flex; align-items:center; gap:14px;">
+    <div style="width:40px; height:40px; border-radius:12px; background:var(--emerald-glow); color:var(--emerald); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+      <svg class="icon" style="font-size:1.25rem;"><use href="#i-storage"/></svg>
+    </div>
+    <div>
+      <div style="font-size:0.88rem; font-weight:800; color:var(--ink);">💡 Pengingat Hemat Penyimpanan Hosting</div>
+      <div style="font-size:0.78rem; color:var(--ink-3); margin-top:3px; line-height:1.4;">Disarankan untuk segera mengunduh / menyimpan berkas surat yang berstatus <strong>Selesai</strong> ke komputer lokal agar ruang disk hosting tidak menumpuk.</div>
+    </div>
+  </div>
+  <a href="{{ route('admin.letters.report') }}" class="btn-sm btn-primary" style="white-space:nowrap; text-decoration:none;">
+    <svg class="icon"><use href="#i-report"/></svg> Rekap Laporan
   </a>
 </div>
 
 @if (session('success'))
-  <div style="background:#efe; border:1px solid #cfc; border-radius:8px; padding:15px; margin-bottom:20px; color:#060;">
+  <div style="background:var(--emerald-glow); border:1px solid var(--emerald); border-radius:12px; padding:14px 18px; margin-bottom:20px; color:var(--emerald); font-weight:600; font-size:0.88rem;">
     {{ session('success') }}
   </div>
 @endif

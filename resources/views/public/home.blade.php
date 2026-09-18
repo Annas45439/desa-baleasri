@@ -17,20 +17,45 @@
   </div>
 </div>
 
+@php
+  $videoSource = trim($setting->hero_video ?? 'nbk-af31BXs');
+  $ytVideoId = 'nbk-af31BXs';
+  $isDrive = false;
+  $driveEmbedUrl = '';
+
+  if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $videoSource, $matches)) {
+      $ytVideoId = $matches[1];
+  } elseif (preg_match('/drive\.google\.com\/file\/d\/([^\/]+)/', $videoSource, $gMatches)) {
+      $isDrive = true;
+      $driveEmbedUrl = 'https://drive.google.com/file/d/' . $gMatches[1] . '/preview';
+  } elseif (!empty($videoSource) && strlen($videoSource) === 11) {
+      $ytVideoId = $videoSource;
+  }
+@endphp
+
 <!-- Hero Section (Epic Oval Midnight Jade & Gold) -->
 <section class="hero-oval-section">
 
-  {{-- Video Background YouTube --}}
+  {{-- Video Background Hero --}}
   <div class="hero-video-bg" style="position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;" aria-hidden="true">
-    <iframe
-      id="hero-yt-player"
-      class="hero-video-iframe"
-      src="https://www.youtube.com/embed/nbk-af31BXs?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&loop=1&playlist=nbk-af31BXs"
-      title="Background Video Hero Desa Baleasri"
-      allow="autoplay; encrypted-media"
-      style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
-      tabindex="-1"
-    ></iframe>
+    @if($isDrive)
+      <iframe
+        src="{{ $driveEmbedUrl }}"
+        title="Background Video Hero Desa Baleasri"
+        allow="autoplay"
+        style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
+      ></iframe>
+    @else
+      <iframe
+        id="hero-yt-player"
+        class="hero-video-iframe"
+        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&loop=1&playlist={{ $ytVideoId }}"
+        title="Background Video Hero Desa Baleasri"
+        allow="autoplay; encrypted-media"
+        style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
+        tabindex="-1"
+      ></iframe>
+    @endif
     {{-- Overlay cinematic gradient agar teks tetap terbaca --}}
     <div class="hero-video-overlay" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(3,28,18,0.55) 0%, rgba(5,46,33,0.40) 40%, rgba(5,46,33,0.65) 80%, rgba(3,22,14,0.88) 100%);"></div>
   </div>
