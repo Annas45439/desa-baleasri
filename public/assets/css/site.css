@@ -1439,3 +1439,59 @@ footer li {
   }
 }
 
+/* ==========================================================================
+   SCROLL REVEAL & VISITOR ANIMATIONS
+   ========================================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Card Hover Elevate & Image Zoom */
+.card-hover-animate {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.card-hover-animate:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 22px 48px rgba(13, 138, 108, 0.18) !important;
+}
+
+.card-img-zoom {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.card-img-zoom img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.card-hover-animate:hover .card-img-zoom img,
+.card-img-zoom:hover img {
+  transform: scale(1.07) !important;
+}
+
+/* Floating Pulsing Glow Animation */
+@keyframes ambientGlowFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(15px, -20px) scale(1.08); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.blob-circle {
+  animation: ambientGlowFloat 10s ease-in-out infinite alternate !important;
+}
+.blob-circle-2 {
+  animation-delay: -5s !important;
+}
+
+

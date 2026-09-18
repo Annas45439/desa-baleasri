@@ -106,6 +106,9 @@
           <svg class="icon"><use href="#i-logout"/></svg> Keluar
         </button>
       </form>
+      <div style="margin-top:14px; padding-top:10px; border-top:1px solid var(--line); font-size:0.68rem; color:var(--ink-4); text-align:center; font-weight:600;">
+        Dibuat oleh <strong style="color:var(--emerald);">KKNT UNESA 2026</strong>
+      </div>
     </div>
   </aside>
 
@@ -162,10 +165,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
   if (overlay) overlay.addEventListener('click', closeSidebar);
 
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSidebar();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+      closeSidebar();
+    }
+  });
+
   if (sidebar) {
     sidebar.querySelectorAll('.side-link').forEach(link => {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 1000) {
+        if (window.innerWidth < 1024) {
           closeSidebar();
         }
       });

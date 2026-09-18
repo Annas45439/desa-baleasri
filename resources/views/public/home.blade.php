@@ -127,10 +127,10 @@
   </div>
 
   <!-- Quick Access Feature Grid (Oval Glass Cards) -->
-  <div class="quick-access-oval-wrapper">
+  <div class="quick-access-oval-wrapper reveal-on-scroll">
     <div class="container">
       <div class="quick-access-oval-grid">
-        <a href="{{ route('profil.desa') }}" class="oval-feature-card">
+        <a href="{{ route('profil.desa') }}" class="oval-feature-card card-hover-animate">
           <div class="oval-icon-box">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12 L12 5 L22 12"/><path d="M6 12v6h12v-6"/></svg>
           </div>
@@ -138,7 +138,7 @@
           <p>Babad 1887 &amp; Data 2025</p>
         </a>
 
-        <a href="{{ route('apbdes.public') }}" class="oval-feature-card">
+        <a href="{{ route('apbdes.public') }}" class="oval-feature-card card-hover-animate">
           <div class="oval-icon-box">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
@@ -146,7 +146,7 @@
           <p>Transparansi Anggaran</p>
         </a>
 
-        <a href="{{ route('wisata') }}" class="oval-feature-card">
+        <a href="{{ route('wisata') }}" class="oval-feature-card card-hover-animate">
           <div class="oval-icon-box">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 15 L9 5 L12 10 L15 5 L21 15"/><path d="M3 18.5 Q7 16 12 18.5 T21 18.5"/></svg>
           </div>
@@ -154,7 +154,7 @@
           <p>Embung &amp; Sentra Batik</p>
         </a>
 
-        <a href="{{ route('umkm.index') }}" class="oval-feature-card">
+        <a href="{{ route('umkm.index') }}" class="oval-feature-card card-hover-animate">
           <div class="oval-icon-box">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
           </div>
@@ -162,7 +162,7 @@
           <p>Produk Lokal Warga</p>
         </a>
 
-        <a href="{{ route('berita.public') }}" class="oval-feature-card">
+        <a href="{{ route('berita.public') }}" class="oval-feature-card card-hover-animate">
           <div class="oval-icon-box">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/></svg>
           </div>
@@ -170,7 +170,7 @@
           <p>Warta Terbaru Desa</p>
         </a>
 
-        <a href="#sop-pelayanan" class="oval-feature-card">
+        <a href="#sop-pelayanan" class="oval-feature-card card-hover-animate">
           <div class="oval-icon-box">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4" stroke-linecap="round"/></svg>
           </div>
@@ -178,9 +178,9 @@
           <p>Alur &amp; Jam Layanan</p>
         </a>
 
-        <a href="{{ route('pengaduan.public') }}" class="oval-feature-card">
+        <a href="{{ route('pengaduan.public') }}" class="oval-feature-card card-hover-animate">
           <div class="oval-icon-box">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 1-2 2v16a2 2 0 0 1 2 2h12a2 2 0 0 1 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           </div>
           <h3>Layanan Surat</h3>
           <p>Aduan &amp; Administrasi</p>
@@ -193,7 +193,7 @@
 <!-- Sambutan Kepala Desa Section -->
 <section class="page-section">
   <div class="container">
-    <div class="oval-glass-card">
+    <div class="oval-glass-card reveal-on-scroll">
       <div class="section-head-oval">
         <span class="kicker-oval">Sambutan Resmi</span>
         <h2>Sambutan Kepala Desa Baleasri</h2>
@@ -249,7 +249,7 @@
 <!-- Ringkasan Pelayanan Publik -->
 <section class="page-section" id="sop-pelayanan">
   <div class="container">
-    <div class="oval-glass-card" style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+    <div class="oval-glass-card reveal-on-scroll" style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
       <div style="max-width:680px;">
         <span class="kicker-oval">Pelayanan Publik</span>
         <h2 style="margin:8px 0;">Butuh layanan desa?</h2>
@@ -267,7 +267,7 @@
 <!-- Destinasi Wisata Spotlight -->
 <section class="page-section">
   <div class="container">
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
+    <div class="reveal-on-scroll" style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
       <div class="section-head-oval" style="margin-bottom:0;">
         <span class="kicker-oval">Destinasi Desa</span>
         <h2>Pariwisata Desa Baleasri</h2>
@@ -277,8 +277,8 @@
     </div>
 
     <div class="card-grid-3">
-      <article class="oval-item-card">
-        <div class="oval-item-media">
+      <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-1">
+        <div class="oval-item-media card-img-zoom">
           <img src="https://picsum.photos/seed/duwetsewu2/600/400" alt="Embung Duwetsewu">
         </div>
         <div class="oval-item-body">
@@ -289,8 +289,8 @@
         </div>
       </article>
 
-      <article class="oval-item-card">
-        <div class="oval-item-media">
+      <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-2">
+        <div class="oval-item-media card-img-zoom">
           <img src="https://picsum.photos/seed/batikgedhek2/600/400" alt="Sentra Batik Gedhek">
         </div>
         <div class="oval-item-body">
@@ -301,8 +301,8 @@
         </div>
       </article>
 
-      <article class="oval-item-card">
-        <div class="oval-item-media">
+      <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-3">
+        <div class="oval-item-media card-img-zoom">
           <img src="https://picsum.photos/seed/sawah2/600/400" alt="Hamparan Sawah Baleasri">
         </div>
         <div class="oval-item-body">

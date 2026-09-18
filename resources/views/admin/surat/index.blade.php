@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
+@section('title', 'Layanan Surat')
+@section('page-title', 'Layanan Surat')
+@section('page-subtitle', 'Kelola pengajuan surat warga dan status penerbitannya.')
+
 @section('content')
 
-<h1 style="font-family:var(--font-title); font-weight:800; font-size:2rem; margin-bottom:30px;">
-  Manajemen Surat
-</h1>
-
 <!-- Stats Cards -->
-<div class="stat-grid" style="grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));">
+<div class="stat-grid">
   <div class="stat-card">
     <div class="num" style="color:var(--emerald);">{{ $stats['total'] }}</div>
     <div class="label">Total Pengajuan</div>
@@ -77,14 +77,7 @@
         </td>
         <td>{{ $letter->jenis_surat }}</td>
         <td>
-          <span style="display:inline-block; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:600; color:white;
-            background-color:
-            @if ($letter->status === 'Baru') #ffc107
-            @elseif ($letter->status === 'Diproses') #2196F3
-            @elseif ($letter->status === 'Siap Diambil') #10b981
-            @elseif ($letter->status === 'Selesai') #888
-            @elseif ($letter->status === 'Ditolak') #dc3545
-            @else #999 @endif;">
+          <span class="status-pill {{ in_array($letter->status, ['Siap Diambil', 'Selesai']) ? 'st-selesai' : ($letter->status === 'Diproses' ? 'st-proses' : 'st-baru') }}">
             {{ $letter->status }}
           </span>
         </td>

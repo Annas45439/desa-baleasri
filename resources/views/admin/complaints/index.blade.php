@@ -30,22 +30,22 @@
   </a>
 </div>
 
-<div style="margin:18px 0 24px; display:grid; grid-template-columns:repeat(4, minmax(150px,1fr)); gap:14px;">
-  <div class="panel" style="padding:18px; margin:0;">
-    <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.09em;">Total</div>
-    <div style="font-size:2rem; font-weight:800; margin-top:8px;">{{ $stats['total'] }}</div>
+<div class="stat-grid" style="margin:18px 0 24px;">
+  <div class="stat-card">
+    <div class="num" style="color:var(--ink);">{{ $stats['total'] }}</div>
+    <div class="label">Total Pengaduan</div>
   </div>
-  <div class="panel" style="padding:18px; margin:0;">
-    <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.09em;">Baru</div>
-    <div style="font-size:2rem; font-weight:800; margin-top:8px;">{{ $stats['baru'] }}</div>
+  <div class="stat-card">
+    <div class="num" style="color:var(--rose);">{{ $stats['baru'] }}</div>
+    <div class="label">Baru</div>
   </div>
-  <div class="panel" style="padding:18px; margin:0;">
-    <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.09em;">Diproses</div>
-    <div style="font-size:2rem; font-weight:800; margin-top:8px;">{{ $stats['diproses'] }}</div>
+  <div class="stat-card">
+    <div class="num" style="color:var(--amber);">{{ $stats['diproses'] }}</div>
+    <div class="label">Diproses</div>
   </div>
-  <div class="panel" style="padding:18px; margin:0;">
-    <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.09em;">Selesai</div>
-    <div style="font-size:2rem; font-weight:800; margin-top:8px;">{{ $stats['selesai'] }}</div>
+  <div class="stat-card">
+    <div class="num" style="color:var(--emerald);">{{ $stats['selesai'] }}</div>
+    <div class="label">Selesai</div>
   </div>
 </div>
 

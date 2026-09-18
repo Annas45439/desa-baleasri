@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
+@section('title', 'Proses Surat')
+@section('page-title', 'Proses Pengajuan Surat')
+@section('page-subtitle', 'Tinjau data pemohon, unggah surat PDF, dan perbarui status pengajuan.')
+
 @section('content')
 
-<a href="{{ route('admin.letters.index') }}" style="color:var(--jade-main); text-decoration:none; margin-bottom:20px; display:inline-block;">
-  ← Kembali ke Daftar Surat
+<a href="{{ route('admin.letters.index') }}" class="btn-sm btn-ghost" style="margin-bottom:20px; text-decoration:none; display:inline-flex;">
+  &larr; Kembali ke Daftar Surat
 </a>
 
-<h1 style="font-family:var(--font-title); font-weight:800; font-size:2rem; margin:20px 0;">
-  Proses Pengajuan Surat
-</h1>
-
-<div style="display:grid; grid-template-columns:2fr 1fr; gap:30px;">
+<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
 
   <!-- Main Form -->
   <div>
@@ -33,7 +33,7 @@
     @endif
 
     <!-- Data Pengaju -->
-    <div class="form-card" style="margin-bottom:20px;">
+    <div class="form-card" style="margin-bottom:20px; max-width:100%;">
       <h3 style="color:var(--ink); margin-bottom:16px;">Data Pengaju</h3>
       <div class="form-grid-2">
         <div class="form-row">
@@ -66,7 +66,7 @@
       @csrf
       @method('PUT')
 
-      <div class="form-card">
+      <div class="form-card" style="max-width:100%;">
         <h3 style="color:var(--ink); margin-bottom:16px;">Proses Surat</h3>
 
         <div class="form-row">
@@ -106,32 +106,25 @@
   <div>
 
     <!-- Status Update -->
-    <div class="form-card" style="margin-bottom:20px;">
-      <h3 style="margin-top:0; color:var(--ink);">Ubah Status</h3>
+    <div class="form-card" style="margin-bottom:20px; max-width:100%;">
+      <h3 style="margin-top:0; color:var(--ink); margin-bottom:14px;">Ubah Status</h3>
 
       <form method="POST" action="{{ route('admin.letters.update-status', $letter) }}">
         @csrf
         @method('PATCH')
 
-        <div style="margin-bottom:15px;">
+        <div class="form-row">
           <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--ink-2);">Status Saat Ini</label>
           <div style="background:var(--surface-3); padding:10px; border-radius:10px; border-left:4px solid var(--emerald);">
-            <span style="display:inline-block; padding:6px 12px; border-radius:20px; font-size:0.9rem; font-weight:600; color:white;
-              background-color:
-              @if ($letter->status === 'Baru') #ffc107
-              @elseif ($letter->status === 'Diproses') #2196F3
-              @elseif ($letter->status === 'Siap Diambil') #10b981
-              @elseif ($letter->status === 'Selesai') #888
-              @elseif ($letter->status === 'Ditolak') #dc3545
-              @else #999 @endif;">
+            <span class="status-pill {{ in_array($letter->status, ['Siap Diambil', 'Selesai']) ? 'st-selesai' : ($letter->status === 'Diproses' ? 'st-proses' : 'st-baru') }}">
               {{ $letter->status }}
             </span>
           </div>
         </div>
 
-        <div style="margin-bottom:15px;">
+        <div class="form-row">
           <label for="status" style="display:block; margin-bottom:8px; font-weight:600;">Ubah Menjadi</label>
-          <select name="status" id="status" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+          <select name="status" id="status" required style="width:100%;">
             <option value="">-- Pilih Status --</option>
             @foreach (\App\Models\Letter::getStatusOptions() as $value => $label)
               @if ($value !== $letter->status)
@@ -141,12 +134,12 @@
           </select>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width:100%;">Update Status</button>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Update Status</button>
       </form>
     </div>
 
     <!-- WhatsApp Notification Card -->
-    <div class="form-card" style="margin-bottom:20px; background:linear-gradient(135deg, #075e54, #128c7e); color:white; border:none;">
+    <div class="form-card" style="margin-bottom:20px; max-width:100%; background:linear-gradient(135deg, #075e54, #128c7e); color:white; border:none;">
       <h3 style="margin-top:0; color:white; display:flex; align-items:center; gap:8px;">
         <span><svg class="icon"><use href="#i-message"/></svg> Notifikasi WA</span>
       </h3>
@@ -159,36 +152,36 @@
     </div>
 
     <!-- Info Card -->
-    <div class="form-card">
-      <h3 style="margin-top:0;">Info</h3>
+    <div class="form-card" style="margin-bottom:20px; max-width:100%;">
+      <h3 style="margin-top:0; margin-bottom:14px;">Info Pengajuan</h3>
 
       <div style="font-size:0.9rem; line-height:1.6;">
         <div style="margin-bottom:15px;">
-          <label style="color:var(--ink-muted); font-weight:600; display:block;">Ref. Nomor</label>
-          <div style="font-family:monospace; font-weight:bold;">{{ $letter->ref_number }}</div>
+          <label style="color:var(--ink-3); font-size:0.78rem; font-weight:600; display:block;">Ref. Nomor</label>
+          <div style="font-family:monospace; font-weight:bold; color:var(--ink);">{{ $letter->ref_number }}</div>
         </div>
 
         <div style="margin-bottom:15px;">
-          <label style="color:var(--ink-muted); font-weight:600; display:block;">Jenis Surat</label>
-          <div>{{ $letter->jenis_surat }}</div>
+          <label style="color:var(--ink-3); font-size:0.78rem; font-weight:600; display:block;">Jenis Surat</label>
+          <div style="color:var(--ink);">{{ $letter->jenis_surat }}</div>
         </div>
 
         <div style="margin-bottom:15px;">
-          <label style="color:var(--ink-muted); font-weight:600; display:block;">Tgl. Pengajuan</label>
-          <div>{{ $letter->tanggal_pengajuan->translatedFormat('d F Y H:i') }}</div>
+          <label style="color:var(--ink-3); font-size:0.78rem; font-weight:600; display:block;">Tgl. Pengajuan</label>
+          <div style="color:var(--ink);">{{ $letter->tanggal_pengajuan->translatedFormat('d F Y H:i') }}</div>
         </div>
 
         @if ($letter->tanggal_selesai)
         <div style="margin-bottom:15px;">
-          <label style="color:var(--ink-muted); font-weight:600; display:block;">Tgl. Selesai</label>
-          <div>{{ $letter->tanggal_selesai->translatedFormat('d F Y H:i') }}</div>
+          <label style="color:var(--ink-3); font-size:0.78rem; font-weight:600; display:block;">Tgl. Selesai</label>
+          <div style="color:var(--ink);">{{ $letter->tanggal_selesai->translatedFormat('d F Y H:i') }}</div>
         </div>
         @endif
 
         @if ($letter->diproses_oleh)
         <div>
-          <label style="color:var(--ink-muted); font-weight:600; display:block;">Diproses Oleh</label>
-          <div>{{ $letter->processedBy?->name ?? '-' }}</div>
+          <label style="color:var(--ink-3); font-size:0.78rem; font-weight:600; display:block;">Diproses Oleh</label>
+          <div style="color:var(--ink);">{{ $letter->processedBy?->name ?? '-' }}</div>
         </div>
         @endif
       </div>
@@ -196,9 +189,9 @@
 
     <!-- Dokumen Pendukung -->
     @if ($letter->dokumen_pendukung)
-    <div class="form-card">
-      <h3 style="margin-top:0;">Dokumen Pendukung</h3>
-      <a href="{{ Storage::url($letter->dokumen_pendukung) }}" target="_blank" class="btn btn-secondary" style="display:block; text-align:center; text-decoration:none;">
+    <div class="form-card" style="max-width:100%;">
+      <h3 style="margin-top:0; margin-bottom:12px;">Dokumen Pendukung</h3>
+      <a href="{{ Storage::url($letter->dokumen_pendukung) }}" target="_blank" class="btn btn-ghost" style="display:block; text-align:center; text-decoration:none;">
         📎 Lihat Dokumen
       </a>
     </div>

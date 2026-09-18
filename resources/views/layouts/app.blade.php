@@ -105,7 +105,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; {{ date('Y') }} Pemerintah {{ $setting->nama_desa ?? 'Desa Baleasri' }}</span>
-      <span>Website Resmi Desa &bull; Kecamatan Ngariboyo</span>
+      <span>Dibuat oleh <strong>KKNT UNESA 2026</strong> &bull; Kecamatan Ngariboyo</span>
     </div>
   </div>
 </footer>
@@ -116,6 +116,18 @@
     const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
     const p = document.getElementById('progress');
     if (p) p.style.width = scrolled + '%';
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
   });
 </script>
 @stack('scripts')
