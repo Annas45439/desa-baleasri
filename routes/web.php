@@ -57,6 +57,14 @@ Route::post('cek-ongkir', function (Illuminate\Http\Request $request, RajaOngkir
     }
 })->name('shipping.rates');
 
+Route::get('amin', function () {
+    return response()->view('public.amin', ['setting' => \App\Models\Setting::current()], 200);
+})->name('easter.amin');
+
+Route::get('admin', function () {
+    return response()->view('public.amin', ['setting' => \App\Models\Setting::current()], 200);
+})->name('easter.admin');
+
 /*
 |--------------------------------------------------------------------------
 | Admin: login (tanpa auth)
