@@ -51,8 +51,10 @@
 <div class="layout">
   <aside class="sidebar" id="sidebar">
     <div class="side-brand">
-      <img class="mark side-brand-logo" src="{{ secure_asset('assets/logo/logo magetan.png') }}" alt="Logo Desa Baleasri" width="36" height="36" style="width:36px; height:36px; max-width:36px; max-height:36px; object-fit:contain; flex-shrink:0;">
-      <div class="txt">Baleasri<small>Panel Admin</small></div>
+      <div class="side-brand-info">
+        <img class="mark side-brand-logo" src="{{ secure_asset('assets/logo/logo magetan.png') }}" alt="Logo Desa Baleasri" width="36" height="36" style="width:36px; height:36px; max-width:36px; max-height:36px; object-fit:contain; flex-shrink:0;">
+        <div class="txt">Baleasri<small>Panel Admin</small></div>
+      </div>
       <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Tutup Menu">
         <svg class="icon"><use href="#i-close"/></svg>
       </button>
