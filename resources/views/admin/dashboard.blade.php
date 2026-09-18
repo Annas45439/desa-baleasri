@@ -76,21 +76,31 @@
     <div><h2>Operasional Desa</h2><p class="visitor-subtitle">Ringkasan layanan surat dan pengaduan warga.</p></div>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px; margin-top:12px;">
-    <div style="background:linear-gradient(135deg, #ecfdf5, #f0fdf4); border:1px solid #bbf7d0; border-radius:16px; padding:18px;">
-      <div style="font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--jade-main);">Pengajuan Surat</div>
-      <div style="font-size:2.2rem; font-weight:800; margin-top:8px; color:var(--ink-main);">{{ $letterStats['total'] }}</div>
-      <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;">
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px; margin-top:14px;">
+    <div style="background:var(--surface-3); border:1px solid var(--line-2); border-radius:18px; padding:20px; transition:border-color 0.2s ease, box-shadow 0.2s ease;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:0.75rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--emerald); display:flex; align-items:center; gap:6px;">
+          <svg class="icon"><use href="#i-surat"/></svg> Pengajuan Surat
+        </div>
+        <span class="trend up">Surat Warga</span>
+      </div>
+      <div style="font-family:var(--font-display); font-size:2.4rem; font-weight:800; margin-top:10px; color:var(--ink);">{{ $letterStats['total'] }}</div>
+      <div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;">
         <span class="status-pill st-baru">Baru {{ $letterStats['baru'] }}</span>
         <span class="status-pill st-proses">Diproses {{ $letterStats['diproses'] }}</span>
         <span class="status-pill st-selesai">Selesai {{ $letterStats['selesai'] }}</span>
       </div>
     </div>
 
-    <div style="background:linear-gradient(135deg, #f5f3ff, #f3e8ff); border:1px solid #ddd6fe; border-radius:16px; padding:18px;">
-      <div style="font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:#7c3aed;">Pengaduan</div>
-      <div style="font-size:2.2rem; font-weight:800; margin-top:8px; color:var(--ink-main);">{{ $complaintStats['total'] }}</div>
-      <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;">
+    <div style="background:var(--surface-3); border:1px solid var(--line-2); border-radius:18px; padding:20px; transition:border-color 0.2s ease, box-shadow 0.2s ease;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:0.75rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--violet); display:flex; align-items:center; gap:6px;">
+          <svg class="icon"><use href="#i-aduan"/></svg> Pengaduan Warga
+        </div>
+        <span class="trend up" style="background:var(--violet-soft); color:var(--violet);">Pengaduan</span>
+      </div>
+      <div style="font-family:var(--font-display); font-size:2.4rem; font-weight:800; margin-top:10px; color:var(--ink);">{{ $complaintStats['total'] }}</div>
+      <div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;">
         <span class="status-pill st-baru">Baru {{ $complaintStats['baru'] }}</span>
         <span class="status-pill st-proses">Diproses {{ $complaintStats['diproses'] }}</span>
         <span class="status-pill st-selesai">Selesai {{ $complaintStats['selesai'] }}</span>
@@ -230,10 +240,10 @@
     <h3>Unggah Galeri</h3>
     <p>Tambah foto kegiatan desa</p>
   </a>
-  <a href="{{ route('admin.settings.edit') }}" class="quick-card">
-    <div class="qi" style="background:var(--coral-soft); color:var(--coral);"><svg class="icon"><use href="#i-setting"/></svg></div>
-    <h3>Atur Hero & Sambutan</h3>
-    <p>Ganti video/foto hero, sambutan kades</p>
+  <a href="{{ route('admin.storage.index') }}" class="quick-card">
+    <div class="qi" style="background:var(--sky-soft); color:var(--sky);"><svg class="icon"><use href="#i-storage"/></svg></div>
+    <h3>Status Penyimpanan</h3>
+    <p>Pantau penggunaan disk hosting</p>
   </a>
 </div>
 

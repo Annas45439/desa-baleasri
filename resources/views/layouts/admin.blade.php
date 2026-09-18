@@ -30,14 +30,32 @@
   <symbol id="i-admin" viewBox="0 0 24 24"><path d="M4 9h16l-1.5 10H5.5L4 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M6 9l1.2-4h9.6L18 9M8 13h8M9 16h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M5 20c.7-3.4 3.1-5.2 7-5.2s6.3 1.8 7 5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></symbol>
   <symbol id="i-message" viewBox="0 0 24 24"><path d="M5 5.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 3v-3H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M7 10h10M7 13h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-storage" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4 14h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="7.5" cy="9" r="1" fill="currentColor"/><circle cx="7.5" cy="17" r="1" fill="currentColor"/></symbol>
 </defs>
 </svg>
 
+<header class="mobile-header">
+  <div class="mobile-brand">
+    <img class="mobile-brand-logo" src="{{ secure_asset('assets/logo/logo magetan.png') }}" alt="Logo Desa Baleasri">
+    <div class="txt">Baleasri<small>Panel Admin</small></div>
+  </div>
+  <button type="button" class="mobile-toggle" id="sidebarToggle" aria-label="Buka Menu Admin">
+    <svg class="icon"><use href="#i-menu"/></svg>
+  </button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="layout">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="side-brand">
       <img class="mark side-brand-logo" src="{{ secure_asset('assets/logo/logo magetan.png') }}" alt="Logo Desa Baleasri">
       <div class="txt">Baleasri<small>Panel Admin</small></div>
+      <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Tutup Menu">
+        <svg class="icon"><use href="#i-close"/></svg>
+      </button>
     </div>
 
     <div class="side-group">
@@ -69,6 +87,7 @@
       <div class="side-label">Sistem</div>
       <a href="{{ route('admin.users.index') }}" class="side-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-user"/></svg> Pengguna</a>
       <a href="{{ route('admin.settings.edit') }}" class="side-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-setting"/></svg> Pengaturan</a>
+      <a href="{{ route('admin.storage.index') }}" class="side-link {{ request()->routeIs('admin.storage.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-storage"/></svg> Status Penyimpanan</a>
     </div>
 
     <div class="side-group">
@@ -119,6 +138,41 @@
     @yield('content')
   </main>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('sidebarToggle');
+  const closeBtn = document.getElementById('sidebarClose');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function openSidebar() {
+    if (sidebar) sidebar.classList.add('open');
+    if (overlay) overlay.classList.add('show');
+    document.body.classList.add('sidebar-open');
+  }
+
+  function closeSidebar() {
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('show');
+    document.body.classList.remove('sidebar-open');
+  }
+
+  if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+  if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+
+  if (sidebar) {
+    sidebar.querySelectorAll('.side-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1000) {
+          closeSidebar();
+        }
+      });
+    });
+  }
+});
+</script>
 
 </body>
 </html>

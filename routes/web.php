@@ -18,6 +18,7 @@ use App\Http\Controllers\UmkmApplicantController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LetterController;
+use App\Http\Controllers\Admin\StorageAnalyticsController;
 use App\Services\RajaOngkirService;
 use Illuminate\Support\Facades\Route;
 
@@ -109,5 +110,6 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
 
     Route::get('pengaturan', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('pengaturan', [SettingController::class, 'update'])->name('settings.update');
+    Route::get('storage-analytics', [StorageAnalyticsController::class, 'index'])->name('storage.index');
 });
 
