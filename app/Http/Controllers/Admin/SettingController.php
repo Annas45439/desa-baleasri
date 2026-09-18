@@ -24,6 +24,12 @@ class SettingController extends Controller
             'stat_embung' => ['nullable', 'integer', 'min:0'], 'alamat' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:150'], 'jam_operasional' => ['nullable', 'string', 'max:100'],
             'whatsapp_admin' => ['nullable', 'string', 'max:20'],
+            'instagram' => ['nullable', 'string', 'max:255'],
+            'facebook' => ['nullable', 'string', 'max:255'],
+            'youtube' => ['nullable', 'string', 'max:255'],
+            'maps_embed' => ['nullable', 'string'],
+            'sop_pengajuan' => ['nullable', 'string'],
+            'estimasi_proses' => ['nullable', 'string', 'max:100'],
         ]);
         foreach (['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'] as $field => $directory) {
             if ($request->hasFile($field)) {

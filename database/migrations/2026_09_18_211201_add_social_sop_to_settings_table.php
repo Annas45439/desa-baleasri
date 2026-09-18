@@ -1,0 +1,27 @@
+﻿<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('settings', function (Blueprint $table) {
+            $table->string('instagram')->nullable()->after('whatsapp_admin');
+            $table->string('facebook')->nullable()->after('instagram');
+            $table->string('youtube')->nullable()->after('facebook');
+            $table->text('maps_embed')->nullable()->after('youtube');
+            $table->text('sop_pengajuan')->nullable()->after('maps_embed');
+            $table->string('estimasi_proses')->nullable()->after('sop_pengajuan');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropColumn(['instagram','facebook','youtube','maps_embed','sop_pengajuan','estimasi_proses']);
+        });
+    }
+};

@@ -104,14 +104,72 @@
         <input type="email" id="email" name="email" value="{{ old('email', $setting->email) }}">
       </div>
       <div class="form-row">
-        <label for="jam_operasional">Jam Operasional</label>
-        <input type="text" id="jam_operasional" name="jam_operasional" value="{{ old('jam_operasional', $setting->jam_operasional) }}">
+        <label for="whatsapp_admin">Nomor WhatsApp Admin</label>
+        <input type="text" id="whatsapp_admin" name="whatsapp_admin" value="{{ old('whatsapp_admin', $setting->whatsapp_admin) }}" placeholder="0812xxxxxxx atau 62812xxxxxxx">
+        <p class="hint">Nomor ini digunakan untuk menerima pengaduan warga, pengajuan surat, dan pesan layanan lainnya.</p>
       </div>
     </div>
+  </div>
+
+  <div class="form-card" style="margin-bottom:22px;">
+    <h3 style="font-family:var(--font-display); margin-bottom:4px;">Sosial Media & Maps</h3>
+    <p style="font-size:0.82rem; color:var(--ink-muted); margin-bottom:18px;">Link ini ditampilkan di footer website publik. Kosongkan jika tidak digunakan.</p>
+
+    <div class="form-grid-2">
+      <div class="form-row">
+        <label for="instagram">Instagram</label>
+        <input type="url" id="instagram" name="instagram"
+               value="{{ old('instagram', $setting->instagram) }}"
+               placeholder="https://instagram.com/desabaleasri">
+      </div>
+      <div class="form-row">
+        <label for="facebook">Facebook</label>
+        <input type="url" id="facebook" name="facebook"
+               value="{{ old('facebook', $setting->facebook) }}"
+               placeholder="https://facebook.com/desabaleasri">
+      </div>
+      <div class="form-row">
+        <label for="youtube">YouTube</label>
+        <input type="url" id="youtube" name="youtube"
+               value="{{ old('youtube', $setting->youtube) }}"
+               placeholder="https://youtube.com/@desabaleasri">
+      </div>
+    </div>
+
+    <div class="form-row" style="margin-top:4px;">
+      <label for="maps_embed">URL Embed Google Maps</label>
+      <input type="url" id="maps_embed" name="maps_embed"
+             value="{{ old('maps_embed', $setting->maps_embed) }}"
+             placeholder="https://www.google.com/maps?q=Desa+Baleasri&output=embed">
+      <p class="hint">Buka Google Maps → cari lokasi → klik Bagikan → Sematkan peta → salin URL dari <code>src="..."</code> di dalam iframe.</p>
+    </div>
+  </div>
+
+  <div class="form-card" style="margin-bottom:22px;">
+    <h3 style="font-family:var(--font-display); margin-bottom:4px;">SOP & Informasi Layanan</h3>
+    <p style="font-size:0.82rem; color:var(--ink-muted); margin-bottom:18px;">Ditampilkan di halaman beranda (section SOP), halaman pengajuan surat, dan halaman pengaduan.</p>
+
+    <div class="form-grid-2">
+      <div class="form-row">
+        <label for="estimasi_proses">Estimasi Waktu Proses Surat</label>
+        <input type="text" id="estimasi_proses" name="estimasi_proses"
+               value="{{ old('estimasi_proses', $setting->estimasi_proses) }}"
+               placeholder="1-2 hari kerja">
+        <p class="hint">Contoh: <em>1-2 hari kerja</em> atau <em>3-5 hari kerja</em>. Ditampilkan di info pengajuan surat.</p>
+      </div>
+      <div class="form-row">
+        <label for="jam_operasional">Jam Operasional Kantor</label>
+        <input type="text" id="jam_operasional" name="jam_operasional"
+               value="{{ old('jam_operasional', $setting->jam_operasional) }}"
+               placeholder="Senin - Jumat, 08.00 - 16.00 WIB">
+      </div>
+    </div>
+
     <div class="form-row">
-      <label for="whatsapp_admin">Nomor WhatsApp Admin</label>
-      <input type="text" id="whatsapp_admin" name="whatsapp_admin" value="{{ old('whatsapp_admin', $setting->whatsapp_admin) }}" placeholder="0812xxxxxxx atau 62812xxxxxxx">
-      <p class="hint">Nomor ini digunakan untuk menerima pengaduan warga, pengajuan surat, dan pesan layanan lainnya.</p>
+      <label for="sop_pengajuan">Teks SOP Pengajuan Layanan</label>
+      <textarea id="sop_pengajuan" name="sop_pengajuan" style="min-height:120px;"
+                placeholder="Isi prosedur layanan yang ditampilkan di halaman beranda, misalnya: Isi formulir → Tunggu verifikasi → Download surat...">{{ old('sop_pengajuan', $setting->sop_pengajuan) }}</textarea>
+      <p class="hint">Teks ini menggantikan deskripsi SOP yang sebelumnya statis. Bisa berupa poin-poin alur layanan.</p>
     </div>
   </div>
 

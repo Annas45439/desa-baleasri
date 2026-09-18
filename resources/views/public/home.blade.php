@@ -253,8 +253,15 @@
       <div style="max-width:680px;">
         <span class="kicker-oval">Pelayanan Publik</span>
         <h2 style="margin:8px 0;">Butuh layanan desa?</h2>
-        <p style="margin:0; color:var(--ink-sub);">Ajukan surat, cek status pengajuan, atau sampaikan pengaduan warga melalui satu halaman layanan.</p>
-        <p style="margin:12px 0 0; color:var(--ink-muted); font-size:0.88rem;"><strong>Jam layanan:</strong> Senin - Jumat, 08.00 - 16.00 WIB</p>
+        <p style="margin:0; color:var(--ink-sub);">
+          {{ $setting->sop_pengajuan ?: 'Ajukan surat, cek status pengajuan, atau sampaikan pengaduan warga melalui satu halaman layanan.' }}
+        </p>
+        <p style="margin:12px 0 0; color:var(--ink-muted); font-size:0.88rem;">
+          <strong>Jam layanan:</strong> {{ $setting->jam_operasional ?: 'Senin - Jumat, 08.00 - 16.00 WIB' }}
+          @if($setting->estimasi_proses)
+            &bull; Proses: {{ $setting->estimasi_proses }}
+          @endif
+        </p>
       </div>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <a href="{{ route('layanan') }}" class="btn-oval-primary">Buka Layanan &rarr;</a>
@@ -360,7 +367,7 @@
     </div>
 
     <div style="border-radius:var(--radius-card); overflow:hidden; border:1px solid var(--glass-border); height:380px; box-shadow:var(--glass-shadow);">
-      <iframe src="https://www.google.com/maps?q=Desa%20Baleasri%2C%20Kecamatan%20Ngariboyo%2C%20Kabupaten%20Magetan&output=embed" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+      <iframe src="{{ $setting->maps_embed ?: 'https://www.google.com/maps?q=Desa%20Baleasri%2C%20Kecamatan%20Ngariboyo%2C%20Kabupaten%20Magetan&output=embed' }}" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
     </div>
   </div>
 </section>

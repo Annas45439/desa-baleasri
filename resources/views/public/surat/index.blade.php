@@ -113,7 +113,7 @@
   <div style="background-color:#f0f8ff; border:1px solid #b3d9ff; border-radius:8px; padding:20px; margin-top:30px;">
     <h3 style="margin-top:0; color:#0066cc;">ℹ️ Informasi Penting</h3>
     <ul style="margin:10px 0; padding-left:20px;">
-      <li>Pengajuan surat akan diproses dalam <strong>1-2 hari kerja</strong></li>
+      <li>Pengajuan surat akan diproses dalam <strong>{{ setting('estimasi_proses') ?: '1-2 hari kerja' }}</strong></li>
       <li>Anda akan menerima <strong>notifikasi email</strong> untuk setiap perubahan status</li>
       <li>Surat dapat diunduh atau diambil langsung ke Kantor Desa</li>
       <li>Jam operasional: <strong>{{ setting('jam_operasional') }}</strong></li>
