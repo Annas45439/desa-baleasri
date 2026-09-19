@@ -52,14 +52,6 @@ class SettingController extends Controller
             }
         }
 
-        try {
-            $existingColumns = \Illuminate\Support\Facades\Schema::getColumnListing('settings');
-            if (!empty($existingColumns)) {
-                $data = array_intersect_key($data, array_flip($existingColumns));
-            }
-        } catch (\Throwable $e) {
-        }
-
         $setting->update($data);
         log_activity('UPDATE_SETTING', "Memperbarui Pengaturan Umum, Media Sosmed, SOP, dan Kontak Darurat Desa.");
         return back()->with('status', 'Pengaturan berhasil disimpan.');

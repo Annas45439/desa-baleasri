@@ -51,26 +51,8 @@ if (!function_exists('storage_image_url')) {
                 }
             }
 
-            // Primary check: Storage facade (works on Azure + local + symlink)
-            try {
-                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
-                    return asset('storage/' . $cleanPath);
-                }
-            } catch (\Throwable $e) {
-                // Ignore storage errors, fall through to file_exists checks
-            }
-
-            // Secondary checks: physical file paths (local dev / alternative configs)
-            $candidates = [
-                storage_path('app/public/' . $cleanPath),
-                public_path('storage/' . $cleanPath),
-                public_path($cleanPath),
-            ];
-
-            foreach ($candidates as $candidate) {
-                if (@file_exists($candidate)) {
-                    return asset('storage/' . $cleanPath);
-                }
+            if (!empty($cleanPath)) {
+                return asset('storage/' . $cleanPath);
             }
         }
 
