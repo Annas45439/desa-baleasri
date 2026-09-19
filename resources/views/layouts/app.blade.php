@@ -133,6 +133,10 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; {{ date('Y') }} Pemerintah {{ $setting->nama_desa ?? 'Desa Baleasri' }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.22); padding:4px 14px; border-radius:99px; font-size:0.78rem; color:#A7F3D0; font-weight:600;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Dikunjungi <strong>{{ number_format($totalVisitors ?? 0, 0, ',', '.') }}</strong> kali &bull; Hari ini: <strong>{{ number_format($todayVisitors ?? 0, 0, ',', '.') }}</strong>
+      </span>
       <span>Dibuat oleh <strong>KKNT UNESA 2026</strong> &bull; Kecamatan Ngariboyo</span>
     </div>
   </div>
