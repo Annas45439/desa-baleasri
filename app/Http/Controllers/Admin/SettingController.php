@@ -34,11 +34,13 @@ class SettingController extends Controller
             'kontak_darurat' => ['nullable', 'string', 'max:255'],
         ]);
         foreach (['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'] as $field => $directory) {
-            if ($request->hasFile($field)) {
+            if ($request->hasFile($field) && $request->file($field)->isValid()) {
                 if ($setting->{$field} && Storage::disk('public')->exists($setting->{$field})) {
                     Storage::disk('public')->delete($setting->{$field});
                 }
                 $data[$field] = ImageOptimizer::compressAndStore($request->file($field), $directory);
+            } else {
+                unset($data[$field]);
             }
         }
 
