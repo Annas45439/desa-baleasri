@@ -45,7 +45,7 @@
       <label for="foto">Foto sampul</label>
       @if($berita->foto)
         <div class="current-media">
-          <img src="{{ asset('storage/'.$berita->foto) }}" alt="">
+          <img src="{{ storage_image_url($berita->foto) }}" alt="Preview Foto">
           <span class="hint">Foto saat ini. Unggah baru untuk mengganti.</span>
         </div>
       @endif

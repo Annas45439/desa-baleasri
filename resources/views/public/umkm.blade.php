@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', $kategori)
 
@@ -18,7 +18,7 @@
       @foreach($produk as $item)
         <article class="glass-product-card">
           <div class="glass-product-media">
-            <img src="{{ $item->foto ? asset('storage/'.$item->foto) : 'https://picsum.photos/seed/'.$item->slug.'/600/450' }}" alt="{{ $item->nama }}">
+            <img src="{{ storage_image_url($item->foto, 'https://picsum.photos/seed/'.$item->slug.'/600/450') }}" alt="{{ $item->nama }}">
           </div>
           <div class="glass-product-body">
             <span style="font-size:0.68rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; letter-spacing:0.06em;">{{ $item->tag ?: $kategori }}</span>

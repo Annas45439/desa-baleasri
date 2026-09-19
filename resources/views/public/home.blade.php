@@ -201,11 +201,7 @@
 
       <div style="display:flex; gap:36px; align-items:center; flex-wrap:wrap;">
         <div style="width:170px; height:220px; border-radius:24px; overflow:hidden; flex-shrink:0; border:2px solid var(--glass-border); box-shadow:var(--glass-shadow);">
-          @if($setting->foto_kepala_desa)
-            <img src="{{ asset('storage/'.$setting->foto_kepala_desa) }}" alt="{{ $setting->nama_kepala_desa ?? 'Juremi' }}" style="width:100%; height:100%; object-fit:cover;">
-          @else
-            <img src="https://picsum.photos/seed/kadesbaleasri/400/500" alt="Kepala Desa Juremi" style="width:100%; height:100%; object-fit:cover;">
-          @endif
+          <img src="{{ storage_image_url($setting->foto_kepala_desa, 'https://picsum.photos/seed/kadesbaleasri/400/500') }}" alt="{{ $setting->nama_kepala_desa ?? 'Kepala Desa' }}" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div style="flex-grow:1; min-width:280px;">
           <h3 style="font-family:var(--font-title); font-weight:800; font-size:1.45rem; color:var(--jade-dark); margin-bottom:4px;">
@@ -339,7 +335,7 @@
       @forelse($beritas as $b)
         <article class="oval-item-card">
           <div class="oval-item-media">
-            <img src="{{ $b->foto ? asset('storage/'.$b->foto) : 'https://picsum.photos/seed/'.$b->slug.'/600/400' }}" alt="{{ $b->judul }}">
+            <img src="{{ storage_image_url($b->foto, 'https://picsum.photos/seed/'.$b->slug.'/600/400') }}" alt="{{ $b->judul }}">
           </div>
           <div class="oval-item-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--ink-muted); margin-bottom:4px;">{{ optional($b->tanggal_terbit)->translatedFormat('d M Y') ?? date('d M Y') }}</span>

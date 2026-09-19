@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Wisata Desa')
 
@@ -15,7 +15,7 @@
       @forelse($wisata as $w)
         <article class="exec-card-item">
           <div class="exec-card-media">
-            <img src="{{ $w->foto ? asset('storage/'.$w->foto) : 'https://picsum.photos/seed/'.$w->slug.'/600/400' }}" alt="{{ $w->nama }}">
+            <img src="{{ storage_image_url($w->foto, 'https://picsum.photos/seed/'.$w->slug.'/600/400') }}" alt="{{ $w->nama }}">
           </div>
           <div class="exec-card-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">{{ $w->tag ?? 'Wisata Desa' }}</span>

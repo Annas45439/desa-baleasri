@@ -15,7 +15,7 @@
       @forelse($beritas as $b)
         <article class="exec-card-item">
           <div class="exec-card-media">
-            <img src="{{ $b->foto ? asset('storage/'.$b->foto) : 'https://picsum.photos/seed/'.$b->slug.'/600/400' }}" alt="{{ $b->judul }}">
+            <img src="{{ storage_image_url($b->foto, 'https://picsum.photos/seed/'.$b->slug.'/600/400') }}" alt="{{ $b->judul }}">
           </div>
           <div class="exec-card-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--ink-muted); margin-bottom:4px;">{{ optional($b->tanggal_terbit)->translatedFormat('d M Y') ?? date('d M Y') }}</span>

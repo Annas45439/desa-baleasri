@@ -32,7 +32,7 @@
       <label for="hero_image">Foto Hero Beranda</label>
       @if($setting->hero_image)
         <div class="current-media">
-          <img src="{{ asset('storage/'.$setting->hero_image) }}" alt="">
+          <img src="{{ storage_image_url($setting->hero_image) }}" alt="Preview Hero">
         </div>
       @endif
       <input type="file" id="hero_image" name="hero_image" accept="image/*">
@@ -63,7 +63,7 @@
       <label for="foto_kepala_desa">Foto Kepala Desa</label>
       @if($setting->foto_kepala_desa)
         <div class="current-media">
-          <img src="{{ asset('storage/'.$setting->foto_kepala_desa) }}" alt="">
+          <img src="{{ storage_image_url($setting->foto_kepala_desa) }}" alt="Preview Kades">
         </div>
       @endif
       <input type="file" id="foto_kepala_desa" name="foto_kepala_desa" accept="image/*">

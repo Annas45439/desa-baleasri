@@ -50,7 +50,7 @@
       <label for="foto">Foto</label>
       @if($potensi->foto)
         <div class="current-media">
-          <img src="{{ asset('storage/'.$potensi->foto) }}" alt="">
+          <img src="{{ storage_image_url($potensi->foto) }}" alt="Preview Foto">
           <span class="hint">Foto saat ini. Unggah baru untuk mengganti.</span>
         </div>
       @endif

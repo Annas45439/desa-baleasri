@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Profil & Sejarah Desa Baleasri')
 
@@ -16,11 +16,7 @@
     <div class="glass-card-white" style="margin-bottom: 36px;">
       <div class="sambutan-flex">
         <div class="kades-avatar-frame">
-          @if($setting->foto_kepala_desa)
-            <img src="{{ asset('storage/'.$setting->foto_kepala_desa) }}" alt="{{ $setting->nama_kepala_desa ?? 'Kepala Desa' }}">
-          @else
-            <img src="https://picsum.photos/seed/kadesbaleasri/400/530" alt="Kepala Desa Baleasri">
-          @endif
+          <img src="{{ storage_image_url($setting->foto_kepala_desa, 'https://picsum.photos/seed/kadesbaleasri/400/530') }}" alt="{{ $setting->nama_kepala_desa ?? 'Kepala Desa' }}">
         </div>
         <div style="flex-grow:1;">
           <div class="kicker" style="margin-bottom:8px;">Pemerintahan Desa</div>

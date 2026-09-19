@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Katalog UMKM')
 
@@ -16,7 +16,7 @@
         @php($contoh = $produkKategori->first())
         <a href="{{ route('umkm.show', ['kategori' => Str::slug($namaKategori)]) }}" class="glass-product-card">
           <div class="glass-product-media">
-            <img src="{{ $contoh->foto ? asset('storage/'.$contoh->foto) : 'https://picsum.photos/seed/'.$contoh->slug.'/600/400' }}" alt="{{ $namaKategori }}">
+            <img src="{{ storage_image_url($contoh->foto, 'https://picsum.photos/seed/'.$contoh->slug.'/600/400') }}" alt="{{ $namaKategori }}">
           </div>
           <div class="glass-product-body">
             <span style="font-size:0.68rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; letter-spacing:0.06em;">{{ $produkKategori->count() }} produk</span>
