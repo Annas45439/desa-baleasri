@@ -10,7 +10,23 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
-    public function edit() { return view('admin.settings.edit', ['setting' => Setting::current()]); }
+    public function edit()
+    {
+        $setting = Setting::current();
+        $updates = [];
+
+        foreach (['hero_image', 'foto_kepala_desa'] as $field) {
+            if ($setting->{$field} && !Storage::disk('public')->exists($setting->{$field})) {
+                $updates[$field] = null;
+            }
+        }
+
+        if ($updates) {
+            $setting->update($updates);
+        }
+
+        return view('admin.settings.edit', ['setting' => $setting->fresh()]);
+    }
 
     public function deleteMedia(string $field)
     {
