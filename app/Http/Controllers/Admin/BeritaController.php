@@ -31,10 +31,11 @@ class BeritaController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('foto')) {
+            $newPath = ImageOptimizer::compressAndStore($request->file('foto'), 'berita');
             if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
                 Storage::disk('public')->delete($berita->foto);
             }
-            $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'berita');
+            $data['foto'] = $newPath;
         }
         $berita->update($data);
         log_activity('UPDATE_BERITA', "Memperbarui berita: '{$berita->judul}'.");

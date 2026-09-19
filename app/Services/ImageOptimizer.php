@@ -18,25 +18,35 @@ class ImageOptimizer
         int $maxWidth = 1600,
         int $quality = 82
     ): string {
-        Storage::disk($disk)->makeDirectory($folder);
+        $storage = Storage::disk($disk);
+        $storage->makeDirectory($folder);
 
         $extension = strtolower($file->getClientOriginalExtension() ?: $file->guessExtension() ?: 'jpg');
         $filename = Str::random(40) . '.' . $extension;
-        $targetPath = storage_path("app/public/{$folder}/{$filename}");
+        $relativePath = "{$folder}/{$filename}";
+        $targetPath = $storage->path($relativePath);
 
         @mkdir(dirname($targetPath), 0777, true);
 
         if (extension_loaded('gd') && function_exists('imagecreatetruecolor')) {
             try {
                 if (static::optimizeWithGd($file->getRealPath(), $targetPath, $maxWidth, $quality)) {
-                    return "{$folder}/{$filename}";
+                    if ($storage->exists($relativePath)) {
+                        return $relativePath;
+                    }
                 }
-            } catch (\Throwable $e) {
-                // Fail-safe: fallback to standard store
+            } catch (\Throwable) {
+                // Fall back to the framework storage adapter below.
             }
         }
 
-        return $file->storeAs($folder, $filename, $disk);
+        $storedPath = $file->storeAs($folder, $filename, $disk);
+
+        if (!$storedPath || !$storage->exists($storedPath)) {
+            throw new \RuntimeException("Gagal menyimpan file upload ke disk [{$disk}].");
+        }
+
+        return $storedPath;
     }
 
     private static function optimizeWithGd(string $sourcePath, string $targetPath, int $maxWidth, int $quality): bool

@@ -35,10 +35,13 @@ class SettingController extends Controller
         ]);
         foreach (['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'] as $field => $directory) {
             if ($request->hasFile($field) && $request->file($field)->isValid()) {
-                if ($setting->{$field} && Storage::disk('public')->exists($setting->{$field})) {
-                    Storage::disk('public')->delete($setting->{$field});
+                $oldPath = $setting->{$field};
+                $newPath = ImageOptimizer::compressAndStore($request->file($field), $directory);
+                $data[$field] = $newPath;
+
+                if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
                 }
-                $data[$field] = ImageOptimizer::compressAndStore($request->file($field), $directory);
             } else {
                 unset($data[$field]);
             }

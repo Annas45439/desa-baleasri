@@ -40,10 +40,11 @@ class PotensiController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('foto')) {
+            $newPath = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
             if ($potensi->foto && Storage::disk('public')->exists($potensi->foto)) {
                 Storage::disk('public')->delete($potensi->foto);
             }
-            $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
+            $data['foto'] = $newPath;
         }
         $potensi->update($data);
         log_activity('UPDATE_POTENSI', "Memperbarui konten " . strtoupper($potensi->kategori) . ": '{$potensi->nama}'.");
