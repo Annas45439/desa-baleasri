@@ -46,6 +46,24 @@ class SettingController extends Controller
         return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke avatar default.');
     }
 
+    public function deleteMedia(string $field)
+    {
+        $directories = ['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'];
+        abort_unless(array_key_exists($field, $directories), 404);
+
+        $setting = Setting::current();
+        $path = $setting->{$field};
+
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+
+        $setting->update([$field => null]);
+        log_activity('DELETE_SETTING_MEDIA', "Menghapus media pengaturan: {$field}.");
+
+        return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke avatar default.');
+    }
+
     public function update(Request $request)
     {
         $setting = Setting::current();
