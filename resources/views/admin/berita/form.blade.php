@@ -47,6 +47,10 @@
         <div class="current-media">
           <img src="{{ storage_image_url($berita->foto) }}" alt="Preview Foto" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
           <span class="hint">Foto saat ini. Unggah baru untuk mengganti.</span>
+          <form method="POST" action="{{ route('admin.berita.photo.destroy', $berita) }}" onsubmit="return confirm('Hapus foto sampul ini?');">
+            @csrf @method('DELETE')
+            <button type="submit" class="btn-sm btn-delete">Hapus Foto</button>
+          </form>
         </div>
       @endif
       <input type="file" id="foto" name="foto" accept="image/*">
