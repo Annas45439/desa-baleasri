@@ -99,7 +99,11 @@
         <ul>
           @if($setting->email)<li>{{ $setting->email }}</li>@endif
           <li>Kecamatan Ngariboyo, Magetan</li>
-          <li>Ambulans Desa: 119</li>
+          @if($setting->kontak_darurat)
+            <li>{{ $setting->kontak_darurat }}</li>
+          @elseif($setting->whatsapp_admin)
+            <li>WA Admin: +{{ $setting->whatsapp_admin }}</li>
+          @endif
           @if($setting->instagram || $setting->facebook || $setting->youtube)
           <li style="margin-top:10px;">
             <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; opacity:.6;">Ikuti Kami</span>

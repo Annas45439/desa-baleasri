@@ -16,6 +16,7 @@ class StorageAnalyticsController extends Controller
         $totalBytes = 0;
         $totalFiles = 0;
         $allFiles = [];
+
         $categories = [
             'berita' => ['name' => 'Berita & Agenda', 'bytes' => 0, 'files' => 0, 'color' => '#F59E0B', 'icon' => 'i-berita'],
             'potensi' => ['name' => 'UMKM & Potensi Desa', 'bytes' => 0, 'files' => 0, 'color' => '#10B981', 'icon' => 'i-umkm'],
@@ -26,6 +27,16 @@ class StorageAnalyticsController extends Controller
             'lainnya' => ['name' => 'File Lainnya', 'bytes' => 0, 'files' => 0, 'color' => '#64748B', 'icon' => 'i-dash'],
         ];
 
+        $folderMap = [
+            'hero' => 'settings',
+            'kepala-desa' => 'settings',
+            'pengaduan' => 'complaints',
+            'berita' => 'berita',
+            'potensi' => 'potensi',
+            'wisata' => 'wisata',
+            'surat' => 'surat',
+        ];
+
         if (File::exists($storagePath)) {
             $files = File::allFiles($storagePath);
 
@@ -34,11 +45,11 @@ class StorageAnalyticsController extends Controller
                 $totalBytes += $size;
                 $totalFiles++;
 
-                $relativePath = Str::replaceFirst($storagePath . DIRECTORY_SEPARATOR, '', $file->getPathname());
-                $relativePathFixed = str_replace('\\', '/', $relativePath);
-                $folder = explode('/', $relativePathFixed)[0] ?? 'lainnya';
+                $relativePath = Str::replaceFirst($storagePath, '', $file->getPathname());
+                $relativePathFixed = ltrim(str_replace('\\', '/', $relativePath), '/');
+                $rawFolder = explode('/', $relativePathFixed)[0] ?? 'lainnya';
 
-                $catKey = array_key_exists($folder, $categories) ? $folder : 'lainnya';
+                $catKey = $folderMap[$rawFolder] ?? (array_key_exists($rawFolder, $categories) ? $rawFolder : 'lainnya');
                 $categories[$catKey]['bytes'] += $size;
                 $categories[$catKey]['files']++;
 
@@ -63,14 +74,20 @@ class StorageAnalyticsController extends Controller
             $categories[$key]['percentage'] = $totalBytes > 0 ? round(($cat['bytes'] / $totalBytes) * 100, 1) : 0;
         }
 
+        // Real Server Hosting Disk Space
+        $diskFree = @disk_free_space(base_path());
+        $diskTotal = @disk_total_space(base_path());
+        $serverDiskUsed = ($diskTotal && $diskFree && $diskTotal > $diskFree) ? ($diskTotal - $diskFree) : 0;
+        $serverDiskUsedPercentage = ($diskTotal > 0) ? round(($serverDiskUsed / $diskTotal) * 100, 1) : 0;
+
         // Determine storage health status
         $health = 'safe';
         $healthMessage = 'Kapasitas penyimpanan hosting dalam kondisi prima dan sangat ringan.';
-        
-        if ($totalBytes > 2 * 1024 * 1024 * 1024) { // > 2 GB
+
+        if ($totalBytes > 2 * 1024 * 1024 * 1024 || $serverDiskUsedPercentage > 85) { // > 2 GB or > 85% server disk
             $health = 'critical';
             $healthMessage = 'Penyimpanan hosting cukup tinggi. Pertimbangkan kompresi gambar baru.';
-        } elseif ($totalBytes > 500 * 1024 * 1024) { // > 500 MB
+        } elseif ($totalBytes > 500 * 1024 * 1024 || $serverDiskUsedPercentage > 65) { // > 500 MB or > 65% server disk
             $health = 'warning';
             $healthMessage = 'Penyimpanan terisi moderat. Pemantauan berkala disarankan.';
         }
@@ -83,6 +100,10 @@ class StorageAnalyticsController extends Controller
             'topFiles' => $topFiles,
             'health' => $health,
             'healthMessage' => $healthMessage,
+            'serverDiskTotal' => $diskTotal ? $this->formatBytes($diskTotal) : 'N/A',
+            'serverDiskFree' => $diskFree ? $this->formatBytes($diskFree) : 'N/A',
+            'serverDiskUsed' => $serverDiskUsed ? $this->formatBytes($serverDiskUsed) : 'N/A',
+            'serverDiskUsedPercentage' => $serverDiskUsedPercentage,
         ]);
     }
 

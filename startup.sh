@@ -4,7 +4,8 @@ set -e
 cd /home/site/wwwroot
 rm -f hostingstart.html
 
-mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs storage/app/public
+mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs storage/app/public/berita storage/app/public/potensi storage/app/public/hero storage/app/public/kepala-desa storage/app/public/surat storage/app/public/pengaduan
+chmod -R 777 storage bootstrap/cache 2>/dev/null || true
 
 if [ ! -f index.php ]; then
 	printf '%s\n' '<?php' "require __DIR__ . '/public/index.php';" > index.php
@@ -14,6 +15,7 @@ rm -rf assets build
 cp -R public/assets assets
 cp -R public/build build
 php artisan storage:link --force || true
+php artisan migrate --force || true
 
 # Tulis nginx config ke /home/site agar persisten lintas restart
 cat > /home/site/nginx-default << 'NGINXEOF'
@@ -21,6 +23,8 @@ server {
     listen 8080;
     root /home/site/wwwroot;
     index index.php index.html;
+
+    client_max_body_size 32M;
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
@@ -31,9 +35,10 @@ server {
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
+        fastcgi_read_timeout 300;
     }
 
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif)$ {
         expires max;
         log_not_found off;
     }

@@ -54,12 +54,18 @@
 <div class="panel" style="margin-bottom:24px;">
   <div class="panel-head">
     <div>
-      <h2>Distribusi Penyimpanan</h2>
-      <p class="visitor-subtitle">{{ $healthMessage }}</p>
+      <h2>Distribusi Penyimpanan Website</h2>
+      <p class="visitor-subtitle">{{ $healthMessage }} &bull; Berkas Aplikasi: <strong>{{ $formattedTotal }}</strong> ({{ number_format($totalFiles) }} file diunggah)</p>
     </div>
-    <span class="status-pill {{ $health === 'safe' ? 'st-selesai' : ($health === 'warning' ? 'st-proses' : 'st-baru') }}">
-      {{ $formattedTotal }} / Hosting Storage
-    </span>
+    @if($serverDiskTotal !== 'N/A')
+      <span class="status-pill {{ $health === 'safe' ? 'st-selesai' : ($health === 'warning' ? 'st-proses' : 'st-baru') }}">
+        Hosting Disk: {{ $serverDiskUsed }} terpakai dari {{ $serverDiskTotal }}
+      </span>
+    @else
+      <span class="status-pill st-selesai">
+        Total Berkas: {{ $formattedTotal }}
+      </span>
+    @endif
   </div>
 
   <!-- Multi-colored Segmented Progress Bar -->

@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Layanan Desa')
 
@@ -159,7 +159,9 @@
           <div class="card-executive" style="margin-bottom:0; background:var(--jade-dark); color:#ffffff;">
             <h3 style="font-family:var(--font-title); font-weight:700; font-size:1.1rem; color:#ffffff; margin-bottom:12px;">Layanan Darurat Desa</h3>
             <ul style="font-size:0.85rem; display:flex; flex-direction:column; gap:8px; opacity:0.9;">
-              <li><strong>Ambulans / Kesehatan:</strong> 119</li>
+              @if($setting->kontak_darurat)
+                <li><strong>Kontak Darurat:</strong> {{ $setting->kontak_darurat }}</li>
+              @endif
               <li><strong>Polsek Ngariboyo:</strong> 110</li>
               <li><strong>Bantuan Linmas Desa:</strong> (21 RT Siskamling)</li>
             </ul>

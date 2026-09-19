@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 
 class Setting extends Model
 {
-    protected $fillable = ['nama_desa', 'tagline', 'deskripsi_hero', 'hero_image', 'hero_video', 'nama_kepala_desa', 'sambutan', 'foto_kepala_desa', 'stat_pendidikan', 'stat_umkm', 'stat_wisata', 'stat_embung', 'alamat', 'email', 'jam_operasional', 'whatsapp_admin', 'instagram', 'facebook', 'youtube', 'maps_embed', 'sop_pengajuan', 'estimasi_proses'];
+    protected $fillable = ['nama_desa', 'tagline', 'deskripsi_hero', 'hero_image', 'hero_video', 'nama_kepala_desa', 'sambutan', 'foto_kepala_desa', 'stat_pendidikan', 'stat_umkm', 'stat_wisata', 'stat_embung', 'alamat', 'email', 'jam_operasional', 'whatsapp_admin', 'instagram', 'facebook', 'youtube', 'maps_embed', 'sop_pengajuan', 'estimasi_proses', 'kontak_darurat'];
 
     public static function current(): self
     {

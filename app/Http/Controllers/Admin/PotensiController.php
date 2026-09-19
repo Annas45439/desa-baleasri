@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Potensi;
 use App\Models\UmkmApplicant;
+use App\Services\ImageOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,7 +25,9 @@ class PotensiController extends Controller
     public function store(Request $request)
     {
         $data = $this->validated($request);
-        if ($request->hasFile('foto')) $data['foto'] = $request->file('foto')->store('potensi', 'public');
+        if ($request->hasFile('foto')) {
+            $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
+        }
         Potensi::create($data);
         return redirect()->route('admin.potensi.index')->with('status', 'Potensi desa berhasil ditambahkan.');
     }
@@ -35,8 +38,10 @@ class PotensiController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('foto')) {
-            if ($potensi->foto) Storage::disk('public')->delete($potensi->foto);
-            $data['foto'] = $request->file('foto')->store('potensi', 'public');
+            if ($potensi->foto && Storage::disk('public')->exists($potensi->foto)) {
+                Storage::disk('public')->delete($potensi->foto);
+            }
+            $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
         }
         $potensi->update($data);
         return redirect()->route('admin.potensi.index')->with('status', 'Potensi desa berhasil diperbarui.');
@@ -44,7 +49,9 @@ class PotensiController extends Controller
 
     public function destroy(Potensi $potensi)
     {
-        if ($potensi->foto) Storage::disk('public')->delete($potensi->foto);
+        if ($potensi->foto && Storage::disk('public')->exists($potensi->foto)) {
+            Storage::disk('public')->delete($potensi->foto);
+        }
         $potensi->delete();
         return redirect()->route('admin.potensi.index')->with('status', 'Potensi desa berhasil dihapus.');
     }
@@ -54,7 +61,7 @@ class PotensiController extends Controller
         $data = $request->validate([
             'nama' => ['required', 'string', 'max:150'], 'kategori' => ['required', 'in:wisata,umkm,galeri'],
             'tag' => ['nullable', 'string', 'max:80'], 'deskripsi' => ['nullable', 'string'],
-            'foto' => ['nullable', 'image', 'max:4096'], 'kontak_whatsapp' => ['nullable', 'string', 'max:20'],
+            'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif,heic', 'max:10240'], 'kontak_whatsapp' => ['nullable', 'string', 'max:20'],
             'urutan' => ['nullable', 'integer', 'min:0'],
         ]);
         $data['tampil'] = $request->boolean('tampil');

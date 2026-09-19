@@ -109,6 +109,11 @@
         <p class="hint">Nomor ini digunakan untuk menerima pengaduan warga, pengajuan surat, dan pesan layanan lainnya.</p>
       </div>
     </div>
+    <div class="form-row">
+      <label for="kontak_darurat">Kontak Darurat / Call Center Desa</label>
+      <input type="text" id="kontak_darurat" name="kontak_darurat" value="{{ old('kontak_darurat', $setting->kontak_darurat) }}" placeholder="Contoh: Tanggap Darurat Desa: 0812-3456-7890 atau Call Center 112">
+      <p class="hint">Teks/Nomor kontak ini ditampilkan pada footer website dan box Layanan Darurat Desa.</p>
+    </div>
   </div>
 
   <div class="form-card" style="margin-bottom:22px;">
