@@ -26,7 +26,7 @@
     <tbody>
       @forelse($potensis as $p)
         <tr>
-          <td><img class="thumb" src="{{ storage_image_url($p->foto, 'https://picsum.photos/seed/'.$p->slug.'/100/100') }}" alt=""></td>
+          <td><img class="thumb" src="{{ storage_image_url($p->foto) }}" alt="" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';"></td>
           <td style="font-weight:700;">{{ $p->nama }}</td>
           <td style="text-transform:capitalize;">{{ $p->kategori }}</td>
           <td>{{ $p->tag ?? '-' }}</td>

@@ -15,7 +15,7 @@
       @forelse($wisata as $w)
         <article class="exec-card-item">
           <div class="exec-card-media">
-            <img src="{{ storage_image_url($w->foto, 'https://picsum.photos/seed/'.$w->slug.'/600/400') }}" alt="{{ $w->nama }}">
+            <img src="{{ storage_image_url($w->foto) }}" alt="{{ $w->nama }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
           </div>
           <div class="exec-card-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">{{ $w->tag ?? 'Wisata Desa' }}</span>
@@ -26,7 +26,7 @@
       @empty
         <article class="exec-card-item">
           <div class="exec-card-media">
-            <img src="https://picsum.photos/seed/duwetsewu2/600/400" alt="Embung Duwetsewu">
+            <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Embung Duwetsewu" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
           </div>
           <div class="exec-card-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Air</span>
@@ -37,7 +37,7 @@
 
         <article class="exec-card-item">
           <div class="exec-card-media">
-            <img src="https://picsum.photos/seed/batikgedhek2/600/400" alt="Sentra Batik Gedhek">
+            <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Sentra Batik Gedhek" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
           </div>
           <div class="exec-card-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Budaya</span>
@@ -48,7 +48,7 @@
 
         <article class="exec-card-item">
           <div class="exec-card-media">
-            <img src="https://picsum.photos/seed/sawah2/600/400" alt="Hamparan Sawah Baleasri">
+            <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Hamparan Sawah Baleasri" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
           </div>
           <div class="exec-card-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Agraris</span>

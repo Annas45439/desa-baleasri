@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#052e21" />
+      <stop offset="50%" stop-color="#0d8a6c" />
+      <stop offset="100%" stop-color="#031c12" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bgGrad)" />
+  <circle cx="200" cy="180" r="70" fill="rgba(255,255,255,0.15)" stroke="url(#goldGrad)" stroke-width="3" />
+  <path d="M200 130 c-22 0 -40 18 -40 40 0 22 18 40 40 40 s40 -18 40 -40 c0 -22 -18 -40 -40 -40 z" fill="rgba(255,255,255,0.85)" />
+  <path d="M100 370 c0 -55 45 -100 100 -100 s100 45 100 100 v30 H100 z" fill="rgba(255,255,255,0.75)" />
+  <rect x="50" y="420" width="300" height="46" rx="23" fill="rgba(18,32,27,0.85)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+  <text x="200" y="449" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="16" fill="#fbbf24" text-anchor="middle" letter-spacing="1">KEPALA DESA BALEASRI</text>
+</svg>

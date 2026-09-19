@@ -59,6 +59,7 @@ class SettingController extends Controller
         }
 
         $setting->update($data);
+        log_activity('UPDATE_SETTING', "Memperbarui Pengaturan Umum, Media Sosmed, SOP, dan Kontak Darurat Desa.");
         return back()->with('status', 'Pengaturan berhasil disimpan.');
     }
 

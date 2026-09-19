@@ -90,6 +90,7 @@
       <a href="{{ route('admin.users.index') }}" class="side-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-user"/></svg> Pengguna</a>
       <a href="{{ route('admin.settings.edit') }}" class="side-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-setting"/></svg> Pengaturan</a>
       <a href="{{ route('admin.storage.index') }}" class="side-link {{ request()->routeIs('admin.storage.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-storage"/></svg> Status Penyimpanan</a>
+      <a href="{{ route('admin.activity-logs.index') }}" class="side-link {{ request()->routeIs('admin.activity-logs.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-report"/></svg> Audit Log Aktivitas</a>
     </div>
 
     <div class="side-group">

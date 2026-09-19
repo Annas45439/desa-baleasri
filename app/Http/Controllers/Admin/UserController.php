@@ -34,7 +34,8 @@ class UserController extends Controller
         }
 
         $data['password'] = Hash::make($data['password']);
-        User::create($data);
+        $newUser = User::create($data);
+        log_activity('CREATE_USER', "Menambahkan pengguna admin baru: '{$newUser->name}' ({$newUser->role}).");
 
         return back()->with('status', 'Pengguna baru berhasil ditambahkan.');
     }
@@ -47,7 +48,9 @@ class UserController extends Controller
         // Akun yang sedang login tidak bisa dihapus
         abort_if($user->is(auth()->user()), 422, 'Akun yang sedang digunakan tidak dapat dihapus.');
 
+        log_activity('DELETE_USER', "Menghapus pengguna admin: '{$user->name}'.");
         $user->delete();
+
         return back()->with('status', 'Pengguna berhasil dihapus.');
     }
 
@@ -65,6 +68,7 @@ class UserController extends Controller
         ]);
 
         $user->update(['password' => Hash::make($data['password'])]);
+        log_activity('UPDATE_PASSWORD', "Mengubah password pengguna admin: '{$user->name}'.");
 
         return back()->with('status', 'Password pengguna berhasil diperbarui.');
     }

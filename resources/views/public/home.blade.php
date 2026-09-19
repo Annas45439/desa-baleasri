@@ -119,6 +119,21 @@
       Kecamatan Ngariboyo, Kabupaten Magetan — Portal Layanan Informasi Publik Terpadu, Transparansi APBDes, Permohonan Surat Online, dan Promosi UMKM Warga.
     </p>
 
+    <!-- Global Smart Search Input -->
+    <div class="hero-search-wrapper" style="max-width:640px; margin:24px auto 0; position:relative; z-index:100;">
+      <form action="{{ route('search') }}" method="GET" id="heroSearchForm" autocomplete="off" style="position:relative;">
+        <div style="display:flex; align-items:center; background:rgba(255,255,255,0.15); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1.5px solid rgba(255,255,255,0.3); border-radius:99px; padding:6px 6px 6px 18px; box-shadow:0 12px 30px rgba(0,0,0,0.25); transition:all 0.3s ease;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-main)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-right:10px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="heroSearchInput" name="q" placeholder="Cari layanan, surat, wisata, produk UMKM, atau berita..." style="flex-grow:1; border:none; background:transparent; color:#ffffff; font-size:0.92rem; font-weight:600; font-family:var(--font-body); outline:none;" required>
+          <button type="submit" style="background:linear-gradient(135deg, var(--jade-main), #086b53); color:#fff; border:none; border-radius:99px; padding:10px 22px; font-weight:700; font-size:0.85rem; cursor:pointer; font-family:var(--font-body); box-shadow:0 4px 14px rgba(13,138,108,0.4); flex-shrink:0;">Cari Instan</button>
+        </div>
+      </form>
+      <!-- Live Dropdown Results -->
+      <div id="heroSearchDropdown" style="display:none; position:absolute; top:calc(100% + 8px); left:0; right:0; background:#ffffff; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.3); padding:12px; z-index:1000; text-align:left; border:1px solid rgba(18,32,27,0.1); max-height:380px; overflow-y:auto;">
+        <div id="heroSearchContent"></div>
+      </div>
+    </div>
+
     <div class="hero-actions-oval">
       <a href="{{ route('pengaduan.public') }}" class="btn-oval-primary">Permohonan Surat &amp; Pengaduan &rarr;</a>
       <a href="#sop-pelayanan" class="btn-oval-outline">SOP Pelayanan Publik</a>
@@ -201,7 +216,7 @@
 
       <div style="display:flex; gap:36px; align-items:center; flex-wrap:wrap;">
         <div style="width:170px; height:220px; border-radius:24px; overflow:hidden; flex-shrink:0; border:2px solid var(--glass-border); box-shadow:var(--glass-shadow);">
-          <img src="{{ storage_image_url($setting->foto_kepala_desa, 'https://picsum.photos/seed/kadesbaleasri/400/500') }}" alt="{{ $setting->nama_kepala_desa ?? 'Kepala Desa' }}" style="width:100%; height:100%; object-fit:cover;">
+          <img src="{{ storage_image_url($setting->foto_kepala_desa) }}" alt="{{ $setting->nama_kepala_desa ?? 'Kepala Desa' }}" style="width:100%; height:100%; object-fit:cover;" onerror="this.onerror=null; this.src='{{ asset('assets/logo/kades-placeholder.svg') }}';">
         </div>
         <div style="flex-grow:1; min-width:280px;">
           <h3 style="font-family:var(--font-title); font-weight:800; font-size:1.45rem; color:var(--jade-dark); margin-bottom:4px;">
@@ -282,7 +297,7 @@
     <div class="card-grid-3">
       <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-1">
         <div class="oval-item-media card-img-zoom">
-          <img src="https://picsum.photos/seed/duwetsewu2/600/400" alt="Embung Duwetsewu">
+          <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Embun Duwetsewu" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
         </div>
         <div class="oval-item-body">
           <span style="font-size:0.75rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Air</span>
@@ -294,7 +309,7 @@
 
       <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-2">
         <div class="oval-item-media card-img-zoom">
-          <img src="https://picsum.photos/seed/batikgedhek2/600/400" alt="Sentra Batik Gedhek">
+          <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Sentra Batik Gedhek" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
         </div>
         <div class="oval-item-body">
           <span style="font-size:0.75rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Budaya</span>
@@ -306,7 +321,7 @@
 
       <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-3">
         <div class="oval-item-media card-img-zoom">
-          <img src="https://picsum.photos/seed/sawah2/600/400" alt="Hamparan Sawah Baleasri">
+          <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Hamparan Sawah Baleasri" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
         </div>
         <div class="oval-item-body">
           <span style="font-size:0.75rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Agraris</span>
@@ -335,7 +350,7 @@
       @forelse($beritas as $b)
         <article class="oval-item-card">
           <div class="oval-item-media">
-            <img src="{{ storage_image_url($b->foto, 'https://picsum.photos/seed/'.$b->slug.'/600/400') }}" alt="{{ $b->judul }}">
+            <img src="{{ storage_image_url($b->foto) }}" alt="{{ $b->judul }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
           </div>
           <div class="oval-item-body">
             <span style="font-size:0.75rem; font-weight:700; color:var(--ink-muted); margin-bottom:4px;">{{ optional($b->tanggal_terbit)->translatedFormat('d M Y') ?? date('d M Y') }}</span>
@@ -391,5 +406,64 @@
     });
   }, { threshold: 0.5 });
   counters.forEach(c => counterObs.observe(c));
+
+  // Live Smart Search Handler
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('heroSearchInput');
+    const searchDropdown = document.getElementById('heroSearchDropdown');
+    const searchContent = document.getElementById('heroSearchContent');
+    let debounceTimer;
+
+    if (searchInput && searchDropdown) {
+      searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        const query = this.value.trim();
+
+        if (query.length < 2) {
+          searchDropdown.style.display = 'none';
+          return;
+        }
+
+        debounceTimer = setTimeout(() => {
+          fetch(`{{ route('search.api') }}?q=${encodeURIComponent(query)}`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.results && data.results.length > 0) {
+                let html = '<div style="font-size:0.72rem; font-weight:800; color:#586b63; text-transform:uppercase; padding:6px 10px 8px; border-bottom:1px solid #eee;">Hasil Instan (' + data.total + ')</div>';
+                data.results.forEach(item => {
+                  html += `
+                    <a href="${item.url}" style="display:flex; align-items:center; gap:12px; padding:10px; border-radius:12px; text-decoration:none; color:var(--ink-main); transition:background 0.2s;" onmouseover="this.style.background='rgba(13,138,108,0.06)'" onmouseout="this.style.background='transparent'">
+                      <div style="flex-grow:1;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                          <span style="font-size:0.65rem; font-weight:800; background:rgba(13,138,108,0.12); color:var(--jade-main); padding:2px 8px; border-radius:99px;">${item.badge}</span>
+                          <strong style="font-size:0.88rem; color:var(--ink-main);">${item.title}</strong>
+                        </div>
+                        <div style="font-size:0.76rem; color:#586b63; margin-top:2px;">${item.snippet}</div>
+                      </div>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--jade-main)" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                  `;
+                });
+                html += `<div style="padding:8px 10px 4px; text-align:center; border-top:1px solid #eee;"><button type="submit" form="heroSearchForm" style="background:none; border:none; color:var(--jade-main); font-weight:700; font-size:0.78rem; cursor:pointer;">Lihat semua hasil pencarian &rarr;</button></div>`;
+                searchContent.innerHTML = html;
+                searchDropdown.style.display = 'block';
+              } else {
+                searchContent.innerHTML = '<div style="padding:16px; text-align:center; color:#586b63; font-size:0.85rem;">Tidak menemukan hasil untuk "' + query + '". Tekan Enter untuk cari lengkap.</div>';
+                searchDropdown.style.display = 'block';
+              }
+            })
+            .catch(() => {
+              searchDropdown.style.display = 'none';
+            });
+        }, 250);
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+          searchDropdown.style.display = 'none';
+        }
+      });
+    }
+  });
 </script>
 @endpush

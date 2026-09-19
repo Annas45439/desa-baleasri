@@ -19,7 +19,9 @@ class BeritaController extends Controller
         if ($request->hasFile('foto')) {
             $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'berita');
         }
-        Berita::create($data);
+        $berita = Berita::create($data);
+        log_activity('CREATE_BERITA', "Menerbitkan berita baru: '{$berita->judul}'.");
+
         return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil dipublikasikan.');
     }
 
@@ -35,15 +37,20 @@ class BeritaController extends Controller
             $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'berita');
         }
         $berita->update($data);
+        log_activity('UPDATE_BERITA', "Memperbarui berita: '{$berita->judul}'.");
+
         return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil diperbarui.');
     }
 
     public function destroy(Berita $berita)
     {
+        log_activity('DELETE_BERITA', "Menghapus berita: '{$berita->judul}'.");
+
         if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
             Storage::disk('public')->delete($berita->foto);
         }
         $berita->delete();
+
         return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil dihapus.');
     }
 

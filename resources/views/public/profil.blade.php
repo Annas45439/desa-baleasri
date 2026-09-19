@@ -16,7 +16,7 @@
     <div class="glass-card-white" style="margin-bottom: 36px;">
       <div class="sambutan-flex">
         <div class="kades-avatar-frame">
-          <img src="{{ storage_image_url($setting->foto_kepala_desa, 'https://picsum.photos/seed/kadesbaleasri/400/530') }}" alt="{{ $setting->nama_kepala_desa ?? 'Kepala Desa' }}">
+          <img src="{{ storage_image_url($setting->foto_kepala_desa) }}" alt="{{ $setting->nama_kepala_desa ?? 'Kepala Desa' }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/kades-placeholder.svg') }}';">
         </div>
         <div style="flex-grow:1;">
           <div class="kicker" style="margin-bottom:8px;">Pemerintahan Desa</div>

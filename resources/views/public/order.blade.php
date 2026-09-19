@@ -7,7 +7,7 @@
   <div class="container order-layout">
     <div class="order-product">
       <a href="{{ url()->previous() }}" class="back-link">&larr; Kembali ke katalog</a>
-      <div class="order-product-image"><img src="{{ storage_image_url($produk->foto, 'https://picsum.photos/seed/'.$produk->slug.'/700/520') }}" alt="{{ $produk->nama }}"></div>
+      <div class="order-product-image"><img src="{{ storage_image_url($produk->foto) }}" alt="{{ $produk->nama }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';"></div>
       <span class="umkm-cat">{{ $produk->tag ?: 'UMKM' }}</span>
       <h1>{{ $produk->nama }}</h1>
       <p>{{ $produk->deskripsi ?: 'Produk unggulan warga Desa Baleasri.' }}</p>

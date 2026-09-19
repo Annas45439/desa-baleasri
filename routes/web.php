@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 | Halaman publik
 |--------------------------------------------------------------------------
 */
+Route::get('cari', [\App\Http\Controllers\SearchController::class, 'index'])->name('search');
+Route::get('api/search', [\App\Http\Controllers\SearchController::class, 'liveSearch'])->name('search.api');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('profil-desa', [PublicPageController::class, 'profil'])->name('profil.desa');
 Route::get('apbdes', [PublicPageController::class, 'apbdes'])->name('apbdes.public');
@@ -119,5 +122,6 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
     Route::get('pengaturan', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('pengaturan', [SettingController::class, 'update'])->name('settings.update');
     Route::get('storage-analytics', [StorageAnalyticsController::class, 'index'])->name('storage.index');
+    Route::get('activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
 });
 

@@ -28,7 +28,9 @@ class PotensiController extends Controller
         if ($request->hasFile('foto')) {
             $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
         }
-        Potensi::create($data);
+        $potensi = Potensi::create($data);
+        log_activity('CREATE_POTENSI', "Menambahkan konten " . strtoupper($potensi->kategori) . " baru: '{$potensi->nama}'.");
+
         return redirect()->route('admin.potensi.index')->with('status', 'Potensi desa berhasil ditambahkan.');
     }
 
@@ -44,15 +46,20 @@ class PotensiController extends Controller
             $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
         }
         $potensi->update($data);
+        log_activity('UPDATE_POTENSI', "Memperbarui konten " . strtoupper($potensi->kategori) . ": '{$potensi->nama}'.");
+
         return redirect()->route('admin.potensi.index')->with('status', 'Potensi desa berhasil diperbarui.');
     }
 
     public function destroy(Potensi $potensi)
     {
+        log_activity('DELETE_POTENSI', "Menghapus konten " . strtoupper($potensi->kategori) . ": '{$potensi->nama}'.");
+
         if ($potensi->foto && Storage::disk('public')->exists($potensi->foto)) {
             Storage::disk('public')->delete($potensi->foto);
         }
         $potensi->delete();
+
         return redirect()->route('admin.potensi.index')->with('status', 'Potensi desa berhasil dihapus.');
     }
 

@@ -23,6 +23,8 @@ class OrderController extends Controller
     {
         $data = $request->validate(['status' => ['required', 'in:Menunggu Konfirmasi,Dikonfirmasi,Diproses,Dikirim,Selesai,Dibatalkan']]);
         $order->update($data);
+        log_activity('UPDATE_PESANAN', "Mengubah status pesanan #{$order->kode} milik {$order->nama_pemesan} menjadi '{$order->status}'.");
+
         return back()->with('status', 'Status pesanan '.$order->kode.' berhasil diperbarui.');
     }
 }

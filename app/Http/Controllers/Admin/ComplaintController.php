@@ -31,6 +31,8 @@ class ComplaintController extends Controller
         $data = $request->validate(['status' => ['required', 'in:Baru,Diproses,Selesai']]);
         $complaint->update($data);
 
+        log_activity('UPDATE_PENGADUAN', "Mengubah status pengaduan #{$complaint->ticket_code} milik {$complaint->nama} menjadi '{$complaint->status}'.");
+
         return back()->with('status', 'Status pengaduan berhasil diperbarui.');
     }
 }

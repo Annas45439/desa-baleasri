@@ -59,6 +59,7 @@ class LetterController extends Controller
         }
 
         $letter->update($validated);
+        log_activity('EDIT_SURAT', "Memperbarui data permohonan surat #{$letter->tracking_code} milik {$letter->nama_pemohon}.");
 
         return redirect()->route('admin.letters.edit', $letter)
             ->with('success', 'Data surat berhasil diperbarui.');
@@ -92,6 +93,8 @@ class LetterController extends Controller
             $letter->update(['tanggal_selesai' => now()]);
         }
 
+        log_activity('UPDATE_SURAT', "Mengubah status surat #{$letter->tracking_code} ({$letter->jenis_surat}) milik {$letter->nama_pemohon} menjadi '{$newStatus}'.");
+
         // Send email notification to user if email is provided
         if (!empty($letter->email) && filter_var($letter->email, FILTER_VALIDATE_EMAIL)) {
             try {
@@ -112,6 +115,8 @@ class LetterController extends Controller
      */
     public function destroy(Letter $letter)
     {
+        log_activity('DELETE_SURAT', "Menghapus pengajuan surat #{$letter->tracking_code} ({$letter->jenis_surat}) milik {$letter->nama_pemohon}.");
+
         // Delete PDF if exists
         if ($letter->surat_pdf && Storage::exists($letter->surat_pdf)) {
             Storage::delete($letter->surat_pdf);

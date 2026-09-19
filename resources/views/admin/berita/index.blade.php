@@ -17,7 +17,7 @@
     <tbody>
       @forelse($beritas as $b)
         <tr>
-          <td><img class="thumb" src="{{ storage_image_url($b->foto, 'https://picsum.photos/seed/'.$b->slug.'/100/100') }}" alt=""></td>
+          <td><img class="thumb" src="{{ storage_image_url($b->foto) }}" alt="" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';"></td>
           <td style="font-weight:700;">{{ Str::limit($b->judul, 40) }}</td>
           <td>{{ $b->penulis ?? '-' }}</td>
           <td>{{ optional($b->tanggal_terbit)->translatedFormat('d M Y') }}</td>

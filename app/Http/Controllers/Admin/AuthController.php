@@ -34,6 +34,7 @@ class AuthController extends Controller
             }
 
             $request->session()->regenerate();
+            log_activity('LOGIN', "Admin " . Auth::user()->name . " berhasil login ke panel admin.");
             return redirect()->intended(route('admin.dashboard'));
         }
 
@@ -42,6 +43,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        if (Auth::check()) {
+            log_activity('LOGOUT', "Admin " . Auth::user()->name . " keluar dari panel admin.");
+        }
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
