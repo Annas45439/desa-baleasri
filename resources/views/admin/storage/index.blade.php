@@ -109,6 +109,7 @@
           <th>Ukuran</th>
           <th>Tanggal Unggah</th>
           <th>Pratinjau</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -121,14 +122,21 @@
             <td><strong style="color:var(--amber);">{{ $file['formatted_size'] }}</strong></td>
             <td><small style="color:var(--ink-3);">{{ date('d M Y, H:i', $file['mtime']) }}</small></td>
             <td>
-              <a href="{{ asset($file['path']) }}" target="_blank" class="btn-sm btn-ghost" style="padding:4px 10px; font-size:0.72rem;">
+              <a href="{{ route('media.serve', ['path' => preg_replace('#^storage/#', '', $file['path'])]) }}" target="_blank" class="btn-sm btn-ghost" style="padding:4px 10px; font-size:0.72rem;">
                 <svg class="icon"><use href="#i-eye"/></svg> Buka File
               </a>
+            </td>
+            <td>
+              <form method="POST" action="{{ route('admin.storage.destroy') }}" onsubmit="return confirm('Hapus file ini dari penyimpanan? Data yang mengarah ke file ini akan dikosongkan.');">
+                @csrf @method('DELETE')
+                <input type="hidden" name="path" value="{{ preg_replace('#^storage/#', '', $file['path']) }}">
+                <button type="submit" class="btn-sm btn-delete">Hapus</button>
+              </form>
             </td>
           </tr>
         @empty
           <tr>
-            <td colspan="5" style="text-align:center; color:var(--ink-3); padding:24px 0;">Belum ada file diunggah di ruang penyimpanan.</td>
+            <td colspan="6" style="text-align:center; color:var(--ink-3); padding:24px 0;">Belum ada file diunggah di ruang penyimpanan.</td>
           </tr>
         @endforelse
       </tbody>

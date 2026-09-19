@@ -148,5 +148,6 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
     Route::put('pengaturan', [SettingController::class, 'update'])->name('settings.update');
     Route::delete('pengaturan/media/{field}', [SettingController::class, 'deleteMedia'])->name('settings.media.destroy');
     Route::get('storage-analytics', [StorageAnalyticsController::class, 'index'])->name('storage.index');
+    Route::delete('storage-analytics/file', [StorageAnalyticsController::class, 'destroy'])->name('storage.destroy');
     Route::get('activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
 });

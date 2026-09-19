@@ -131,6 +131,11 @@
         {{ session('status') }}
       </div>
     @endif
+    @if(session('error'))
+      <div style="background:var(--coral-soft); color:var(--coral); border:1px solid var(--coral); border-radius:14px; padding:14px 18px; margin-bottom:20px; font-weight:600; font-size:0.88rem;">
+        {{ session('error') }}
+      </div>
+    @endif
     @if($errors->any())
       <div style="background:var(--coral-soft); color:var(--coral); border:1px solid var(--coral); border-radius:14px; padding:14px 18px; margin-bottom:20px; font-weight:600; font-size:0.88rem;">
         <ul style="margin:0; padding-left:18px;">
