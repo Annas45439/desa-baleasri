@@ -122,7 +122,7 @@ class LetterController extends Controller
             . "Keperluan:\n{$letter->keperluan}";
 
         if ($letter->dokumen_pendukung) {
-            $message .= "\n\nDokumen pendukung:\n" . url(Storage::url($letter->dokumen_pendukung));
+            $message .= "\n\nDokumen pendukung:\n" . storage_file_url($letter->dokumen_pendukung);
         }
 
         if ($adminNumber) {

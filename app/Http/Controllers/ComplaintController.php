@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Mail\AdminComplaintNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
 class ComplaintController extends Controller
@@ -64,7 +63,7 @@ class ComplaintController extends Controller
         if ($photoPaths) {
             $message .= "\n\nFoto bukti:";
             foreach ($photoPaths as $photoPath) {
-                $message .= "\n" . url(Storage::url($photoPath));
+                $message .= "\n" . storage_file_url($photoPath);
             }
         }
 

@@ -210,7 +210,7 @@ class Letter extends Model
         }
 
         if ($this->surat_pdf) {
-            $msg .= "\n\n📄 *Download File Surat (PDF)*:\n" . url(\Illuminate\Support\Facades\Storage::url($this->surat_pdf));
+            $msg .= "\n\n📄 *Download File Surat (PDF)*:\n" . storage_file_url($this->surat_pdf);
         }
 
         $msg .= "\n\nCek status pengajuan surat Anda kapan saja melalui tautan berikut:\n"

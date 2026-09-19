@@ -81,7 +81,7 @@
           @if ($letter->surat_pdf)
             <div style="margin-top:10px; padding:12px; background:var(--surface-3); border:1px solid var(--line); border-radius:10px;">
               <small style="color:var(--ink-2);">
-                <svg class="icon"><use href="#i-surat"/></svg> File sudah diupload: <a href="{{ Storage::url($letter->surat_pdf) }}" target="_blank" style="color:var(--emerald); font-weight:700;">Download Berkas</a>
+                <svg class="icon"><use href="#i-surat"/></svg> File sudah diupload: <a href="{{ storage_file_url($letter->surat_pdf) }}" target="_blank" style="color:var(--emerald); font-weight:700;">Download Berkas</a>
               </small>
             </div>
           @endif
@@ -191,7 +191,7 @@
     @if ($letter->dokumen_pendukung)
     <div class="form-card" style="max-width:100%;">
       <h3 style="margin-top:0; margin-bottom:12px;">Dokumen Pendukung</h3>
-      <a href="{{ Storage::url($letter->dokumen_pendukung) }}" target="_blank" class="btn btn-ghost" style="display:block; text-align:center; text-decoration:none;">
+      <a href="{{ storage_file_url($letter->dokumen_pendukung) }}" target="_blank" class="btn btn-ghost" style="display:block; text-align:center; text-decoration:none;">
         📎 Lihat Dokumen
       </a>
     </div>
