@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Berita;
+use App\Models\Complaint;
+use App\Models\Letter;
+use App\Models\Potensi;
+use App\Models\Setting;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -105,6 +111,62 @@ class StorageAnalyticsController extends Controller
             'serverDiskUsed' => $serverDiskUsed ? $this->formatBytes($serverDiskUsed) : 'N/A',
             'serverDiskUsedPercentage' => $serverDiskUsedPercentage,
         ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $data = $request->validate([
+            'path' => ['required', 'string', 'max:500'],
+        ]);
+
+        $path = ltrim(str_replace('\\', '/', $data['path']), '/');
+        if (str_contains($path, '..') || str_starts_with($path, 'storage/')) {
+            abort(422, 'Path file tidak valid.');
+        }
+
+        $disk = Storage::disk('public');
+        if (!$disk->exists($path)) {
+            return back()->with('error', 'File tidak ditemukan atau sudah dihapus.');
+        }
+
+        $this->detachDatabaseReferences($path);
+        $disk->delete($path);
+
+        log_activity('DELETE_STORAGE_FILE', "Menghapus file penyimpanan: {$path}.");
+
+        return back()->with('status', 'File berhasil dihapus dari penyimpanan.');
+    }
+
+    private function detachDatabaseReferences(string $path): void
+    {
+        Setting::query()->each(function (Setting $setting) use ($path): void {
+            foreach (['hero_image', 'foto_kepala_desa'] as $field) {
+                if ($setting->{$field} === $path) {
+                    $setting->update([$field => null]);
+                }
+            }
+        });
+
+        Potensi::where('foto', $path)->update(['foto' => null]);
+        Berita::where('foto', $path)->update(['foto' => null]);
+        Letter::where(function ($query) use ($path): void {
+            $query->where('surat_pdf', $path)->orWhere('dokumen_pendukung', $path);
+        })->get()->each(function (Letter $letter) use ($path): void {
+            $updates = [];
+            if ($letter->surat_pdf === $path) $updates['surat_pdf'] = null;
+            if ($letter->dokumen_pendukung === $path) $updates['dokumen_pendukung'] = null;
+            if ($updates) $letter->update($updates);
+        });
+
+        Complaint::query()->each(function (Complaint $complaint) use ($path): void {
+            $photos = array_values(array_filter(
+                $complaint->photo_paths ?? [],
+                fn (string $photoPath): bool => $photoPath !== $path
+            ));
+            if ($photos !== ($complaint->photo_paths ?? [])) {
+                $complaint->update(['photo_paths' => $photos ?: null]);
+            }
+        });
     }
 
     private function formatBytes($bytes, $precision = 2)

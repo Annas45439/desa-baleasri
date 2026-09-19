@@ -27,14 +27,27 @@ class BeritaController extends Controller
 
     public function edit(Berita $berita) { return view('admin.berita.form', compact('berita')); }
 
+    public function deletePhoto(Berita $berita)
+    {
+        if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
+            Storage::disk('public')->delete($berita->foto);
+        }
+
+        $berita->update(['foto' => null]);
+        log_activity('DELETE_BERITA_PHOTO', "Menghapus foto berita: '{$berita->judul}'.");
+
+        return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke placeholder default.');
+    }
+
     public function update(Request $request, Berita $berita)
     {
         $data = $this->validated($request);
         if ($request->hasFile('foto')) {
+            $newPath = ImageOptimizer::compressAndStore($request->file('foto'), 'berita');
             if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
                 Storage::disk('public')->delete($berita->foto);
             }
-            $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'berita');
+            $data['foto'] = $newPath;
         }
         $berita->update($data);
         log_activity('UPDATE_BERITA', "Memperbarui berita: '{$berita->judul}'.");

@@ -12,6 +12,24 @@ class SettingController extends Controller
 {
     public function edit() { return view('admin.settings.edit', ['setting' => Setting::current()]); }
 
+    public function deleteMedia(string $field)
+    {
+        $directories = ['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'];
+        abort_unless(array_key_exists($field, $directories), 404);
+
+        $setting = Setting::current();
+        $path = $setting->{$field};
+
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+
+        $setting->update([$field => null]);
+        log_activity('DELETE_SETTING_MEDIA', "Menghapus media pengaturan: {$field}.");
+
+        return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke avatar default.');
+    }
+
     public function update(Request $request)
     {
         $setting = Setting::current();
@@ -35,10 +53,13 @@ class SettingController extends Controller
         ]);
         foreach (['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'] as $field => $directory) {
             if ($request->hasFile($field) && $request->file($field)->isValid()) {
-                if ($setting->{$field} && Storage::disk('public')->exists($setting->{$field})) {
-                    Storage::disk('public')->delete($setting->{$field});
+                $oldPath = $setting->{$field};
+                $newPath = ImageOptimizer::compressAndStore($request->file($field), $directory);
+                $data[$field] = $newPath;
+
+                if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
                 }
-                $data[$field] = ImageOptimizer::compressAndStore($request->file($field), $directory);
             } else {
                 unset($data[$field]);
             }

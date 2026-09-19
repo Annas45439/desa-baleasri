@@ -116,7 +116,9 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
     Route::get('health', [DashboardController::class, 'health'])->name('health');
 
     Route::resource('potensi', PotensiController::class)->except(['show']);
+    Route::delete('potensi/{potensi}/foto', [PotensiController::class, 'deletePhoto'])->name('potensi.photo.destroy');
     Route::resource('berita', BeritaController::class)->except(['show']);
+    Route::delete('berita/{berita}/foto', [BeritaController::class, 'deletePhoto'])->name('berita.photo.destroy');
     Route::patch('umkm-pendaftar/{applicant}/status', [AdminUmkmApplicantController::class, 'updateStatus'])->name('umkm-applicants.status');
     Route::get('pengaduan', [AdminComplaintController::class, 'index'])->name('complaints.index');
     Route::patch('pengaduan/{complaint}/status', [AdminComplaintController::class, 'updateStatus'])->name('complaints.status');
@@ -144,6 +146,8 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
 
     Route::get('pengaturan', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('pengaturan', [SettingController::class, 'update'])->name('settings.update');
+    Route::delete('pengaturan/media/{field}', [SettingController::class, 'deleteMedia'])->name('settings.media.destroy');
     Route::get('storage-analytics', [StorageAnalyticsController::class, 'index'])->name('storage.index');
+    Route::delete('storage-analytics/file', [StorageAnalyticsController::class, 'destroy'])->name('storage.destroy');
     Route::get('activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
 });

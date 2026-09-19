@@ -36,14 +36,27 @@ class PotensiController extends Controller
 
     public function edit(Potensi $potensi) { return view('admin.potensi.form', compact('potensi')); }
 
+    public function deletePhoto(Potensi $potensi)
+    {
+        if ($potensi->foto && Storage::disk('public')->exists($potensi->foto)) {
+            Storage::disk('public')->delete($potensi->foto);
+        }
+
+        $potensi->update(['foto' => null]);
+        log_activity('DELETE_POTENSI_PHOTO', "Menghapus foto potensi: '{$potensi->nama}'.");
+
+        return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke placeholder default.');
+    }
+
     public function update(Request $request, Potensi $potensi)
     {
         $data = $this->validated($request);
         if ($request->hasFile('foto')) {
+            $newPath = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
             if ($potensi->foto && Storage::disk('public')->exists($potensi->foto)) {
                 Storage::disk('public')->delete($potensi->foto);
             }
-            $data['foto'] = ImageOptimizer::compressAndStore($request->file('foto'), 'potensi');
+            $data['foto'] = $newPath;
         }
         $potensi->update($data);
         log_activity('UPDATE_POTENSI', "Memperbarui konten " . strtoupper($potensi->kategori) . ": '{$potensi->nama}'.");
