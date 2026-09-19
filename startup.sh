@@ -11,6 +11,15 @@ if [ ! -f index.php ]; then
 	printf '%s\n' '<?php' "require __DIR__ . '/public/index.php';" > index.php
 fi
 
+# Tulis php.ini custom untuk atasi batas upload 2MB bawaan Azure
+mkdir -p /usr/local/etc/php/conf.d 2>/dev/null || true
+cat > /usr/local/etc/php/conf.d/uploads.ini << 'PHPINI'
+upload_max_filesize = 64M
+post_max_size = 64M
+memory_limit = 256M
+max_execution_time = 300
+PHPINI
+
 rm -rf assets build
 cp -R public/assets assets
 cp -R public/build build
