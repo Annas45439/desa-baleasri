@@ -481,6 +481,7 @@ nav.floating-oval-nav {
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 12px;
 }
 
 .btn-oval-primary {

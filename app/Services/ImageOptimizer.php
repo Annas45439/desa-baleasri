@@ -24,6 +24,8 @@ class ImageOptimizer
         $filename = Str::random(40) . '.' . $extension;
         $targetPath = storage_path("app/public/{$folder}/{$filename}");
 
+        @mkdir(dirname($targetPath), 0777, true);
+
         if (extension_loaded('gd') && function_exists('imagecreatetruecolor')) {
             try {
                 if (static::optimizeWithGd($file->getRealPath(), $targetPath, $maxWidth, $quality)) {

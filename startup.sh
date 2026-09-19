@@ -34,6 +34,12 @@ server {
 
     client_max_body_size 32M;
 
+    location /storage/ {
+        alias /home/site/wwwroot/storage/app/public/;
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
+
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }

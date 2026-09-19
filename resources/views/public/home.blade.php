@@ -120,16 +120,16 @@
     </p>
 
     <!-- Global Smart Search Input -->
-    <div class="hero-search-wrapper" style="max-width:640px; margin:24px auto 0; position:relative; z-index:100;">
+    <div class="hero-search-wrapper" style="max-width:680px; margin:32px auto 36px; position:relative; z-index:100;">
       <form action="{{ route('search') }}" method="GET" id="heroSearchForm" autocomplete="off" style="position:relative;">
-        <div style="display:flex; align-items:center; background:rgba(255,255,255,0.15); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1.5px solid rgba(255,255,255,0.3); border-radius:99px; padding:6px 6px 6px 18px; box-shadow:0 12px 30px rgba(0,0,0,0.25); transition:all 0.3s ease;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-main)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-right:10px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="heroSearchInput" name="q" placeholder="Cari layanan, surat, wisata, produk UMKM, atau berita..." style="flex-grow:1; border:none; background:transparent; color:#ffffff; font-size:0.92rem; font-weight:600; font-family:var(--font-body); outline:none;" required>
-          <button type="submit" style="background:linear-gradient(135deg, var(--jade-main), #086b53); color:#fff; border:none; border-radius:99px; padding:10px 22px; font-weight:700; font-size:0.85rem; cursor:pointer; font-family:var(--font-body); box-shadow:0 4px 14px rgba(13,138,108,0.4); flex-shrink:0;">Cari Instan</button>
+        <div style="display:flex; align-items:center; background:rgba(18, 32, 27, 0.45); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.35); border-radius:99px; padding:7px 7px 7px 22px; box-shadow:0 14px 35px rgba(0,0,0,0.3); transition:all 0.3s ease;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-main)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-right:12px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="heroSearchInput" name="q" placeholder="Cari layanan, surat, wisata, produk UMKM, atau berita..." style="flex-grow:1; border:none; background:transparent; color:#ffffff; font-size:0.95rem; font-weight:600; font-family:var(--font-body); outline:none; min-width:0;" required>
+          <button type="submit" style="background:linear-gradient(135deg, var(--jade-main), #086b53); color:#fff; border:none; border-radius:99px; padding:12px 26px; font-weight:800; font-size:0.88rem; cursor:pointer; font-family:var(--font-body); box-shadow:0 4px 16px rgba(13,138,108,0.45); flex-shrink:0; letter-spacing:0.02em;">Cari Instan</button>
         </div>
       </form>
       <!-- Live Dropdown Results -->
-      <div id="heroSearchDropdown" style="display:none; position:absolute; top:calc(100% + 8px); left:0; right:0; background:#ffffff; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.3); padding:12px; z-index:1000; text-align:left; border:1px solid rgba(18,32,27,0.1); max-height:380px; overflow-y:auto;">
+      <div id="heroSearchDropdown" style="display:none; position:absolute; top:calc(100% + 10px); left:0; right:0; background:#ffffff; border-radius:22px; box-shadow:0 24px 60px rgba(0,0,0,0.35); padding:14px; z-index:1000; text-align:left; border:1px solid rgba(18,32,27,0.12); max-height:380px; overflow-y:auto;">
         <div id="heroSearchContent"></div>
       </div>
     </div>

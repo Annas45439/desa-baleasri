@@ -102,7 +102,8 @@ body {
 a      { text-decoration: none; color: inherit; }
 
 /* ===== Layout ===== */
-.layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.layout { display: flex; min-height: 100vh; position: relative; }
+.main { flex-grow: 1; margin-left: 260px; min-width: 0; width: calc(100% - 260px); }
 
 /* ==============================
    SIDEBAR
@@ -114,10 +115,15 @@ a      { text-decoration: none; color: inherit; }
   padding: 24px 14px;
   display: flex;
   flex-direction: column;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  bottom: 0;
+  width: 260px;
   height: 100vh;
+  height: 100dvh;
   overflow-y: auto;
+  z-index: 100;
 }
 
 /* Brand */
@@ -693,7 +699,7 @@ html, body {
   .grid-2           { grid-template-columns: 1fr; }
   .ai-dashboard-grid { grid-template-columns: 1fr; }
   .ai-suggestion-grid { grid-template-columns: 1fr; }
-  .main             { padding: 22px 20px 48px; min-width: 0; width: 100%; overflow-x: hidden; }
+  .main             { padding: 22px 20px 48px; min-width: 0; width: 100% !important; margin-left: 0 !important; overflow-x: hidden; }
 
   .data-table {
     padding: 8px 12px;

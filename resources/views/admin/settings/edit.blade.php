@@ -32,7 +32,7 @@
       <label for="hero_image">Foto Hero Beranda</label>
       @if($setting->hero_image)
         <div class="current-media">
-          <img src="{{ storage_image_url($setting->hero_image) }}" alt="Preview Hero">
+          <img src="{{ storage_image_url($setting->hero_image) }}" alt="Preview Hero" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
         </div>
       @endif
       <input type="file" id="hero_image" name="hero_image" accept="image/*">
@@ -63,7 +63,7 @@
       <label for="foto_kepala_desa">Foto Kepala Desa</label>
       @if($setting->foto_kepala_desa)
         <div class="current-media">
-          <img src="{{ storage_image_url($setting->foto_kepala_desa) }}" alt="Preview Kades">
+          <img src="{{ storage_image_url($setting->foto_kepala_desa) }}" alt="Preview Kades" onerror="this.onerror=null; this.src='{{ asset('assets/logo/kades-placeholder.svg') }}';">
         </div>
       @endif
       <input type="file" id="foto_kepala_desa" name="foto_kepala_desa" accept="image/*">
