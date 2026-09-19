@@ -14,7 +14,15 @@ fi
 rm -rf assets build
 cp -R public/assets assets
 cp -R public/build build
-php artisan storage:link --force || true
+
+# Pastikan symlink storage berjalan di public/storage -> ../../storage/app/public
+php artisan storage:link --force 2>/dev/null || true
+
+# Fallback manual jika artisan storage:link gagal di Azure
+if [ ! -L public/storage ] && [ ! -d public/storage ]; then
+    ln -sf /home/site/wwwroot/storage/app/public /home/site/wwwroot/public/storage || true
+fi
+
 php artisan migrate --force || true
 
 # Tulis nginx config ke /home/site agar persisten lintas restart

@@ -30,52 +30,64 @@ if (!function_exists('storage_image_url')) {
     /**
      * Get validated public URL for uploaded storage image, falling back gracefully if missing.
      *
-     * @param string|null $path
+     * @param string|null $path  Path relative to storage/app/public (e.g. "kepala-desa/xxx.jpg")
      * @param string|null $fallbackUrl
      * @return string
      */
     function storage_image_url($path, $fallbackUrl = null)
     {
         if (!empty($path)) {
+            // If it's already a full URL, return as-is
             if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
                 return $path;
             }
 
+            // Normalize: remove leading slashes and strip redundant prefixes
             $cleanPath = ltrim(str_replace('\\', '/', $path), '/');
 
-            if (str_starts_with($cleanPath, 'storage/')) {
-                $cleanPath = substr($cleanPath, 8);
-            }
-            if (str_starts_with($cleanPath, 'public/')) {
-                $cleanPath = substr($cleanPath, 7);
-            }
-
-            $fullStoragePath = storage_path('app/public/' . $cleanPath);
-            $fullPublicStoragePath = public_path('storage/' . $cleanPath);
-            $fullPublicPath = public_path($cleanPath);
-
-            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath) 
-                || file_exists($fullStoragePath) 
-                || file_exists($fullPublicStoragePath)) {
-                return asset('storage/' . $cleanPath);
+            foreach (['storage/', 'public/storage/', 'public/'] as $prefix) {
+                if (str_starts_with($cleanPath, $prefix)) {
+                    $cleanPath = substr($cleanPath, strlen($prefix));
+                }
             }
 
-            if (file_exists($fullPublicPath)) {
-                return asset($cleanPath);
+            // Primary check: Storage facade (works on Azure + local + symlink)
+            try {
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
+                    return \Illuminate\Support\Facades\Storage::disk('public')->url($cleanPath);
+                }
+            } catch (\Throwable $e) {
+                // Ignore storage errors, fall through to file_exists checks
+            }
+
+            // Secondary checks: physical file paths (local dev / alternative configs)
+            $candidates = [
+                storage_path('app/public/' . $cleanPath),
+                public_path('storage/' . $cleanPath),
+                public_path($cleanPath),
+            ];
+
+            foreach ($candidates as $candidate) {
+                if (@file_exists($candidate)) {
+                    return asset('storage/' . $cleanPath);
+                }
             }
         }
 
-        if ($fallbackUrl && !str_contains($fallbackUrl, 'picsum.photos')) {
+        // Fallback (local SVG, NOT external picsum)
+        if (!empty($fallbackUrl) && !str_contains((string)$fallbackUrl, 'picsum.photos')) {
             return $fallbackUrl;
         }
 
-        if (is_string($path) && (str_contains($path, 'kades') || str_contains($path, 'kepala-desa') || str_contains($path, 'foto_kepala_desa'))) {
+        // Detect kades vs generic placeholder
+        if (!empty($path) && (str_contains($path, 'kepala-desa') || str_contains($path, 'kades'))) {
             return asset('assets/logo/kades-placeholder.svg');
         }
 
         return asset('assets/logo/cover-placeholder.svg');
     }
 }
+
 
 if (!function_exists('log_activity')) {
     /**
