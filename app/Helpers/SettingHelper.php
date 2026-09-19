@@ -51,9 +51,7 @@ if (!function_exists('storage_image_url')) {
                 }
             }
 
-            if (!empty($cleanPath)) {
-                return asset('storage/' . $cleanPath);
-            }
+            if (!empty($cleanPath)) return storage_file_url($cleanPath);
         }
 
         // Fallback (local SVG, NOT external picsum)
@@ -67,6 +65,24 @@ if (!function_exists('storage_image_url')) {
         }
 
         return asset('assets/logo/cover-placeholder.svg');
+    }
+}
+
+if (!function_exists('storage_file_url')) {
+    /**
+     * Get the public application URL for a file stored on the public disk.
+     */
+    function storage_file_url(?string $path): string
+    {
+        $cleanPath = ltrim(str_replace('\\', '/', (string) $path), '/');
+
+        foreach (['storage/', 'public/storage/', 'public/'] as $prefix) {
+            if (str_starts_with($cleanPath, $prefix)) {
+                $cleanPath = substr($cleanPath, strlen($prefix));
+            }
+        }
+
+        return route('media.serve', ['path' => $cleanPath]);
     }
 }
 
@@ -100,4 +116,3 @@ if (!function_exists('log_activity')) {
         }
     }
 }
-

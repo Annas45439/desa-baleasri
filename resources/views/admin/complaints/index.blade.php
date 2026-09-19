@@ -63,7 +63,7 @@
             @if ($complaint->photo_paths)
               <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;">
                 @foreach ($complaint->photo_paths as $photoPath)
-                  <a href="{{ Storage::url($photoPath) }}" target="_blank" rel="noopener">Lihat foto</a>
+                  <a href="{{ storage_file_url($photoPath) }}" target="_blank" rel="noopener">Lihat foto</a>
                 @endforeach
               </div>
             @endif

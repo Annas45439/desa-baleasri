@@ -60,7 +60,7 @@ Route::post('cek-ongkir', function (Illuminate\Http\Request $request, RajaOngkir
     }
 })->name('shipping.rates');
 
-Route::get('storage/{path}', function ($path) {
+Route::get('media/{path}', function ($path) {
     $cleanPath = ltrim(str_replace('\\', '/', $path), '/');
     if (str_contains($cleanPath, '..')) {
         abort(403);
@@ -81,7 +81,7 @@ Route::get('storage/{path}', function ($path) {
     }
 
     return response()->file(public_path('assets/logo/cover-placeholder.svg'), ['Content-Type' => 'image/svg+xml']);
-})->where('path', '.*')->name('storage.serve');
+})->where('path', '.*')->name('media.serve');
 
 Route::get('amin', function () {
     return response()->view('public.amin', ['setting' => \App\Models\Setting::current()], 200);
@@ -147,4 +147,3 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
     Route::get('storage-analytics', [StorageAnalyticsController::class, 'index'])->name('storage.index');
     Route::get('activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
 });
-
