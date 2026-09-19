@@ -71,7 +71,7 @@ class BeritaController extends Controller
     {
         $data = $request->validate([
             'judul' => ['required', 'string', 'max:180'], 'ringkasan' => ['nullable', 'string', 'max:255'],
-            'isi' => ['nullable', 'string'], 'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif,heic', 'max:10240'],
+            'isi' => ['nullable', 'string'], 'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:10240'],
             'penulis' => ['nullable', 'string', 'max:100'],
         ]);
         $data['tampil'] = $request->boolean('tampil');

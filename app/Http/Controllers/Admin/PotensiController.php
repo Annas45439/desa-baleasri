@@ -81,7 +81,7 @@ class PotensiController extends Controller
         $data = $request->validate([
             'nama' => ['required', 'string', 'max:150'], 'kategori' => ['required', 'in:wisata,umkm,galeri'],
             'tag' => ['nullable', 'string', 'max:80'], 'deskripsi' => ['nullable', 'string'],
-            'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif,heic', 'max:10240'], 'kontak_whatsapp' => ['nullable', 'string', 'max:20'],
+            'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:10240'], 'kontak_whatsapp' => ['nullable', 'string', 'max:20'],
             'urutan' => ['nullable', 'integer', 'min:0'],
         ]);
         $data['tampil'] = $request->boolean('tampil');

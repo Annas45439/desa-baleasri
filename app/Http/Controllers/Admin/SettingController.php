@@ -46,33 +46,15 @@ class SettingController extends Controller
         return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke avatar default.');
     }
 
-    public function deleteMedia(string $field)
-    {
-        $directories = ['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'];
-        abort_unless(array_key_exists($field, $directories), 404);
-
-        $setting = Setting::current();
-        $path = $setting->{$field};
-
-        if ($path && Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
-        }
-
-        $setting->update([$field => null]);
-        log_activity('DELETE_SETTING_MEDIA', "Menghapus media pengaturan: {$field}.");
-
-        return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke avatar default.');
-    }
-
     public function update(Request $request)
     {
         $setting = Setting::current();
         $data = $request->validate([
             'nama_desa' => ['required', 'string', 'max:150'], 'tagline' => ['nullable', 'string', 'max:200'],
-            'deskripsi_hero' => ['nullable', 'string'], 'hero_image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif,heic', 'max:10240'],
+            'deskripsi_hero' => ['nullable', 'string'], 'hero_image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:10240'],
             'hero_video' => ['nullable', 'string', 'max:255'],
             'nama_kepala_desa' => ['nullable', 'string', 'max:150'], 'sambutan' => ['nullable', 'string'],
-            'foto_kepala_desa' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif,heic', 'max:10240'], 'stat_pendidikan' => ['nullable', 'integer', 'min:0'],
+            'foto_kepala_desa' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:10240'], 'stat_pendidikan' => ['nullable', 'integer', 'min:0'],
             'stat_umkm' => ['nullable', 'integer', 'min:0'], 'stat_wisata' => ['nullable', 'integer', 'min:0'],
             'stat_embung' => ['nullable', 'integer', 'min:0'], 'alamat' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:150'], 'jam_operasional' => ['nullable', 'string', 'max:100'],

@@ -59,7 +59,7 @@
         </div>
       @endif
       <input type="file" id="foto" name="foto" accept="image/*">
-      <p class="hint">Format JPG/PNG, maksimal 4MB.</p>
+      <p class="hint">Format JPG, PNG, WebP, GIF, atau AVIF. HEIC belum didukung browser. Maksimal 10MB.</p>
     </div>
 
     <div class="form-row">

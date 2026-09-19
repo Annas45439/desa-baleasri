@@ -40,7 +40,7 @@
         </div>
       @endif
       <input type="file" id="hero_image" name="hero_image" accept="image/*">
-      <p class="hint">Format JPG/PNG, maksimal 5MB. Foto ini digunakan sebagai cadangan hero beranda.</p>
+      <p class="hint">Format JPG, PNG, WebP, GIF, atau AVIF. HEIC belum didukung browser. Maksimal 10MB.</p>
     </div>
 
     <div class="form-row">
@@ -75,6 +75,7 @@
         </div>
       @endif
       <input type="file" id="foto_kepala_desa" name="foto_kepala_desa" accept="image/*">
+      <p class="hint">Gunakan JPG, PNG, WebP, GIF, atau AVIF agar foto tampil di semua browser. Maksimal 10MB.</p>
     </div>
   </div>
 
