@@ -60,6 +60,29 @@ Route::post('cek-ongkir', function (Illuminate\Http\Request $request, RajaOngkir
     }
 })->name('shipping.rates');
 
+Route::get('storage/{path}', function ($path) {
+    $cleanPath = ltrim(str_replace('\\', '/', $path), '/');
+    if (str_contains($cleanPath, '..')) {
+        abort(403);
+    }
+
+    $fullPath = storage_path('app/public/' . $cleanPath);
+
+    if (file_exists($fullPath) && is_file($fullPath)) {
+        $mime = @mime_content_type($fullPath) ?: 'image/jpeg';
+        return response()->file($fullPath, [
+            'Content-Type' => $mime,
+            'Cache-Control' => 'public, max-age=86400',
+        ]);
+    }
+
+    if (str_contains($cleanPath, 'kades') || str_contains($cleanPath, 'kepala-desa')) {
+        return response()->file(public_path('assets/logo/kades-placeholder.svg'), ['Content-Type' => 'image/svg+xml']);
+    }
+
+    return response()->file(public_path('assets/logo/cover-placeholder.svg'), ['Content-Type' => 'image/svg+xml']);
+})->where('path', '.*')->name('storage.serve');
+
 Route::get('amin', function () {
     return response()->view('public.amin', ['setting' => \App\Models\Setting::current()], 200);
 })->name('easter.amin');
