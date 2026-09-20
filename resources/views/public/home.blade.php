@@ -47,6 +47,9 @@
         muted
         loop
         playsinline
+        webkit-playsinline
+        controlslist="nodownload nofullscreen noremoteplayback"
+        disablepictureinpicture
         preload="auto"
         aria-label="Video latar belakang Desa Baleasri"
       ></video>
@@ -73,6 +76,29 @@
     <div class="hero-video-control-shield" aria-hidden="true"></div>
     <div class="hero-video-ui-shield" aria-hidden="true"></div>
   </div>
+
+  @if($isLocalVideo)
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const heroVideo = document.querySelector('.hero-video-bg video');
+        if (!heroVideo) return;
+
+        const keepPlaying = function () {
+          heroVideo.muted = true;
+          const playback = heroVideo.play();
+          if (playback && typeof playback.catch === 'function') {
+            playback.catch(function () {});
+          }
+        };
+
+        heroVideo.controls = false;
+        heroVideo.addEventListener('canplay', keepPlaying, { once: true });
+        document.addEventListener('visibilitychange', keepPlaying);
+        window.addEventListener('pageshow', keepPlaying);
+        keepPlaying();
+      });
+    </script>
+  @endif
 
   <div class="container hero-oval-inner">
     <div class="badge-pill-oval">

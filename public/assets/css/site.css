@@ -494,6 +494,22 @@ nav.floating-oval-nav {
   will-change: transform;
 }
 
+.hero-video-bg video.hero-video-iframe {
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.hero-video-bg video.hero-video-iframe::-webkit-media-controls,
+.hero-video-bg video.hero-video-iframe::-webkit-media-controls-enclosure,
+.hero-video-bg video.hero-video-iframe::-webkit-media-controls-panel,
+.hero-video-bg video.hero-video-iframe::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+}
+
 /* Slow cinematic zoom agar video tidak terasa statis */
 @keyframes hero-vid-zoom {
   0%   { transform: translate(-50%, -50%) scale(1.15); }
@@ -2059,4 +2075,3 @@ footer li {
 .blob-circle-2 {
   animation-delay: -5s !important;
 }
-
