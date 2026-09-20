@@ -540,7 +540,7 @@ nav.floating-oval-nav {
   max-width: 840px;
   margin: 0 auto;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .badge-pill-oval {
