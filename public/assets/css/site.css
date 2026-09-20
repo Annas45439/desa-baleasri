@@ -370,17 +370,19 @@ nav.floating-oval-nav {
 
 .hero-search-wrapper {
   position: relative;
-  z-index: 200;
+  z-index: 1000 !important;
   isolation: isolate;
+  width: min(680px, calc(100% - 32px));
 }
 
 #heroSearchDropdown {
   position: absolute;
-  z-index: 999999;
+  z-index: 999999 !important;
   top: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(100%, 680px);
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(680px, calc(100vw - 32px)) !important;
   max-height: 430px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -448,9 +450,7 @@ nav.floating-oval-nav {
 
 @media (max-width: 640px) {
   #heroSearchDropdown {
-    width: min(94vw, 680px);
-    left: 50%;
-    transform: translateX(-50%);
+    width: min(680px, calc(100vw - 24px)) !important;
     max-height: 360px;
   }
 
