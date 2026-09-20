@@ -370,20 +370,102 @@ nav.floating-oval-nav {
 
 .hero-search-wrapper {
   position: relative;
-  z-index: 30;
+  z-index: 200;
+  isolation: isolate;
 }
 
 #heroSearchDropdown {
   position: absolute;
-  z-index: 9999;
-  overflow: hidden;
+  z-index: 999999;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 680px);
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid rgba(11, 25, 20, 0.08);
+}
+
+#heroSearchDropdown > div {
+  width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 #heroSearchDropdown a,
 #heroSearchDropdown button {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+}
+
+#heroSearchDropdown a {
+  display: flex !important;
+  width: 100% !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  padding: 11px 12px !important;
+  margin: 0 !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+#heroSearchDropdown a > div:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+#heroSearchDropdown a strong {
+  display: inline;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+#heroSearchDropdown a .search-result-snippet {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.45;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  color: #586b63;
+}
+
+#heroSearchDropdown .search-list-footer {
+  padding: 10px 10px 6px;
+  border-top: 1px solid #eee;
+}
+
+#heroSearchDropdown .search-list-footer button {
+  padding: 0;
+}
+
+@media (max-width: 640px) {
+  #heroSearchDropdown {
+    width: min(94vw, 680px);
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 360px;
+  }
+
+  #heroSearchDropdown a {
+    gap: 10px !important;
+    padding: 10px 10px !important;
+  }
+
+  #heroSearchDropdown a strong {
+    font-size: 0.82rem !important;
+  }
+
+  #heroSearchDropdown a .search-result-snippet {
+    font-size: 0.72rem !important;
+  }
 }
 
 /* Container video — cover penuh, di belakang semua */

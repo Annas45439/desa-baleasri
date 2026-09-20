@@ -96,6 +96,7 @@
 
     <div class="side-group">
       <div class="side-label">Lainnya</div>
+      <a href="{{ route('admin.panduan.index') }}" class="side-link {{ request()->routeIs('admin.panduan.*') ? 'active' : '' }}"><svg class="icon"><use href="#i-book"/></svg> Buku Panduan</a>
       <a href="{{ route('home') }}" target="_blank" class="side-link"><svg class="icon"><use href="#i-eye"/></svg> Lihat Situs</a>
     </div>
 

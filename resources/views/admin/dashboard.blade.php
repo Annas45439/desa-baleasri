@@ -4,7 +4,13 @@
 @section('page-title', 'Halo, ' . (auth()->user()->name ?? 'Admin'))
 @section('page-subtitle', 'Ini ringkasan konten situs ' . ($setting->nama_desa ?? 'desa') . '.')
 @section('page-action')
-  <a href="{{ route('admin.potensi.create') }}" class="btn btn-primary"><svg class="icon"><use href="#i-plus"/></svg> Tambah Konten</a>
+  <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+    <a href="{{ route('admin.panduan.index') }}" style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:999px; background:linear-gradient(135deg, var(--emerald), #0ea5e9); color:#fff; font-weight:800; font-size:0.8rem; box-shadow:0 10px 24px rgba(16,185,129,0.25); text-decoration:none;">
+      <svg class="icon" style="width:16px; height:16px;"><use href="#i-book"/></svg>
+      Panduan cepat
+    </a>
+    <a href="{{ route('admin.potensi.create') }}" class="btn btn-primary"><svg class="icon"><use href="#i-plus"/></svg> Tambah Konten</a>
+  </div>
 @endsection
 
 @section('content')

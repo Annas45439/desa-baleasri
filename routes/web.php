@@ -133,6 +133,7 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
 
         return redirect()->route('auth.google');
     })->name('users.password.reauth');
+    Route::view('panduan', 'admin.panduan.index')->name('panduan.index');
     Route::get('pesanan', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::patch('pesanan/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.status');
     

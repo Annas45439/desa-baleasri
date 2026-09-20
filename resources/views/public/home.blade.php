@@ -331,6 +331,40 @@
   </div>
 </section>
 
+<!-- Galeri Desa Section -->
+<section class="page-section">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
+      <div class="section-head-oval" style="margin-bottom:0;">
+        <span class="kicker-oval">Galeri Desa</span>
+        <h2>Potret Kegiatan &amp; Suasana Baleasri</h2>
+        <p>Dokumentasi momen desa, kegiatan warga, dan semangat kebersamaan di Baleasri.</p>
+      </div>
+      <a href="{{ route('wisata') }}" class="btn-oval-primary" style="padding:10px 24px; font-size:0.85rem;">Lihat Galeri Lainnya &rarr;</a>
+    </div>
+
+    <div class="card-grid-3">
+      @forelse($galeri as $item)
+        <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-{{ $loop->iteration }}">
+          <div class="oval-item-media card-img-zoom">
+            <img src="{{ storage_image_url($item->foto) }}" alt="{{ $item->nama }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
+          </div>
+          <div class="oval-item-body">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--gold-main); text-transform:uppercase; margin-bottom:4px;">{{ $item->tag ?? 'Kegiatan Desa' }}</span>
+            <h3>{{ $item->nama }}</h3>
+            <p>{{ $item->deskripsi ?: 'Dokumentasi kegiatan dan momen penting di Desa Baleasri.' }}</p>
+            <a href="{{ route('wisata') }}" style="font-size:0.85rem; font-weight:800; color:var(--jade-main); margin-top:auto;">Lihat detail &rarr;</a>
+          </div>
+        </article>
+      @empty
+        <div class="oval-glass-card" style="grid-column:1 / -1; text-align:center;">
+          <p style="color:var(--ink-muted);">Belum ada foto galeri untuk ditampilkan.</p>
+        </div>
+      @endforelse
+    </div>
+  </div>
+</section>
+
 <!-- Kabar Berita Section -->
 <section class="page-section">
   <div class="container">
@@ -426,22 +460,22 @@
             .then(res => res.json())
             .then(data => {
               if (data.results && data.results.length > 0) {
-                let html = '<div style="font-size:0.72rem; font-weight:800; color:#586b63; text-transform:uppercase; padding:6px 10px 8px; border-bottom:1px solid #eee;">Hasil Instan (' + data.total + ')</div>';
+                let html = '<div style="font-size:0.72rem; font-weight:800; color:#586b63; text-transform:uppercase; padding:8px 12px 10px; border-bottom:1px solid #eee;">Hasil Instan (' + data.total + ')</div>';
                 data.results.forEach(item => {
                   html += `
-                    <a href="${item.url}" style="display:flex; align-items:center; gap:12px; padding:10px; border-radius:12px; text-decoration:none; color:var(--ink-main); transition:background 0.2s;" onmouseover="this.style.background='rgba(13,138,108,0.06)'" onmouseout="this.style.background='transparent'">
-                      <div style="flex-grow:1;">
-                        <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="${item.url}" style="display:flex; align-items:flex-start; gap:12px; padding:10px 12px; border-radius:12px; text-decoration:none; color:var(--ink-main); transition:background 0.2s, border-color 0.2s;" onmouseover="this.style.background='rgba(13,138,108,0.06)'; this.style.borderColor='rgba(13,138,108,0.12)'" onmouseout="this.style.background='transparent'; this.style.borderColor='transparent'">
+                      <div style="flex:1 1 auto; min-width:0;">
+                        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
                           <span style="font-size:0.65rem; font-weight:800; background:rgba(13,138,108,0.12); color:var(--jade-main); padding:2px 8px; border-radius:99px;">${item.badge}</span>
-                          <strong style="font-size:0.88rem; color:var(--ink-main);">${item.title}</strong>
+                          <strong style="font-size:0.88rem; color:var(--ink-main); line-height:1.3; word-break:break-word;">${item.title}</strong>
                         </div>
-                        <div style="font-size:0.76rem; color:#586b63; margin-top:2px;">${item.snippet}</div>
+                        <div class="search-result-snippet" style="font-size:0.76rem; color:#586b63; margin-top:3px;">${item.snippet}</div>
                       </div>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--jade-main)" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--jade-main)" stroke-width="2.5" style="margin-top:6px; flex-shrink:0;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
                   `;
                 });
-                html += `<div style="padding:8px 10px 4px; text-align:center; border-top:1px solid #eee;"><button type="submit" form="heroSearchForm" style="background:none; border:none; color:var(--jade-main); font-weight:700; font-size:0.78rem; cursor:pointer;">Lihat semua hasil pencarian &rarr;</button></div>`;
+                html += `<div class="search-list-footer"><button type="submit" form="heroSearchForm" style="background:none; border:none; color:var(--jade-main); font-weight:700; font-size:0.78rem; cursor:pointer; padding:0;">Lihat semua hasil pencarian &rarr;</button></div>`;
                 searchContent.innerHTML = html;
                 searchDropdown.style.display = 'block';
               } else {
