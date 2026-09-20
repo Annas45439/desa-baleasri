@@ -1086,18 +1086,21 @@ section.page-section {
 
 /* Oval Stat Band */
 .stats-band-oval {
-  background: linear-gradient(135deg, var(--jade-dark), #08402F);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(16, 185, 129, 0.28), transparent 34%),
+    radial-gradient(circle at 88% 100%, rgba(216, 162, 75, 0.16), transparent 30%),
+    linear-gradient(135deg, #032219, #08402F 58%, #063326);
   color: #ffffff;
   border-radius: var(--radius-card);
-  padding: 42px 28px;
+  padding: 22px 20px;
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(3, 34, 25, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 22px 50px rgba(3, 34, 25, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 @media (max-width: 768px) {
   .stats-band-oval { grid-template-columns: repeat(2, 1fr); }
@@ -1107,17 +1110,27 @@ section.page-section {
   text-align: center;
   position: relative;
   z-index: 1;
+  padding: 10px 18px;
+}
+.stat-oval + .stat-oval {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
 }
 .stat-oval .n {
   font-family: var(--font-title);
   font-weight: 800;
-  font-size: 2.4rem;
-  color: var(--gold-main);
+  font-size: clamp(2rem, 3vw, 2.7rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #f0c879;
+  text-shadow: 0 4px 18px rgba(216, 162, 75, 0.18);
 }
 .stat-oval .l {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 4px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.72);
+  margin-top: 8px;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* Card Grid 3 Columns */
@@ -1679,12 +1692,27 @@ footer li {
 
   .stats-band-oval {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 24px 16px;
-    gap: 14px;
+    padding: 16px 10px;
+  }
+
+  .stat-oval {
+    padding: 12px 8px;
+  }
+
+  .stat-oval + .stat-oval {
+    border-left: 0;
+  }
+
+  .stat-oval:nth-child(n + 3) {
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
   }
 
   .stat-oval .n {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
+  }
+
+  .stat-oval .l {
+    font-size: 0.62rem;
   }
 
   .card-grid-3 {
