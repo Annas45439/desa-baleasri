@@ -421,6 +421,20 @@ nav.floating-oval-nav {
     );
 }
 
+/* YouTube can still paint its center play/buffering UI inside the iframe. */
+.hero-video-ui-shield {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 190px;
+  height: 110px;
+  transform: translate(-50%, -50%);
+  border-radius: 32px;
+  background: rgba(3, 28, 18, 0.28);
+  pointer-events: none;
+}
+
 .hero-oval-inner {
   text-align: center;
   max-width: 840px;
@@ -1494,5 +1508,4 @@ footer li {
 .blob-circle-2 {
   animation-delay: -5s !important;
 }
-
 

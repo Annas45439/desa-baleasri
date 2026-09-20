@@ -58,6 +58,7 @@
     @endif
     {{-- Overlay cinematic gradient agar teks tetap terbaca --}}
     <div class="hero-video-overlay" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(3,28,18,0.55) 0%, rgba(5,46,33,0.40) 40%, rgba(5,46,33,0.65) 80%, rgba(3,22,14,0.88) 100%);"></div>
+    <div class="hero-video-ui-shield" aria-hidden="true"></div>
   </div>
 
   <script>
@@ -76,13 +77,12 @@
         if (!player || typeof player.getPlayerState !== 'function') return;
 
         var state = player.getPlayerState();
-        var playing = window.YT && YT.PlayerState ? YT.PlayerState.PLAYING : 1;
         var ended = window.YT && YT.PlayerState ? YT.PlayerState.ENDED : 0;
 
         if (state === ended) {
           player.seekTo(0, true);
           player.playVideo();
-        } else if (state !== playing) {
+        } else if (state === (window.YT && YT.PlayerState ? YT.PlayerState.PAUSED : 2)) {
           player.mute();
           player.playVideo();
         }
