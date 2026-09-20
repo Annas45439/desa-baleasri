@@ -8,13 +8,35 @@
     <div class="order-product">
       <a href="{{ url()->previous() }}" class="back-link">&larr; Kembali ke katalog</a>
       <div class="order-product-image"><img src="{{ storage_image_url($produk->foto) }}" alt="{{ $produk->nama }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';"></div>
-      <span class="umkm-cat">{{ $produk->tag ?: 'UMKM' }}</span>
-      <h1>{{ $produk->nama }}</h1>
-      <p>{{ $produk->deskripsi ?: 'Produk unggulan warga Desa Baleasri.' }}</p>
+
+      <div class="product-summary-card">
+        <div class="summary-topline">
+          <span class="umkm-cat">{{ $produk->tag ?: 'UMKM' }}</span>
+          <span class="stock-badge">Ready stock</span>
+        </div>
+        <h1>{{ $produk->nama }}</h1>
+        <p>{{ $produk->deskripsi ?: 'Produk unggulan warga Desa Baleasri.' }}</p>
+
+        <div class="mini-meta">
+          <div>
+            <span class="meta-label">Kategori</span>
+            <strong>{{ $produk->tag ?: 'Produk Lokal' }}</strong>
+          </div>
+          <div>
+            <span class="meta-label">Pengiriman</span>
+            <strong>Manual via WhatsApp</strong>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="order-form-card">
-      <span class="kicker">Form Pemesanan</span>
-      <h2>Pesan produk ini</h2>
+      <div class="form-header-row">
+        <div>
+          <span class="kicker">Form Pemesanan</span>
+          <h2>Pesan produk ini</h2>
+        </div>
+        <div class="trust-pill">✓ Aman & cepat</div>
+      </div>
       <p class="order-intro">Isi data singkat di bawah. Setelah dikirim, Anda akan diarahkan ke WhatsApp penjual.</p>
       <form method="POST" action="{{ route('orders.store', $produk) }}" class="order-form">
         @csrf
