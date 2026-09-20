@@ -145,6 +145,7 @@ Route::prefix(env('ADMIN_PATH', 'kelola-desa-baleasri'))->name('admin.')->middle
     Route::get('surat-report/export', [AdminLetterController::class, 'exportReport'])->name('letters.export-report');
 
     Route::get('pengaturan', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::post('pengaturan', [SettingController::class, 'update'])->name('settings.update.post');
     Route::put('pengaturan', [SettingController::class, 'update'])->name('settings.update');
     Route::delete('pengaturan/media/{field}', [SettingController::class, 'deleteMedia'])->name('settings.media.destroy');
     Route::get('storage-analytics', [StorageAnalyticsController::class, 'index'])->name('storage.index');

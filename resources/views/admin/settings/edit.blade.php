@@ -8,7 +8,6 @@
 
 <form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data">
   @csrf
-  @method('PUT')
 
   <div class="form-card" id="profil" style="margin-bottom:22px;">
     <h3 style="font-family:var(--font-display); margin-bottom:16px;">Identitas & Hero Beranda</h3>
