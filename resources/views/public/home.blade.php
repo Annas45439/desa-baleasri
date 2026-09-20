@@ -343,6 +343,40 @@
   </div>
 </section>
 
+<!-- UMKM Unggulan Section -->
+<section class="page-section" id="umkm-unggulan">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
+      <div class="section-head-oval" style="margin-bottom:0;">
+        <span class="kicker-oval">Ekonomi Warga</span>
+        <h2>UMKM Unggulan Baleasri</h2>
+        <p>Temukan produk lokal dan dukung usaha warga Desa Baleasri.</p>
+      </div>
+      <a href="{{ route('umkm.index') }}" class="btn-oval-primary" style="padding:10px 24px; font-size:0.85rem;">Lihat Semua UMKM &rarr;</a>
+    </div>
+
+    <div class="card-grid-3">
+      @forelse($umkm->take(3) as $item)
+        <article class="glass-product-card">
+          <div class="glass-product-media">
+            <img src="{{ storage_image_url($item->foto) }}" alt="{{ $item->nama }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
+          </div>
+          <div class="glass-product-body">
+            <span style="font-size:0.68rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; letter-spacing:0.06em;">{{ $item->tag ?: 'Produk Lokal' }}</span>
+            <h3>{{ $item->nama }}</h3>
+            <p>{{ $item->deskripsi ?: 'Produk unggulan karya pelaku usaha lokal Desa Baleasri.' }}</p>
+            <a href="{{ route('umkm.show', ['kategori' => Str::slug($item->tag ?: 'produk-lokal')]) }}" style="font-size:0.8rem; color:var(--jade-main); font-weight:800; margin-top:auto;">Lihat produk &rarr;</a>
+          </div>
+        </article>
+      @empty
+        <div class="oval-glass-card" style="grid-column:1 / -1; text-align:center;">
+          <p style="color:var(--ink-muted);">Belum ada UMKM yang ditampilkan.</p>
+        </div>
+      @endforelse
+    </div>
+  </div>
+</section>
+
 <!-- Galeri Desa Section -->
 <section class="page-section">
   <div class="container">
@@ -352,7 +386,7 @@
         <h2>Potret Kegiatan &amp; Suasana Baleasri</h2>
         <p>Dokumentasi momen desa, kegiatan warga, dan semangat kebersamaan di Baleasri.</p>
       </div>
-      <a href="{{ route('wisata') }}" class="btn-oval-primary" style="padding:10px 24px; font-size:0.85rem;">Lihat Galeri Lainnya &rarr;</a>
+      <a href="{{ route('galeri.public') }}" class="btn-oval-primary" style="padding:10px 24px; font-size:0.85rem;">Lihat Galeri Lainnya &rarr;</a>
     </div>
 
     <div class="card-grid-3">
@@ -365,7 +399,7 @@
             <span style="font-size:0.75rem; font-weight:800; color:var(--gold-main); text-transform:uppercase; margin-bottom:4px;">{{ $item->tag ?? 'Kegiatan Desa' }}</span>
             <h3>{{ $item->nama }}</h3>
             <p>{{ $item->deskripsi ?: 'Dokumentasi kegiatan dan momen penting di Desa Baleasri.' }}</p>
-            <a href="{{ route('wisata') }}" style="font-size:0.85rem; font-weight:800; color:var(--jade-main); margin-top:auto;">Lihat detail &rarr;</a>
+            <a href="{{ route('galeri.public') }}" style="font-size:0.85rem; font-weight:800; color:var(--jade-main); margin-top:auto;">Lihat detail &rarr;</a>
           </div>
         </article>
       @empty

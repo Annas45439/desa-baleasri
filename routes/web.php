@@ -34,6 +34,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('profil-desa', [PublicPageController::class, 'profil'])->name('profil.desa');
 Route::get('apbdes', [PublicPageController::class, 'apbdes'])->name('apbdes.public');
 Route::get('wisata', [PublicPageController::class, 'wisata'])->name('wisata');
+Route::get('galeri', [PublicPageController::class, 'galeri'])->name('galeri.public');
 Route::get('berita', [PublicPageController::class, 'berita'])->name('berita.public');
 Route::get('layanan', [PublicPageController::class, 'pengaduan'])->name('layanan');
 Route::get('pengaduan', [PublicPageController::class, 'pengaduan'])->name('pengaduan.public');

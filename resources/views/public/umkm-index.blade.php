@@ -8,7 +8,7 @@
     <div class="section-head">
       <span class="kicker">Ekonomi Desa</span>
       <h2>UMKM {{ str_replace('Desa ', '', $setting->nama_desa ?? 'Baleasri') }}.</h2>
-      <p>Jelajahi produk warga berdasarkan kategori usaha unggulan.</p>
+      <p>Jelajahi produk warga berdasarkan kategori usaha unggulan atau daftarkan usaha Anda.</p>
     </div>
 
     <div class="card-grid-3" style="margin-top: 36px;">
@@ -30,6 +30,38 @@
           <p style="color:#586b63;">Belum ada produk UMKM.</p>
         </div>
       @endforelse
+    </div>
+
+    <div class="oval-glass-card" id="daftar-umkm" style="margin-top:40px;">
+      <div class="section-head" style="margin-bottom:24px;">
+        <span class="kicker">Untuk Pelaku Usaha</span>
+        <h2>Daftarkan UMKM Anda</h2>
+        <p>Isi data singkat berikut. Admin desa akan meninjau dan menghubungi Anda setelah pendaftaran diperiksa.</p>
+      </div>
+
+      @if(session('umkm_status'))
+        <div style="padding:14px 16px; margin-bottom:20px; border-radius:14px; background:rgba(16,185,129,0.12); color:var(--jade-deep); font-weight:700;">{{ session('umkm_status') }}</div>
+      @endif
+
+      @if($errors->any())
+        <div style="padding:14px 16px; margin-bottom:20px; border-radius:14px; background:rgba(220,80,65,0.1); color:#9b3428;">
+          <strong>Data belum lengkap.</strong>
+          <ul style="margin:8px 0 0 18px;">
+            @foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+          </ul>
+        </div>
+      @endif
+
+      <form action="{{ route('umkm.apply') }}" method="POST" class="umkm-registration-form">
+        @csrf
+        <label>Nama usaha<input type="text" name="nama_usaha" value="{{ old('nama_usaha') }}" required maxlength="150" placeholder="Contoh: Batik Baleasri"></label>
+        <label>Nama pemilik<input type="text" name="pemilik" value="{{ old('pemilik') }}" required maxlength="120" placeholder="Nama lengkap"></label>
+        <label>Kategori usaha<input type="text" name="kategori" value="{{ old('kategori') }}" required maxlength="80" placeholder="Kuliner, kerajinan, jasa..."></label>
+        <label>Nomor WhatsApp<input type="text" name="wa" value="{{ old('wa') }}" required maxlength="30" placeholder="08xxxxxxxxxx"></label>
+        <label class="full">Lokasi usaha<input type="text" name="lokasi" value="{{ old('lokasi') }}" required maxlength="180" placeholder="Dusun / alamat usaha"></label>
+        <label class="full">Deskripsi usaha<textarea name="deskripsi" required maxlength="2000" rows="4" placeholder="Ceritakan produk atau layanan usaha Anda">{{ old('deskripsi') }}</textarea></label>
+        <div class="full"><button type="submit" class="btn-oval-primary">Kirim Pendaftaran &rarr;</button></div>
+      </form>
     </div>
   </div>
 </section>

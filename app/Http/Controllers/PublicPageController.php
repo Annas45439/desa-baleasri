@@ -33,6 +33,14 @@ class PublicPageController extends Controller
         ]);
     }
 
+    public function galeri()
+    {
+        return view('public.galeri', [
+            'setting' => Setting::current(),
+            'galeri' => Potensi::kategori('galeri')->tampil()->orderBy('urutan')->get(),
+        ]);
+    }
+
     public function berita()
     {
         return view('public.berita', [
