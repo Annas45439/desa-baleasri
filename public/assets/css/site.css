@@ -521,6 +521,16 @@ nav.floating-oval-nav {
     );
 }
 
+  /* Menutup kontrol singkat yang kadang dilukis YouTube saat transisi loop. */
+  .hero-video-control-shield {
+    position: absolute;
+    z-index: 2;
+    inset: 0 0 auto;
+    height: 58px;
+    background: linear-gradient(to bottom, rgba(3, 28, 18, 0.34), transparent);
+    pointer-events: none;
+  }
+
 /* YouTube can still paint its center play/buffering UI inside the iframe. */
 .hero-video-ui-shield {
   position: absolute;

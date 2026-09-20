@@ -49,7 +49,7 @@
       <iframe
         id="hero-yt-player"
         class="hero-video-iframe"
-        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&fs=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&loop=1&playlist={{ $ytVideoId }}&origin={{ urlencode(url('/')) }}"
+        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&fs=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&autohide=1&origin={{ urlencode(url('/')) }}"
         title="Background Video Hero Desa Baleasri"
         allow="autoplay; encrypted-media"
         style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
@@ -58,6 +58,7 @@
     @endif
     {{-- Overlay cinematic gradient agar teks tetap terbaca --}}
     <div class="hero-video-overlay" style="position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(3,28,18,0.55) 0%, rgba(5,46,33,0.40) 40%, rgba(5,46,33,0.65) 80%, rgba(3,22,14,0.88) 100%);"></div>
+    <div class="hero-video-control-shield" aria-hidden="true"></div>
     <div class="hero-video-ui-shield" aria-hidden="true"></div>
   </div>
 
@@ -72,12 +73,22 @@
 
       var player;
       var retryTimer;
+      var videoLoopTimer;
 
       function keepVideoPlaying() {
         if (!player || typeof player.getPlayerState !== 'function') return;
 
         var state = player.getPlayerState();
         var ended = window.YT && YT.PlayerState ? YT.PlayerState.ENDED : 0;
+        var duration = typeof player.getDuration === 'function' ? player.getDuration() : 0;
+        var currentTime = typeof player.getCurrentTime === 'function' ? player.getCurrentTime() : 0;
+
+        // Restart just before the end so YouTube never displays its end/buffering UI.
+        if (duration > 3 && currentTime >= duration - 0.65) {
+          player.seekTo(0, true);
+          player.playVideo();
+          return;
+        }
 
         if (state === ended) {
           player.seekTo(0, true);
@@ -107,7 +118,8 @@
         event.target.mute();
         event.target.playVideo();
 
-        window.setInterval(keepVideoPlaying, 1000);
+        window.clearInterval(videoLoopTimer);
+        videoLoopTimer = window.setInterval(keepVideoPlaying, 250);
         document.addEventListener('visibilitychange', retryVideoPlayback);
         window.addEventListener('pageshow', retryVideoPlayback);
       }
