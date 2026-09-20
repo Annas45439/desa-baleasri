@@ -212,6 +212,37 @@
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  .password-wrap input {
+    padding-right: 52px;
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+
+  .password-toggle:hover,
+  .password-toggle:focus-visible {
+    color: var(--emerald);
+    background: rgba(16, 185, 129, 0.12);
+    outline: none;
+  }
+
+  .password-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
   .input-wrap input::placeholder {
     color: rgba(148, 163, 184, 0.5);
   }
@@ -391,8 +422,15 @@
 
         <div class="field">
           <label for="password">Password</label>
-          <div class="input-wrap">
+          <div class="input-wrap password-wrap">
             <input type="password" id="password" name="password" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" id="passwordToggle"
+                    aria-label="Tampilkan password" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"></path>
+                <circle cx="12" cy="12" r="2.6"></circle>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -419,6 +457,17 @@
       </form>
     </div>
   </div>
+
+<script>
+  document.getElementById('passwordToggle')?.addEventListener('click', function () {
+    const password = document.getElementById('password');
+    const visible = password.type === 'text';
+
+    password.type = visible ? 'password' : 'text';
+    this.setAttribute('aria-pressed', String(!visible));
+    this.setAttribute('aria-label', visible ? 'Tampilkan password' : 'Sembunyikan password');
+  });
+</script>
 
 </body>
 </html>
