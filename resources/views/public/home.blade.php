@@ -49,7 +49,7 @@
       <iframe
         id="hero-yt-player"
         class="hero-video-iframe"
-        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&loop=1&playlist={{ $ytVideoId }}"
+        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&fs=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&loop=1&playlist={{ $ytVideoId }}&origin={{ urlencode(url('/')) }}"
         title="Background Video Hero Desa Baleasri"
         allow="autoplay; encrypted-media"
         style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
@@ -70,11 +70,35 @@
       }
 
       var player;
+      var retryTimer;
+
+      function keepVideoPlaying() {
+        if (!player || typeof player.getPlayerState !== 'function') return;
+
+        var state = player.getPlayerState();
+        var playing = window.YT && YT.PlayerState ? YT.PlayerState.PLAYING : 1;
+        var ended = window.YT && YT.PlayerState ? YT.PlayerState.ENDED : 0;
+
+        if (state === ended) {
+          player.seekTo(0, true);
+          player.playVideo();
+        } else if (state !== playing) {
+          player.mute();
+          player.playVideo();
+        }
+      }
+
+      function retryVideoPlayback() {
+        window.clearTimeout(retryTimer);
+        retryTimer = window.setTimeout(keepVideoPlaying, 250);
+      }
+
       window.onYouTubeIframeAPIReady = function () {
         player = new YT.Player('hero-yt-player', {
           events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange,
+            'onAutoplayBlocked': retryVideoPlayback
           }
         });
       };
@@ -83,24 +107,17 @@
         event.target.mute();
         event.target.playVideo();
 
-        // Cek posisi video tiap 100ms. Sebelum video benar-benar habis (0.3s),
-        // langsung seek ke awal agar ngeloop seamless tanpa jeda hitam.
-        setInterval(function () {
-          if (player && typeof player.getCurrentTime === 'function' && typeof player.getDuration === 'function') {
-            var dur = player.getDuration();
-            var curr = player.getCurrentTime();
-            if (dur > 0 && curr >= (dur - 0.3)) {
-              player.seekTo(0, true);
-              player.playVideo();
-            }
-          }
-        }, 100);
+        window.setInterval(keepVideoPlaying, 1000);
+        document.addEventListener('visibilitychange', retryVideoPlayback);
+        window.addEventListener('pageshow', retryVideoPlayback);
       }
 
       function onPlayerStateChange(event) {
         if (event.data === (window.YT ? YT.PlayerState.ENDED : 0)) {
           event.target.seekTo(0, true);
           event.target.playVideo();
+        } else if (event.data === (window.YT ? YT.PlayerState.PAUSED : 2)) {
+          retryVideoPlayback();
         }
       }
     });
