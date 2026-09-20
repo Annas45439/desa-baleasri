@@ -52,6 +52,11 @@ server {
         add_header Cache-Control "public, no-transform";
     }
 
+    # Route uploaded media through Laravel instead of the generic static-file rule below.
+    location ^~ /media/ {
+        try_files $uri /index.php?$query_string;
+    }
+
     location / {
         try_files $uri /index.php?$query_string;
     }
