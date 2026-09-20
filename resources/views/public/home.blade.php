@@ -312,41 +312,21 @@
     </div>
 
     <div class="card-grid-3">
-      <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-1">
-        <div class="oval-item-media card-img-zoom">
-          <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Embun Duwetsewu" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
-        </div>
-        <div class="oval-item-body">
-          <span style="font-size:0.75rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Air</span>
-          <h3>Embung Duwetsewu</h3>
-          <p>Destinasi wisata air buatan ikonik dengan pemandangan sejuk, menenangkan, dan sarana irigasi pertanian warga.</p>
-          <a href="{{ route('wisata') }}" style="font-size:0.85rem; font-weight:800; color:var(--jade-main); margin-top:auto;">Rincian lokasi &rarr;</a>
-        </div>
-      </article>
-
-      <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-2">
-        <div class="oval-item-media card-img-zoom">
-          <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Sentra Batik Gedhek" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
-        </div>
-        <div class="oval-item-body">
-          <span style="font-size:0.75rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Budaya</span>
-          <h3>Sentra Batik Gedhek</h3>
-          <p>Warisan motif batik khas Desa Baleasri yang diukir dengan ketelitian dan ketelatenan tinggi oleh para pengrajin desa.</p>
-          <a href="{{ route('wisata') }}" style="font-size:0.85rem; font-weight:800; color:var(--jade-main); margin-top:auto;">Rincian lokasi &rarr;</a>
-        </div>
-      </article>
-
-      <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-3">
-        <div class="oval-item-media card-img-zoom">
-          <img src="{{ asset('assets/logo/cover-placeholder.svg') }}" alt="Hamparan Sawah Baleasri" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
-        </div>
-        <div class="oval-item-body">
-          <span style="font-size:0.75rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">Wisata Agraris</span>
-          <h3>Hamparan Sawah Baleasri</h3>
-          <p>Kawasan pertanian padi seluas 110 hektar yang membentang hijau asri khas lanskap perdesaan Kabupaten Magetan.</p>
-          <a href="{{ route('wisata') }}" style="font-size:0.85rem; font-weight:800; color:var(--jade-main); margin-top:auto;">Rincian lokasi &rarr;</a>
-        </div>
-      </article>
+      @forelse($wisata as $w)
+        <article class="oval-item-card card-hover-animate reveal-on-scroll reveal-delay-{{ $loop->iteration }}">
+          <div class="oval-item-media card-img-zoom">
+            <img src="{{ storage_image_url($w->foto) }}" alt="{{ $w->nama }}" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
+          </div>
+          <div class="oval-item-body">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--jade-main); text-transform:uppercase; margin-bottom:4px;">{{ $w->tag ?? 'Wisata Desa' }}</span>
+            <h3>{{ $w->nama }}</h3>
+            <p>{{ $w->deskripsi ?: 'Destinasi kebanggaan warga Desa Baleasri, Kecamatan Ngariboyo, Magetan.' }}</p>
+            <a href="{{ route('wisata') }}" style="font-size:0.85rem; font-weight:800; color:var(--jade-main); margin-top:auto;">Rincian lokasi &rarr;</a>
+          </div>
+        </article>
+      @empty
+        <p style="color:var(--ink-muted);">Belum ada destinasi wisata untuk ditampilkan.</p>
+      @endforelse
     </div>
   </div>
 </section>
