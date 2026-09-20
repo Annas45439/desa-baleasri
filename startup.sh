@@ -11,6 +11,9 @@ if [ ! -f index.php ]; then
 	printf '%s\n' '<?php' "require __DIR__ . '/public/index.php';" > index.php
 fi
 
+# Clear compiled views and cached routes/config from previous deployments.
+php artisan optimize:clear
+
 # Tulis php.ini custom untuk atasi batas upload 2MB bawaan Azure
 mkdir -p /usr/local/etc/php/conf.d 2>/dev/null || true
 cat > /usr/local/etc/php/conf.d/uploads.ini << 'PHPINI'
