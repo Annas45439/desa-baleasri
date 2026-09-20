@@ -32,10 +32,10 @@
       @if($setting->hero_image)
         <div class="current-media">
           <img src="{{ storage_image_url($setting->hero_image) }}" alt="Preview Hero" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
-          <form method="POST" action="{{ route('admin.settings.media.destroy', 'hero_image') }}" onsubmit="return confirm('Hapus foto hero?');">
-            @csrf
-            <button type="submit" class="btn-sm btn-delete">Hapus Foto</button>
-          </form>
+          <button type="submit" class="btn-sm btn-delete"
+                  formaction="{{ route('admin.settings.media.destroy', 'hero_image') }}"
+                  formmethod="post"
+                  onclick="return confirm('Hapus foto hero?');">Hapus Foto</button>
         </div>
       @endif
       <input type="file" id="hero_image" name="hero_image" accept="image/*">
@@ -67,10 +67,10 @@
       @if($setting->foto_kepala_desa)
         <div class="current-media">
           <img src="{{ storage_image_url($setting->foto_kepala_desa) }}" alt="Preview Kades" onerror="this.onerror=null; this.src='{{ asset('assets/logo/kades-placeholder.svg') }}';">
-          <form method="POST" action="{{ route('admin.settings.media.destroy', 'foto_kepala_desa') }}" onsubmit="return confirm('Hapus foto kepala desa?');">
-            @csrf
-            <button type="submit" class="btn-sm btn-delete">Hapus Foto</button>
-          </form>
+          <button type="submit" class="btn-sm btn-delete"
+                  formaction="{{ route('admin.settings.media.destroy', 'foto_kepala_desa') }}"
+                  formmethod="post"
+                  onclick="return confirm('Hapus foto kepala desa?');">Hapus Foto</button>
         </div>
       @endif
       <input type="file" id="foto_kepala_desa" name="foto_kepala_desa" accept="image/*">
