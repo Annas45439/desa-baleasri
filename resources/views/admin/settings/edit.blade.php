@@ -43,9 +43,24 @@
     </div>
 
     <div class="form-row">
-      <label for="hero_video">Link Video Background Hero (URL Link Only)</label>
+      <label for="hero_video">Link Video Background Hero (opsional)</label>
       <input type="text" id="hero_video" name="hero_video" value="{{ old('hero_video', $setting->hero_video) }}" placeholder="https://www.youtube.com/watch?v=nbk-af31BXs atau https://youtu.be/nbk-af31BXs">
-      <p class="hint">💡 <strong>Video Hero Menggunakan Link (Tanpa Upload File):</strong> Masukkan link video dari YouTube (contoh: <code>https://youtu.be/nbk-af31BXs</code>) atau link Google Drive publik. Video diputar otomatis sebagai latar belakang hero tanpa mengunggah berkas video ke hosting.</p>
+      <p class="hint">Gunakan link YouTube atau Google Drive jika tidak ingin menyimpan video di hosting.</p>
+    </div>
+
+    <div class="form-row">
+      <label for="hero_video_file">Upload Video Hero</label>
+      @if($setting->hero_video && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->hero_video))
+        <div class="current-media">
+          <video src="{{ asset('storage/' . $setting->hero_video) }}" style="width:220px; height:120px; object-fit:cover; border-radius:10px;" muted playsinline controls></video>
+          <button type="submit" class="btn-sm btn-delete"
+                  formaction="{{ route('admin.settings.media.destroy', 'hero_video') }}"
+                  formmethod="post"
+                  onclick="return confirm('Hapus video hero?');">Hapus Video</button>
+        </div>
+      @endif
+      <input type="file" id="hero_video_file" name="hero_video_file" accept="video/mp4,video/webm,video/quicktime">
+      <p class="hint">Format MP4, WebM, atau MOV. Maksimal 10MB. Video baru akan menggantikan video lokal sebelumnya agar storage tetap hemat.</p>
     </div>
   </div>
 
@@ -60,6 +75,21 @@
     <div class="form-row">
       <label for="sambutan">Isi Sambutan</label>
       <textarea id="sambutan" name="sambutan" style="min-height:140px;">{{ old('sambutan', $setting->sambutan) }}</textarea>
+    </div>
+
+    <div class="form-grid-2">
+      <div class="form-row">
+        <label for="nama_sekretaris_desa">Nama Sekretaris Desa</label>
+        <input type="text" id="nama_sekretaris_desa" name="nama_sekretaris_desa" value="{{ old('nama_sekretaris_desa', $setting->nama_sekretaris_desa ?? 'Tri Anjono') }}" placeholder="Contoh: Tri Anjono">
+      </div>
+      <div class="form-row">
+        <label for="jabatan_sekretaris_desa">Jabatan</label>
+        <input type="text" id="jabatan_sekretaris_desa" name="jabatan_sekretaris_desa" value="{{ old('jabatan_sekretaris_desa', $setting->jabatan_sekretaris_desa ?? 'Sekretaris Desa') }}" placeholder="Contoh: Sekretaris Desa">
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="lokasi_sekretaris_desa">Lokasi / Instansi</label>
+      <input type="text" id="lokasi_sekretaris_desa" name="lokasi_sekretaris_desa" value="{{ old('lokasi_sekretaris_desa', $setting->lokasi_sekretaris_desa ?? 'Kecamatan Ngariboyo, Kabupaten Magetan') }}" placeholder="Contoh: Kecamatan Ngariboyo, Kabupaten Magetan">
     </div>
 
     <div class="form-row">

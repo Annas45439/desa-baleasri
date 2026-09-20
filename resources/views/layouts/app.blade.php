@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ $setting->nama_desa ?? 'Desa Baleasri' }} — @yield('title', 'Beranda')</title>
 <meta name="description" content="Website Resmi {{ $setting->nama_desa ?? 'Desa Baleasri' }}, Kecamatan Ngariboyo, Kabupaten Magetan — Portal Informasi Publik & Pelayanan Desa">
+<link rel="icon" type="image/png" href="{{ asset('assets/logo/logo magetan.png') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ secure_asset('assets/css/site.css') }}?v={{ @filemtime(public_path('assets/css/site.css')) }}">
@@ -23,7 +24,7 @@
 <header class="site-header">
   <nav class="floating-oval-nav">
     <a href="{{ route('home') }}" class="brand">
-      <img class="brand-logo" src="{{ secure_asset('assets/logo/logo magetan.png') }}" alt="Logo {{ $setting->nama_desa ?? 'Desa Baleasri' }}">
+      <img class="brand-logo" src="{{ asset('assets/logo/logo magetan.png') }}" alt="Logo {{ $setting->nama_desa ?? 'Desa Baleasri' }}" width="42" height="42">
       <span>{{ str_replace('Desa ', '', $setting->nama_desa ?? 'Baleasri') }}</span>
     </a>
 
@@ -69,7 +70,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img class="footer-jargon-logo" src="{{ secure_asset('assets/logo/logo jargon maegtan.png') }}" alt="Jargon Kabupaten Magetan">
+        <img class="footer-jargon-logo" src="{{ asset('assets/logo/logo jargon maegtan.png') }}" alt="Jargon Kabupaten Magetan">
         <div class="name">Pemerintah {{ $setting->nama_desa ?? 'Desa Baleasri' }}</div>
         <p style="font-size:0.88rem; opacity:0.8;">{{ $setting->tagline ?? 'Kecamatan Ngariboyo, Kabupaten Magetan, Jawa Timur' }}</p>
         @if($setting->alamat)<p style="margin-top:8px; font-size:0.8rem; opacity:0.7;">{{ $setting->alamat }}</p>@endif

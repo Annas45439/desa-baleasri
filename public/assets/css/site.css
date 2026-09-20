@@ -581,6 +581,47 @@ nav.floating-oval-nav {
   color: rgba(255,255,255,0.85);
 }
 
+.hero-officer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  padding: 10px 16px;
+  border: 1px solid rgba(18, 48, 40, 0.12);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(244,240,226,0.42));
+  box-shadow: 0 8px 24px rgba(20, 55, 45, 0.08);
+  color: var(--ink-sub);
+  font-size: 0.8rem;
+}
+
+.hero-officer-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(177, 146, 56, 0.14);
+  color: var(--jade-dark);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.hero-officer-name {
+  font-weight: 800;
+  color: var(--jade-dark);
+}
+
+.hero-officer-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(12, 41, 34, 0.18);
+}
+
+.hero-officer-location {
+  color: var(--ink-muted);
+}
+
 .hero-oval-section h1 {
   font-family: var(--font-title);
   font-weight: 800;

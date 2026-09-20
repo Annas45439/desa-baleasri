@@ -27,10 +27,10 @@
             Kepala Desa Baleasri &bull; Penanggung Jawab Pemerintahan
           </p>
           <div class="sambutan-quote-box">
-            â€œ{{ $setting->sambutan ?: 'Desa Baleasri menjunjung tinggi kearifan lokal, semangat gotong royong, dan transparansi pelayanan publik demi mewujudkan desa yang mandiri, sejahtera, serta berdaya saing.' }}â€
+            &ldquo;{{ $setting->sambutan_display ?: 'Desa Baleasri menjunjung tinggi kearifan lokal, semangat gotong royong, dan transparansi pelayanan publik demi mewujudkan desa yang mandiri, sejahtera, serta berdaya saing.' }}&rdquo;
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:16px; font-size:0.8rem; color:#4e5d56;">
-            <span><strong>Sekretaris Desa:</strong> Tri Anjono</span>
+            <span><strong>{{ $setting->jabatan_sekretaris_desa ?? 'Sekretaris Desa' }}:</strong> {{ $setting->nama_sekretaris_desa ?? 'Tri Anjono' }}</span>
             <span>&bull;</span>
             <span><strong>Status Data:</strong> Prodeskel Kemendagri 2025</span>
           </div>
@@ -50,7 +50,7 @@
         <div>
           <h3 style="font-family:var(--font-title); font-size:1.25rem; font-weight:800; color:var(--ink-main); margin-bottom:8px;">Letak &amp; Gambaran Umum</h3>
           <p>
-            Kurang lebih 4 km di sebelah selatan Kota Magetan terdapat sebuah desa yang cukup luas kawasannya, dengan suasana relatif tenang karena didukung oleh penduduk yang agamis â€” hampir seluruh warganya beragama Islam. Itulah <strong>Desa Baleasri</strong>.
+            Kurang lebih 4 km di sebelah selatan Kota Magetan terdapat sebuah desa yang cukup luas kawasannya, dengan suasana relatif tenang karena didukung oleh penduduk yang agamis &mdash; hampir seluruh warganya beragama Islam. Itulah <strong>Desa Baleasri</strong>.
           </p>
           <p style="margin-top:8px;">
             Dahulu Desa Baleasri masuk wilayah Kecamatan Magetan. Namun karena adanya pemekaran wilayah kecamatan, kini Desa Baleasri resmi menjadi bagian dari <strong>Kecamatan Ngariboyo</strong>, Kabupaten Magetan.
@@ -256,4 +256,3 @@
   </div>
 </section>
 @endsection
-

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class Setting extends Model
 {
-    protected $fillable = ['nama_desa', 'tagline', 'deskripsi_hero', 'hero_image', 'hero_video', 'nama_kepala_desa', 'sambutan', 'foto_kepala_desa', 'stat_pendidikan', 'stat_umkm', 'stat_wisata', 'stat_embung', 'alamat', 'email', 'jam_operasional', 'whatsapp_admin', 'instagram', 'facebook', 'youtube', 'maps_embed', 'sop_pengajuan', 'estimasi_proses', 'kontak_darurat'];
+    protected $fillable = ['nama_desa', 'tagline', 'deskripsi_hero', 'hero_image', 'hero_video', 'nama_kepala_desa', 'sambutan', 'foto_kepala_desa', 'nama_sekretaris_desa', 'jabatan_sekretaris_desa', 'lokasi_sekretaris_desa', 'stat_pendidikan', 'stat_umkm', 'stat_wisata', 'stat_embung', 'alamat', 'email', 'jam_operasional', 'whatsapp_admin', 'instagram', 'facebook', 'youtube', 'maps_embed', 'sop_pengajuan', 'estimasi_proses', 'kontak_darurat'];
 
     public static function current(): self
     {
@@ -27,5 +28,31 @@ class Setting extends Model
         }
 
         return $setting;
+    }
+
+    public function getSambutanDisplayAttribute(): ?string
+    {
+        if (! $this->sambutan) {
+            return null;
+        }
+
+        return str_replace(
+            ['â€œ', 'â€', 'â€', 'â€”', 'â€“'],
+            ['“', '”', '”', '—', '–'],
+            $this->sambutan
+        );
+    }
+
+    public function getHeroVideoUrlAttribute(): ?string
+    {
+        if (! $this->hero_video) {
+            return null;
+        }
+
+        if (Storage::disk('public')->exists($this->hero_video)) {
+            return asset('storage/' . $this->hero_video);
+        }
+
+        return $this->hero_video;
     }
 }

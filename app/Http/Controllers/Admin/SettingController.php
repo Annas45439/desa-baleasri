@@ -30,7 +30,7 @@ class SettingController extends Controller
 
     public function deleteMedia(string $field)
     {
-        $directories = ['hero_image' => 'hero', 'foto_kepala_desa' => 'kepala-desa'];
+        $directories = ['hero_image' => 'hero', 'hero_video' => 'hero-video', 'foto_kepala_desa' => 'kepala-desa'];
         abort_unless(array_key_exists($field, $directories), 404);
 
         $setting = Setting::current();
@@ -43,7 +43,9 @@ class SettingController extends Controller
         $setting->update([$field => null]);
         log_activity('DELETE_SETTING_MEDIA', "Menghapus media pengaturan: {$field}.");
 
-        return back()->with('status', 'Foto berhasil dihapus dan dikembalikan ke avatar default.');
+        return back()->with('status', $field === 'hero_video'
+            ? 'Video hero berhasil dihapus.'
+            : 'Foto berhasil dihapus dan dikembalikan ke avatar default.');
     }
 
     public function update(Request $request)
@@ -53,7 +55,11 @@ class SettingController extends Controller
             'nama_desa' => ['required', 'string', 'max:150'], 'tagline' => ['nullable', 'string', 'max:200'],
             'deskripsi_hero' => ['nullable', 'string'], 'hero_image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:10240'],
             'hero_video' => ['nullable', 'string', 'max:255'],
+            'hero_video_file' => ['nullable', 'file', 'mimes:mp4,webm,mov', 'max:10240'],
             'nama_kepala_desa' => ['nullable', 'string', 'max:150'], 'sambutan' => ['nullable', 'string'],
+            'nama_sekretaris_desa' => ['nullable', 'string', 'max:150'],
+            'jabatan_sekretaris_desa' => ['nullable', 'string', 'max:150'],
+            'lokasi_sekretaris_desa' => ['nullable', 'string', 'max:255'],
             'foto_kepala_desa' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:10240'], 'stat_pendidikan' => ['nullable', 'integer', 'min:0'],
             'stat_umkm' => ['nullable', 'integer', 'min:0'], 'stat_wisata' => ['nullable', 'integer', 'min:0'],
             'stat_embung' => ['nullable', 'integer', 'min:0'], 'alamat' => ['nullable', 'string', 'max:255'],
@@ -78,6 +84,25 @@ class SettingController extends Controller
                 }
             } else {
                 unset($data[$field]);
+            }
+        }
+
+        if ($request->hasFile('hero_video_file') && $request->file('hero_video_file')->isValid()) {
+            $oldVideo = $setting->hero_video;
+            $newVideo = $request->file('hero_video_file')->store('hero-video', 'public');
+            $data['hero_video'] = $newVideo;
+
+            if ($oldVideo && Storage::disk('public')->exists($oldVideo)) {
+                Storage::disk('public')->delete($oldVideo);
+            }
+        } else {
+            unset($data['hero_video_file']);
+
+            if (array_key_exists('hero_video', $data)
+                && $data['hero_video'] !== $setting->hero_video
+                && $setting->hero_video
+                && Storage::disk('public')->exists($setting->hero_video)) {
+                Storage::disk('public')->delete($setting->hero_video);
             }
         }
 

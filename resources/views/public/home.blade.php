@@ -18,7 +18,8 @@
 </div>
 
 @php
-  $videoSource = trim($setting->hero_video ?? 'nbk-af31BXs');
+  $videoSource = trim($setting->hero_video_url ?? 'nbk-af31BXs');
+  $isLocalVideo = $setting->hero_video && !preg_match('/^https?:\/\//i', $videoSource);
   $ytVideoId = 'nbk-af31BXs';
   $isDrive = false;
   $driveEmbedUrl = '';
@@ -38,7 +39,18 @@
 
   {{-- Video Background Hero --}}
   <div class="hero-video-bg" style="position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;" aria-hidden="true">
-    @if($isDrive)
+    @if($isLocalVideo)
+      <video
+        class="hero-video-iframe"
+        src="{{ $videoSource }}"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-label="Video latar belakang Desa Baleasri"
+      ></video>
+    @elseif($isDrive)
       <iframe
         src="{{ $driveEmbedUrl }}"
         title="Background Video Hero Desa Baleasri"
@@ -49,7 +61,7 @@
       <iframe
         id="hero-yt-player"
         class="hero-video-iframe"
-        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&fs=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&autohide=1&origin={{ urlencode(request()->getSchemeAndHttpHost()) }}"
+        src="https://www.youtube-nocookie.com/embed/{{ $ytVideoId }}?autoplay=1&mute=1&controls=0&fs=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&loop=1&playlist={{ $ytVideoId }}"
         title="Background Video Hero Desa Baleasri"
         allow="autoplay; encrypted-media"
         style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
@@ -61,79 +73,6 @@
     <div class="hero-video-control-shield" aria-hidden="true"></div>
     <div class="hero-video-ui-shield" aria-hidden="true"></div>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (!window.YT) {
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      }
-
-      var player;
-      var retryTimer;
-      var videoLoopTimer;
-
-      function keepVideoPlaying() {
-        if (!player || typeof player.getPlayerState !== 'function') return;
-
-        var state = player.getPlayerState();
-        var ended = window.YT && YT.PlayerState ? YT.PlayerState.ENDED : 0;
-        var duration = typeof player.getDuration === 'function' ? player.getDuration() : 0;
-        var currentTime = typeof player.getCurrentTime === 'function' ? player.getCurrentTime() : 0;
-
-        // Restart just before the end so YouTube never displays its end/buffering UI.
-        if (duration > 3 && currentTime >= duration - 0.65) {
-          player.seekTo(0, true);
-          player.playVideo();
-          return;
-        }
-
-        if (state === ended) {
-          player.seekTo(0, true);
-          player.playVideo();
-        } else if (state === (window.YT && YT.PlayerState ? YT.PlayerState.PAUSED : 2)) {
-          player.mute();
-          player.playVideo();
-        }
-      }
-
-      function retryVideoPlayback() {
-        window.clearTimeout(retryTimer);
-        retryTimer = window.setTimeout(keepVideoPlaying, 250);
-      }
-
-      window.onYouTubeIframeAPIReady = function () {
-        player = new YT.Player('hero-yt-player', {
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-            'onAutoplayBlocked': retryVideoPlayback
-          }
-        });
-      };
-
-      function onPlayerReady(event) {
-        event.target.mute();
-        event.target.playVideo();
-
-        window.clearInterval(videoLoopTimer);
-        videoLoopTimer = window.setInterval(keepVideoPlaying, 250);
-        document.addEventListener('visibilitychange', retryVideoPlayback);
-        window.addEventListener('pageshow', retryVideoPlayback);
-      }
-
-      function onPlayerStateChange(event) {
-        if (event.data === (window.YT ? YT.PlayerState.ENDED : 0)) {
-          event.target.seekTo(0, true);
-          event.target.playVideo();
-        } else if (event.data === (window.YT ? YT.PlayerState.PAUSED : 2)) {
-          retryVideoPlayback();
-        }
-      }
-    });
-  </script>
 
   <div class="container hero-oval-inner">
     <div class="badge-pill-oval">
@@ -255,10 +194,13 @@
             Kepala Desa Baleasri &bull; Periode 2025
           </p>
           <p style="font-size:0.95rem; color:var(--ink-sub); line-height:1.75; font-style:italic; border-left:3px solid var(--gold-main); padding-left:18px;">
-            “{{ $setting->sambutan ?: 'Selamat datang di Website Resmi Pemerintah Desa Baleasri. Portal digital ini hadir sebagai wujud keterbukaan informasi publik dan komitmen kami untuk memberikan pelayanan prima yang cepat, transparan, dan akuntabel kepada seluruh masyarakat.' }}”
+            &ldquo;{{ $setting->sambutan_display ?: 'Selamat datang di Website Resmi Pemerintah Desa Baleasri. Portal digital ini hadir sebagai wujud keterbukaan informasi publik dan komitmen kami untuk memberikan pelayanan prima yang cepat, transparan, dan akuntabel kepada seluruh masyarakat.' }}&rdquo;
           </p>
-          <div style="margin-top:18px; font-size:0.82rem; color:var(--ink-muted);">
-            <strong>Sekretaris Desa:</strong> Tri Anjono &bull; Kecamatan Ngariboyo, Kabupaten Magetan
+          <div class="hero-officer-badge" aria-label="{{ $setting->jabatan_sekretaris_desa ?? 'Sekretaris Desa' }} {{ $setting->nama_sekretaris_desa ?? 'Tri Anjono' }}">
+            <span class="hero-officer-label">{{ $setting->jabatan_sekretaris_desa ?? 'Sekretaris Desa' }}</span>
+            <span class="hero-officer-name">{{ $setting->nama_sekretaris_desa ?? 'Tri Anjono' }}</span>
+            <span class="hero-officer-divider"></span>
+            <span class="hero-officer-location">{{ $setting->lokasi_sekretaris_desa ?? 'Kecamatan Ngariboyo, Kabupaten Magetan' }}</span>
           </div>
         </div>
       </div>
