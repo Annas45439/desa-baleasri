@@ -49,7 +49,7 @@
       <iframe
         id="hero-yt-player"
         class="hero-video-iframe"
-        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&fs=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&autohide=1&origin={{ urlencode(url('/')) }}"
+        src="https://www.youtube.com/embed/{{ $ytVideoId }}?enablejsapi=1&autoplay=1&mute=1&controls=0&fs=0&showinfo=0&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&modestbranding=1&autohide=1&origin={{ urlencode(request()->getSchemeAndHttpHost()) }}"
         title="Background Video Hero Desa Baleasri"
         allow="autoplay; encrypted-media"
         style="position:absolute; top:50%; left:50%; width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; transform:translate(-50%,-50%) scale(1.25); filter:blur(1.5px) brightness(0.80) saturate(1.15); pointer-events:none; border:0;"
