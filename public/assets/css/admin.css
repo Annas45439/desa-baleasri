@@ -122,7 +122,7 @@ a      { text-decoration: none; color: inherit; }
   width: 260px;
   height: 100vh;
   height: 100dvh;
-  overflow-y: auto;
+  overflow-y: hidden;
   z-index: 100;
 }
 
@@ -614,6 +614,7 @@ body.sidebar-open {
     display: flex !important;
     flex-direction: column !important;
     padding: 24px 14px !important;
+    overflow-y: visible !important;
   }
   .layout {
     display: grid !important;
