@@ -33,7 +33,7 @@
         <div class="current-media">
           <img src="{{ storage_image_url($setting->hero_image) }}" alt="Preview Hero" onerror="this.onerror=null; this.src='{{ asset('assets/logo/cover-placeholder.svg') }}';">
           <form method="POST" action="{{ route('admin.settings.media.destroy', 'hero_image') }}" onsubmit="return confirm('Hapus foto hero?');">
-            @csrf @method('DELETE')
+            @csrf
             <button type="submit" class="btn-sm btn-delete">Hapus Foto</button>
           </form>
         </div>
@@ -68,7 +68,7 @@
         <div class="current-media">
           <img src="{{ storage_image_url($setting->foto_kepala_desa) }}" alt="Preview Kades" onerror="this.onerror=null; this.src='{{ asset('assets/logo/kades-placeholder.svg') }}';">
           <form method="POST" action="{{ route('admin.settings.media.destroy', 'foto_kepala_desa') }}" onsubmit="return confirm('Hapus foto kepala desa?');">
-            @csrf @method('DELETE')
+            @csrf
             <button type="submit" class="btn-sm btn-delete">Hapus Foto</button>
           </form>
         </div>
