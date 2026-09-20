@@ -531,17 +531,14 @@ nav.floating-oval-nav {
     pointer-events: none;
   }
 
-/* YouTube can still paint its center play/buffering UI inside the iframe. */
+/* Keep the iframe visual while hiding any YouTube UI painted inside it. */
 .hero-video-ui-shield {
   position: absolute;
   z-index: 2;
-  top: 50%;
-  left: 50%;
-  width: 190px;
-  height: 110px;
-  transform: translate(-50%, -50%);
-  border-radius: 32px;
-  background: rgba(3, 28, 18, 0.28);
+  inset: 0;
+  width: auto;
+  height: auto;
+  background: transparent;
   pointer-events: none;
 }
 
