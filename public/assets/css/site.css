@@ -518,6 +518,108 @@ html[data-theme="dark"] .service-home-steps > div {
   background: rgba(255, 255, 255, 0.06);
 }
 
+html[data-theme="dark"] body {
+  color: #edf8f2;
+}
+
+html[data-theme="dark"] .section-head h2,
+html[data-theme="dark"] .section-head-oval h2,
+html[data-theme="dark"] .section-title-box h2,
+html[data-theme="dark"] .oval-item-body h3,
+html[data-theme="dark"] .oval-feature-card h3,
+html[data-theme="dark"] .order-product h1,
+html[data-theme="dark"] .order-form-card h2,
+html[data-theme="dark"] .apbdes-chart-head h3,
+html[data-theme="dark"] .hero-officer-name {
+  color: #effff7;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme="dark"] .section-head p,
+html[data-theme="dark"] .section-head-oval p,
+html[data-theme="dark"] .oval-item-body p,
+html[data-theme="dark"] .order-product p,
+html[data-theme="dark"] .service-home-card,
+html[data-theme="dark"] .service-home-principles,
+html[data-theme="dark"] .service-home-contact p {
+  color: #c5d8cf;
+}
+
+html[data-theme="dark"] .kicker,
+html[data-theme="dark"] .kicker-oval {
+  color: #72e4bb;
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(114, 228, 187, 0.3);
+}
+
+html[data-theme="dark"] .glass-card-white,
+html[data-theme="dark"] .oval-glass-card,
+html[data-theme="dark"] .oval-item-card,
+html[data-theme="dark"] .oval-feature-card,
+html[data-theme="dark"] .apbdes-summary-card,
+html[data-theme="dark"] .apbdes-chart-card {
+  background: linear-gradient(145deg, rgba(22, 44, 37, 0.94), rgba(12, 29, 24, 0.94));
+  border-color: rgba(159, 245, 213, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] .oval-feature-card:hover {
+  background: #1d3a31;
+}
+
+html[data-theme="dark"] .hero-officer-badge {
+  background: linear-gradient(135deg, rgba(35, 73, 61, 0.9), rgba(18, 45, 36, 0.9));
+  border-color: rgba(159, 245, 213, 0.24);
+  color: #d4eee3;
+}
+
+html[data-theme="dark"] .hero-officer-label,
+html[data-theme="dark"] .hero-officer-location {
+  color: #b8e8d5;
+}
+
+html[data-theme="dark"] .hero-officer-divider {
+  background: rgba(184, 232, 213, 0.3);
+}
+
+html[data-theme="dark"] .btn-oval-outline {
+  border-color: #77e5bc;
+  color: #e6fff4;
+  background: rgba(10, 38, 29, 0.55);
+}
+
+html[data-theme="dark"] .btn-oval-outline:hover {
+  background: #0d8a6c;
+  color: #fff;
+}
+
+html[data-theme="dark"] .apbdes-detail-title strong,
+html[data-theme="dark"] .apbdes-bar-row b,
+html[data-theme="dark"] .apbdes-donut-center,
+html[data-theme="dark"] .apbdes-ranked-row strong {
+  color: #effff7;
+}
+
+html[data-theme="dark"] .apbdes-detail-values b,
+html[data-theme="dark"] .apbdes-summary-label,
+html[data-theme="dark"] .apbdes-composition-list div,
+html[data-theme="dark"] .apbdes-trend-column > strong {
+  color: #c5d8cf;
+}
+
+html[data-theme="dark"] .apbdes-year-picker select,
+html[data-theme="dark"] .umkm-registration-form input,
+html[data-theme="dark"] .umkm-registration-form textarea {
+  background: #152b24;
+  border-color: rgba(159, 245, 213, 0.25);
+  color: #effff7;
+}
+
+html[data-theme="dark"] .apbdes-year-picker select option {
+  background: #152b24;
+  color: #effff7;
+}
+
 @media (max-width: 1023px) {
   body {
     padding-bottom: 5.5rem;
