@@ -24,7 +24,7 @@
             {{ $setting->nama_kepala_desa ?? 'Juremi' }}
           </h3>
           <p style="font-size:0.85rem; color:var(--jade-main); font-weight:700; margin-bottom:14px;">
-            Kepala Desa Baleasri &bull; Penanggung Jawab Pemerintahan
+            {{ $setting->jabatan_kepala_desa ?? 'Kepala Desa' }} Baleasri &bull; Penanggung Jawab Pemerintahan
           </p>
           <div class="sambutan-quote-box">
             &ldquo;{{ $setting->sambutan_display ?: 'Desa Baleasri menjunjung tinggi kearifan lokal, semangat gotong royong, dan transparansi pelayanan publik demi mewujudkan desa yang mandiri, sejahtera, serta berdaya saing.' }}&rdquo;

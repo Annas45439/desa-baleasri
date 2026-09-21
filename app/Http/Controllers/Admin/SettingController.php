@@ -56,7 +56,7 @@ class SettingController extends Controller
             'deskripsi_hero' => ['nullable', 'string'], 'hero_image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,avif', 'max:10240'],
             'hero_video' => ['nullable', 'string', 'max:255'],
             'hero_video_file' => ['nullable', 'file', 'mimes:mp4,webm,mov', 'max:65536'],
-            'nama_kepala_desa' => ['nullable', 'string', 'max:150'], 'periode_kepala_desa' => ['nullable', 'string', 'max:100'], 'sambutan' => ['nullable', 'string'],
+            'nama_kepala_desa' => ['nullable', 'string', 'max:150'], 'jabatan_kepala_desa' => ['nullable', 'string', 'max:100'], 'periode_kepala_desa' => ['nullable', 'string', 'max:100'], 'sambutan' => ['nullable', 'string'],
             'nama_sekretaris_desa' => ['nullable', 'string', 'max:150'],
             'jabatan_sekretaris_desa' => ['nullable', 'string', 'max:150'],
             'lokasi_sekretaris_desa' => ['nullable', 'string', 'max:255'],

@@ -73,6 +73,12 @@
     </div>
 
     <div class="form-row">
+      <label for="jabatan_kepala_desa">Jabatan Kepala Desa</label>
+      <input type="text" id="jabatan_kepala_desa" name="jabatan_kepala_desa" value="{{ old('jabatan_kepala_desa', $setting->jabatan_kepala_desa ?? 'Kepala Desa') }}" placeholder="Contoh: PJ Kepala Desa">
+      <p class="hint">Contoh: Kepala Desa, PJ Kepala Desa, atau Plt. Kepala Desa.</p>
+    </div>
+
+    <div class="form-row">
       <label for="periode_kepala_desa">Periode Kepala Desa</label>
       <input type="text" id="periode_kepala_desa" name="periode_kepala_desa" value="{{ old('periode_kepala_desa', $setting->periode_kepala_desa ?? '2025') }}" placeholder="Contoh: 2025-2031">
       <p class="hint">Ditampilkan di bawah nama kepala desa pada halaman beranda.</p>
