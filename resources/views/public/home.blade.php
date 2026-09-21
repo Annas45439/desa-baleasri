@@ -244,7 +244,7 @@
       </div>
       <div class="stat-oval">
         <div class="n" data-count="110">0</div>
-        <div class="l">Ha Lahan Padi Sawah</div>
+        <div class="l">Luas Lahan Padi Sawah</div>
       </div>
       <div class="stat-oval">
         <div class="n" data-count="21">0</div>

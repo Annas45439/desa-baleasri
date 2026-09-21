@@ -50,7 +50,7 @@ class Setting extends Model
         }
 
         if (Storage::disk('public')->exists($this->hero_video)) {
-            return asset('storage/' . $this->hero_video);
+            return route('media.serve', ['path' => $this->hero_video]);
         }
 
         return $this->hero_video;
