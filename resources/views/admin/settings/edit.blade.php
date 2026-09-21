@@ -73,6 +73,12 @@
     </div>
 
     <div class="form-row">
+      <label for="periode_kepala_desa">Periode Kepala Desa</label>
+      <input type="text" id="periode_kepala_desa" name="periode_kepala_desa" value="{{ old('periode_kepala_desa', $setting->periode_kepala_desa ?? '2025') }}" placeholder="Contoh: 2025-2031">
+      <p class="hint">Ditampilkan di bawah nama kepala desa pada halaman beranda.</p>
+    </div>
+
+    <div class="form-row">
       <label for="sambutan">Isi Sambutan</label>
       <textarea id="sambutan" name="sambutan" style="min-height:140px;">{{ old('sambutan', $setting->sambutan) }}</textarea>
     </div>

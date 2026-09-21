@@ -219,7 +219,7 @@
             {{ $setting->nama_kepala_desa ?? 'Juremi' }}
           </h3>
           <p style="font-size:0.85rem; font-weight:700; color:var(--jade-main); margin-bottom:16px;">
-            Kepala Desa Baleasri &bull; Periode 2025
+            Kepala Desa Baleasri &bull; Periode {{ $setting->periode_kepala_desa ?? '2025' }}
           </p>
           <p style="font-size:0.95rem; color:var(--ink-sub); line-height:1.75; font-style:italic; border-left:3px solid var(--gold-main); padding-left:18px;">
             &ldquo;{{ $setting->sambutan_display ?: 'Selamat datang di Website Resmi Pemerintah Desa Baleasri. Portal digital ini hadir sebagai wujud keterbukaan informasi publik dan komitmen kami untuk memberikan pelayanan prima yang cepat, transparan, dan akuntabel kepada seluruh masyarakat.' }}&rdquo;
