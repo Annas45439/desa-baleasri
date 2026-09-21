@@ -9,6 +9,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ secure_asset('assets/css/site.css') }}?v={{ @filemtime(public_path('assets/css/site.css')) }}">
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem('baleasri-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+  })();
+</script>
 </head>
 <body>
 
@@ -33,6 +40,10 @@
         <span>SOP Pelayanan</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Aktifkan mode gelap" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+        <span class="theme-toggle-label">Gelap</span>
+      </button>
     </div>
   </nav>
 
@@ -168,5 +179,27 @@
   });
 </script>
 @stack('scripts')
+<script>
+  (function () {
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+
+    const updateToggle = function () {
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      toggle.setAttribute('aria-pressed', String(isDark));
+      toggle.setAttribute('aria-label', isDark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+      toggle.querySelector('.theme-toggle-label').textContent = isDark ? 'Terang' : 'Gelap';
+      toggle.querySelector('.theme-toggle-icon').textContent = isDark ? '☀' : '◐';
+    };
+
+    updateToggle();
+    toggle.addEventListener('click', function () {
+      const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = nextTheme;
+      localStorage.setItem('baleasri-theme', nextTheme);
+      updateToggle();
+    });
+  })();
+</script>
 </body>
 </html>
