@@ -19,7 +19,9 @@
 
 @php
   $videoSource = trim($setting->hero_video_url ?? 'nbk-af31BXs');
-  $isLocalVideo = $setting->hero_video && !preg_match('/^https?:\/\//i', $videoSource);
+  $isLocalVideo = $setting->hero_video
+    && !preg_match('/^https?:\/\//i', $setting->hero_video)
+    && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->hero_video);
   $ytVideoId = 'nbk-af31BXs';
   $isDrive = false;
   $driveEmbedUrl = '';
