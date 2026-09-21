@@ -759,3 +759,40 @@ html, body {
   .approval-actions { flex-direction: column; gap: 6px; }
   .approval-btn { width: 100%; text-align: center; }
 }
+.apbdes-edit-details {
+  position: relative;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.apbdes-edit-details > summary {
+  display: inline-flex;
+  cursor: pointer;
+  list-style: none;
+}
+
+.apbdes-edit-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.apbdes-edit-form {
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  top: calc(100% + 8px);
+  width: min(620px, 78vw);
+  padding: 20px;
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  background: var(--surface-2);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+  text-align: left;
+}
+
+.apbdes-edit-form .form-row {
+  margin-bottom: 12px;
+}
+
+.apbdes-edit-form .btn {
+  margin-top: 4px;
+}
