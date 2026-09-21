@@ -531,7 +531,7 @@ html[data-theme="dark"] .order-product h1,
 html[data-theme="dark"] .order-form-card h2,
 html[data-theme="dark"] .apbdes-chart-head h3,
 html[data-theme="dark"] .hero-officer-name {
-  color: #effff7;
+  color: #effff7 !important;
   text-shadow: 0 1px 16px rgba(0, 0, 0, 0.24);
 }
 
@@ -542,7 +542,7 @@ html[data-theme="dark"] .order-product p,
 html[data-theme="dark"] .service-home-card,
 html[data-theme="dark"] .service-home-principles,
 html[data-theme="dark"] .service-home-contact p {
-  color: #c5d8cf;
+  color: #c5d8cf !important;
 }
 
 html[data-theme="dark"] .kicker,
@@ -618,6 +618,77 @@ html[data-theme="dark"] .umkm-registration-form textarea {
 html[data-theme="dark"] .apbdes-year-picker select option {
   background: #152b24;
   color: #effff7;
+}
+
+html[data-theme="dark"] [style*="color:var(--jade-dark)"],
+html[data-theme="dark"] [style*="color: var(--jade-dark)"] {
+  color: #effff7 !important;
+}
+
+html[data-theme="dark"] .section-head,
+html[data-theme="dark"] .section-head-oval {
+  position: relative;
+  padding: 26px 28px;
+  border: 1px solid rgba(159, 245, 213, 0.18);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(16, 185, 129, 0.16), transparent 42%),
+    linear-gradient(135deg, rgba(22, 52, 43, 0.9), rgba(12, 31, 25, 0.9));
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="dark"] .section-head h2,
+html[data-theme="dark"] .section-head-oval h2 {
+  max-width: 850px;
+  color: #f2fff8 !important;
+}
+
+html[data-theme="dark"] .section-head p,
+html[data-theme="dark"] .section-head-oval p {
+  color: #cde7db !important;
+}
+
+html[data-theme="dark"] .oval-glass-card p,
+html[data-theme="dark"] .glass-card-white p,
+html[data-theme="dark"] .oval-item-body p,
+html[data-theme="dark"] .apbdes-chart-note,
+html[data-theme="dark"] .apbdes-detail-title small {
+  color: #c5d8cf !important;
+}
+
+html[data-theme="dark"] .oval-glass-card strong,
+html[data-theme="dark"] .glass-card-white strong,
+html[data-theme="dark"] .oval-item-body strong {
+  color: #effff7;
+}
+
+html[data-theme="dark"] table {
+  color: #d7eee4;
+}
+
+html[data-theme="dark"] th {
+  color: #f2fff8 !important;
+}
+
+html[data-theme="dark"] td {
+  color: #c5d8cf;
+  border-color: rgba(159, 245, 213, 0.16) !important;
+}
+
+html[data-theme="dark"] footer,
+html[data-theme="dark"] .oval-footer {
+  background: linear-gradient(145deg, #071c15, #0d3025);
+  color: #d7eee4;
+}
+
+html[data-theme="dark"] .oval-footer h4,
+html[data-theme="dark"] .oval-footer .name {
+  color: #f2fff8;
+}
+
+html[data-theme="dark"] .oval-footer a,
+html[data-theme="dark"] .oval-footer li {
+  color: #b8d9ca;
 }
 
 @media (max-width: 1023px) {
