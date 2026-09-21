@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Apbdes extends Model
 {
-    protected $fillable = ['tahun', 'jenis', 'nama', 'anggaran', 'realisasi', 'keterangan'];
+    protected $fillable = ['tahun', 'jenis', 'kategori', 'sumber_dana', 'nama', 'anggaran', 'realisasi', 'keterangan'];
     protected $casts = ['anggaran' => 'decimal:2', 'realisasi' => 'decimal:2'];
 }

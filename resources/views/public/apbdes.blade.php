@@ -15,6 +15,9 @@
   $totalBudget = (float) $apbdes->sum('anggaran');
   $totalRealization = (float) $apbdes->sum('realisasi');
   $realizationRate = $totalBudget > 0 ? min(100, ($totalRealization / $totalBudget) * 100) : 0;
+  $surplus = $totals['Pendapatan']['anggaran'] - $totals['Belanja']['anggaran'];
+  $categoryTotal = max($categoryTotals->sum(), 1);
+  $fundTotal = max($fundTotals->sum(), 1);
   $maxItemBudget = max((float) $apbdes->max('anggaran'), 1);
   $compositionTotal = max($totals->sum('anggaran'), 1);
 @endphp
@@ -51,6 +54,11 @@
         <span class="apbdes-summary-label">Realisasi Keseluruhan</span>
         <strong>{{ number_format($realizationRate, 1, ',', '.') }}%</strong>
         <small>Rp {{ number_format($totalRealization, 0, ',', '.') }} dari Rp {{ number_format($totalBudget, 0, ',', '.') }}</small>
+      </article>
+      <article class="apbdes-summary-card">
+        <span class="apbdes-summary-label">Surplus / Defisit</span>
+        <strong class="{{ $surplus < 0 ? 'apbdes-negative' : '' }}">Rp {{ number_format($surplus, 0, ',', '.') }}</strong>
+        <small>Pendapatan dikurangi belanja yang dianggarkan</small>
       </article>
     </div>
 
@@ -91,6 +99,55 @@
         </article>
       </div>
 
+      <div class="apbdes-chart-grid" style="margin-top:24px;">
+        <article class="apbdes-chart-card">
+          <div class="apbdes-chart-head"><div><span class="kicker">Bidang Prioritas</span><h3>Distribusi Anggaran per Kategori</h3></div></div>
+          <div class="apbdes-ranked-list">
+            @forelse($categoryTotals as $category => $amount)
+              <div class="apbdes-ranked-row">
+                <div><strong>{{ $category }}</strong><span>Rp {{ number_format($amount, 0, ',', '.') }}</span></div>
+                <div class="apbdes-progress"><i style="width:{{ min(100, ($amount / $categoryTotal) * 100) }}%"></i></div>
+                <b>{{ number_format(($amount / $categoryTotal) * 100, 1, ',', '.') }}%</b>
+              </div>
+            @empty
+              <p class="apbdes-chart-note">Kategori belum diisi dari panel admin.</p>
+            @endforelse
+          </div>
+        </article>
+        <article class="apbdes-chart-card">
+          <div class="apbdes-chart-head"><div><span class="kicker">Transparansi</span><h3>Sumber Dana</h3></div></div>
+          <div class="apbdes-ranked-list">
+            @forelse($fundTotals as $fund => $amount)
+              <div class="apbdes-ranked-row">
+                <div><strong>{{ $fund }}</strong><span>Rp {{ number_format($amount, 0, ',', '.') }}</span></div>
+                <div class="apbdes-progress"><i style="width:{{ min(100, ($amount / $fundTotal) * 100) }}%"></i></div>
+                <b>{{ number_format(($amount / $fundTotal) * 100, 1, ',', '.') }}%</b>
+              </div>
+            @empty
+              <p class="apbdes-chart-note">Sumber dana belum diisi dari panel admin.</p>
+            @endforelse
+          </div>
+        </article>
+      </div>
+
+      @if($trend->count() > 1)
+        <article class="apbdes-chart-card" style="margin-top:24px;">
+          <div class="apbdes-chart-head"><div><span class="kicker">Perbandingan Tahun</span><h3>Tren Total APBDes</h3></div></div>
+          <div class="apbdes-trend-chart">
+            @php $maxTrend = max((float) $trend->max('anggaran'), 1); @endphp
+            @foreach($trend as $year)
+              <div class="apbdes-trend-column">
+                <div class="apbdes-trend-bars">
+                  <i class="apbdes-trend-budget" style="height:{{ max(4, ($year->anggaran / $maxTrend) * 100) }}%" title="Anggaran Rp {{ number_format($year->anggaran, 0, ',', '.') }}"></i>
+                  <i class="apbdes-trend-realization" style="height:{{ max(4, ($year->realisasi / $maxTrend) * 100) }}%" title="Realisasi Rp {{ number_format($year->realisasi, 0, ',', '.') }}"></i>
+                </div>
+                <strong>{{ $year->tahun }}</strong>
+              </div>
+            @endforeach
+          </div>
+        </article>
+      @endif
+
       <article class="apbdes-chart-card" style="margin-top:24px;">
         <div class="apbdes-chart-head">
           <div><span class="kicker">Rincian</span><h3>Pos Anggaran dan Progres Realisasi</h3></div>
@@ -100,7 +157,7 @@
           @foreach($apbdes as $item)
             @php $itemRate = $item->anggaran > 0 ? min(100, ($item->realisasi / $item->anggaran) * 100) : 0; @endphp
             <div class="apbdes-detail-row">
-              <div class="apbdes-detail-title"><span class="apbdes-type-pill">{{ $item->jenis }}</span><strong>{{ $item->nama }}</strong>@if($item->keterangan)<small>{{ $item->keterangan }}</small>@endif</div>
+              <div class="apbdes-detail-title"><span class="apbdes-type-pill">{{ $item->jenis }}</span>@if($item->kategori)<span class="apbdes-detail-category">{{ $item->kategori }}</span>@endif<strong>{{ $item->nama }}</strong>@if($item->sumber_dana)<small>Sumber: {{ $item->sumber_dana }}</small>@endif @if($item->keterangan)<small>{{ $item->keterangan }}</small>@endif</div>
               <div class="apbdes-detail-values"><span>Anggaran <b>Rp {{ number_format($item->anggaran, 0, ',', '.') }}</b></span><span>Realisasi <b>Rp {{ number_format($item->realisasi, 0, ',', '.') }}</b></span></div>
               <div class="apbdes-progress"><i style="width:{{ $itemRate }}%"></i></div>
               <strong class="apbdes-progress-label">{{ number_format($itemRate, 1, ',', '.') }}%</strong>

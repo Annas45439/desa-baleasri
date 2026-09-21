@@ -20,12 +20,24 @@ class PublicPageController extends Controller
     {
         $years = Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun');
         $selectedYear = (int) request('tahun', $years->first() ?? now()->year);
+        $current = Apbdes::where('tahun', $selectedYear)->get();
+        $trend = Apbdes::selectRaw('tahun, SUM(anggaran) as anggaran, SUM(realisasi) as realisasi')
+            ->groupBy('tahun')
+            ->orderBy('tahun')
+            ->get();
 
         return view('public.apbdes', [
             'setting' => Setting::current(),
             'years' => $years,
             'selectedYear' => $selectedYear,
-            'apbdes' => Apbdes::where('tahun', $selectedYear)->orderBy('jenis')->orderBy('nama')->get(),
+            'apbdes' => $current->sortBy(['jenis', 'nama'])->values(),
+            'categoryTotals' => $current->groupBy(fn ($item) => $item->kategori ?: 'Lainnya')
+                ->map(fn ($items) => (float) $items->sum('anggaran'))
+                ->sortDesc(),
+            'fundTotals' => $current->groupBy(fn ($item) => $item->sumber_dana ?: 'Belum ditentukan')
+                ->map(fn ($items) => (float) $items->sum('anggaran'))
+                ->sortDesc(),
+            'trend' => $trend,
         ]);
     }
 

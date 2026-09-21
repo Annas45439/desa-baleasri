@@ -23,6 +23,7 @@
       <thead>
         <tr>
           <th>Jenis</th>
+          <th>Kategori / Sumber Dana</th>
           <th>Nama Program</th>
           <th>Anggaran</th>
           <th>Realisasi</th>
@@ -33,6 +34,7 @@
         @forelse($apbdes as $item)
           <tr>
             <td><span class="status-pill st-proses">{{ $item->jenis }}</span></td>
+            <td><strong>{{ $item->kategori ?: 'Belum dikategorikan' }}</strong><br><small style="color:var(--ink-3);">{{ $item->sumber_dana ?: 'Sumber dana belum diisi' }}</small></td>
             <td><strong>{{ $item->nama }}</strong><br><small style="color:var(--ink-3);">{{ $item->keterangan }}</small></td>
             <td>Rp {{ number_format($item->anggaran, 0, ',', '.') }}</td>
             <td>Rp {{ number_format($item->realisasi, 0, ',', '.') }}</td>
@@ -46,7 +48,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="5" class="empty-state">Belum ada data APBDes untuk tahun {{ request('tahun', now()->year) }}.</td>
+            <td colspan="6" class="empty-state">Belum ada data APBDes untuk tahun {{ request('tahun', now()->year) }}.</td>
           </tr>
         @endforelse
       </tbody>
@@ -62,6 +64,14 @@
       <div class="form-row">
         <label>Tahun *</label>
         <input type="number" name="tahun" value="{{ request('tahun', now()->year) }}" required>
+      </div>
+      <div class="form-row">
+        <label>Kategori Anggaran</label>
+        <input type="text" name="kategori" placeholder="Contoh: Pembangunan Desa / Dana Desa">
+      </div>
+      <div class="form-row">
+        <label>Sumber Dana</label>
+        <input type="text" name="sumber_dana" placeholder="Contoh: Dana Desa, ADD, PADes">
       </div>
       <div class="form-row">
         <label>Jenis *</label>

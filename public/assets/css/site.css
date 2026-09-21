@@ -170,6 +170,85 @@ html[data-theme="dark"] body {
   color: #fff;
 }
 
+.apbdes-negative {
+  color: #c45757 !important;
+}
+
+.apbdes-ranked-list {
+  display: grid;
+  gap: 18px;
+}
+
+.apbdes-ranked-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(120px, 1.2fr) 48px;
+  align-items: center;
+  gap: 12px;
+}
+
+.apbdes-ranked-row > div:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.apbdes-ranked-row strong {
+  color: var(--ink-main);
+  font-size: .78rem;
+}
+
+.apbdes-ranked-row span {
+  color: var(--ink-muted);
+  font-size: .7rem;
+}
+
+.apbdes-ranked-row > b {
+  color: var(--jade-main);
+  font-size: .75rem;
+  text-align: right;
+}
+
+.apbdes-trend-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(12px, 4vw, 44px);
+  min-height: 210px;
+  padding: 18px 10px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.apbdes-trend-column {
+  display: flex;
+  flex: 1;
+  min-width: 44px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.apbdes-trend-column > strong {
+  color: var(--ink-sub);
+  font-size: .76rem;
+}
+
+.apbdes-trend-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  height: 170px;
+}
+
+.apbdes-trend-bars i {
+  display: block;
+  width: min(28px, 38%);
+  min-height: 4px;
+  border-radius: 7px 7px 0 0;
+}
+
+.apbdes-trend-budget { background: #d8a24b; }
+.apbdes-trend-realization { background: var(--jade-main); }
+
 .apbdes-chart-grid {
   display: grid;
   grid-template-columns: 1.35fr .85fr;
@@ -356,6 +435,12 @@ html[data-theme="dark"] body {
   font-size: .86rem;
 }
 
+.apbdes-detail-category {
+  color: var(--ink-muted);
+  font-size: .68rem;
+  font-weight: 700;
+}
+
 .apbdes-detail-title small {
   width: 100%;
   font-size: .72rem;
@@ -412,6 +497,8 @@ html[data-theme="dark"] body {
   .apbdes-detail-values,
   .apbdes-progress,
   .apbdes-progress-label { order: initial; }
+  .apbdes-ranked-row { grid-template-columns: 1fr 42px; }
+  .apbdes-ranked-row .apbdes-progress { grid-column: 1 / -1; }
   .apbdes-year-picker { justify-content: space-between !important; }
 }
 
