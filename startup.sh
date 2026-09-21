@@ -20,6 +20,7 @@ cat > /usr/local/etc/php/conf.d/uploads.ini << 'PHPINI'
 upload_max_filesize = 64M
 post_max_size = 64M
 memory_limit = 256M
+max_input_time = 300
 max_execution_time = 300
 PHPINI
 
@@ -44,7 +45,7 @@ server {
     root /home/site/wwwroot;
     index index.php index.html;
 
-    client_max_body_size 32M;
+    client_max_body_size 64M;
 
     location /storage/ {
         alias /home/site/wwwroot/storage/app/public/;

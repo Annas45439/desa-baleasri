@@ -60,7 +60,7 @@
         </div>
       @endif
       <input type="file" id="hero_video_file" name="hero_video_file" accept="video/mp4,video/webm,video/quicktime">
-      <p class="hint">Format MP4, WebM, atau MOV. Maksimal 10MB. Video baru akan menggantikan video lokal sebelumnya agar storage tetap hemat.</p>
+      <p class="hint">Format MP4, WebM, atau MOV. Maksimal 64MB. Video baru akan menggantikan video lokal sebelumnya agar storage tetap hemat.</p>
     </div>
   </div>
 
