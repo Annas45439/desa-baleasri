@@ -18,10 +18,14 @@ class PublicPageController extends Controller
 
     public function apbdes()
     {
+        $years = Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun');
+        $selectedYear = (int) request('tahun', $years->first() ?? now()->year);
+
         return view('public.apbdes', [
             'setting' => Setting::current(),
-            'years' => Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun'),
-            'apbdes' => Apbdes::orderByDesc('tahun')->orderBy('jenis')->orderBy('nama')->get(),
+            'years' => $years,
+            'selectedYear' => $selectedYear,
+            'apbdes' => Apbdes::where('tahun', $selectedYear)->orderBy('jenis')->orderBy('nama')->get(),
         ]);
     }
 
